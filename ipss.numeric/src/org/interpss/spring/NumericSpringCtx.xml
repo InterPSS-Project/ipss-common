@@ -13,7 +13,7 @@
 	<bean id="sparseEqnInteger" 
 	      class="com.interpss.core.sparse.impl.SparseEqnIntegerImpl" scope="prototype">	
 	</bean>
-
+   
 	<bean id="sparseEqnDouble" 
 	      class="com.interpss.core.sparse.impl.SparseEqnDoubleImpl" scope="prototype">	
 	</bean>
