@@ -225,6 +225,16 @@ public class ComplexFunc {
 	}
 
 	/**
+	 * Convert the obj to a formated string a + jb.
+	 * 
+	 * @return the string representation of the obj
+	 */
+	public static String toStr(final Complex c) {
+		return Number2String.toStr(c.getReal()) + " + j"
+				+ Number2String.toStr(c.getImaginary());
+	}
+	
+	/**
 	 * Convert the obj to a string a + jb.
 	 * 
 	 * @return the string representation of the obj
