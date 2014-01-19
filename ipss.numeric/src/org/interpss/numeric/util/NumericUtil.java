@@ -25,6 +25,7 @@
 package org.interpss.numeric.util;
 
 import org.apache.commons.math3.complex.Complex;
+import org.interpss.numeric.datatype.Matrix_xy;
 
 /**
  * numeric utility funcitons
@@ -98,6 +99,32 @@ public class NumericUtil {
 	 */
 	public static boolean equals(Complex x, Complex y, double err) {
 		return equals(x.getReal(), y.getReal(), err) && equals(x.getImaginary(), y.getImaginary(), err);
+	}
+
+	/**
+	 * Check if the two doubles are equal regarding to standard err
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public static boolean equals(Matrix_xy x, Matrix_xy y) {
+		return equals(x, y, ERR);
+	}
+
+	/**
+	 * Check if the two doubles are equal regarding to the err
+	 * 
+	 * @param x
+	 * @param y
+	 * @param err
+	 * @return
+	 */
+	public static boolean equals(Matrix_xy x, Matrix_xy y, double err) {
+		return equals(x.xx, y.xx, err) && 
+			   equals(x.xy, y.xy, err) && 
+			   equals(x.yx, y.yx, err) && 
+			   equals(x.yy, y.yy, err);
 	}
 	
 	/**
