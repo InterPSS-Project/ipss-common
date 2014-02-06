@@ -113,7 +113,7 @@ public class LimitType implements java.io.Serializable {
 	}
 
 	/**
-	 * Check if there is a limit violation, max >= x >= min.
+	 * Check if there is a limit violation, max > x > min.
 	 *
 	 * @param x a double number to be checked
 	 * @return true or false
@@ -123,7 +123,7 @@ public class LimitType implements java.io.Serializable {
 	}
 
 	/**
-	 * Check if there is a limit violation, max >= x >= min with the tolerance.
+	 * Check if there is a limit violation, max > x > min with the tolerance.
 	 *
 	 * @param x a double number to be checked
 	 * @param tolerance

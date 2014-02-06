@@ -25,6 +25,7 @@
 package org.interpss.numeric.util;
 
 import org.apache.commons.math3.complex.Complex;
+import org.interpss.numeric.datatype.LimitType;
 import org.interpss.numeric.datatype.Matrix_xy;
 
 /**
@@ -137,5 +138,30 @@ public class NumericUtil {
 	public static boolean sameSign(double x, double y) {
 		return x > 0.0 && y > 0.0 ||
 			   x < 0.0 && y < 0.0;
+	}
+	
+	/**
+	 * The resource variable is used to adjust the target variable. In the case of target variable violation, check if the resource has adjustment
+	 * room to change the target variable. 
+	 * 
+	 * @param target target variable to be controlled
+	 * @param targetLimit target variable limit
+	 * @param resource resource variable to be adjusted to control the target variable 
+	 * @param resourceLimit resource variable limit
+	 * @param adjSen adjustment sensitivity. If adjSen > 0,  increase the resource variable will result in increasing target variable.
+	 * @return
+	 */
+	public static boolean hasAdjustRoom(double target, LimitType targetLimit, double resource, LimitType resourceLimit, boolean positiveSen) {
+		if (target <= targetLimit.getMin()) {
+			// adjustment target below the limit
+			return positiveSen? (resource < resourceLimit.getMax()) :  // action: increase the resource to increase the target. If adjustment resource less than the limit, there is a room  
+								(resource > resourceLimit.getMin());
+		}
+		else if (target >= targetLimit.getMax()) {
+			// adjustment target above the limit
+			return positiveSen? (resource > resourceLimit.getMin()) : // action: decrease the resource to decrease the target. if adjustment resource large than the limit, there is a room
+								(resource < resourceLimit.getMax());
+		}
+		return false;
 	}
 }
