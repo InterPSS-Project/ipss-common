@@ -113,19 +113,30 @@ public class LimitType implements java.io.Serializable {
 	}
 
 	/**
-	 * Check if there is a limit violation, max >= x >= min.
+	 * Check if there is a limit violation, max > x > min.
 	 *
 	 * @param x a double number to be checked
 	 * @return true or false
 	 */
 	public boolean isViolated(final double x) {
-		if ((x > getMax()) || (x < getMin())) {
+		return isViolated(x, 0.0);
+	}
+
+	/**
+	 * Check if there is a limit violation, max > x > min with the tolerance.
+	 *
+	 * @param x a double number to be checked
+	 * @param tolerance
+	 * @return true or false
+	 */
+	public boolean isViolated(final double x, double tolerance) {
+		if ((x > (getMax()+tolerance)) || (x < (getMin()-tolerance))) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-
+	
 	/**
 	 * Perform limit action. 
 	 *   if max >= x >= min return x, 
