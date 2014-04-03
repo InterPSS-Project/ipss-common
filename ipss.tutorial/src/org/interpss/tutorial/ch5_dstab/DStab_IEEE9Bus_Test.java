@@ -83,7 +83,7 @@ public class DStab_IEEE9Bus_Test {
 		dstabAlgo.setRefMachine(dsNet.getMachine("Bus1-mach1"));
 		
 		//create a three phase fault @Bus4, start at 1.0s, last for 0.08s
-		dsNet.addDynamicEvent(create3PhaseFaultEvent("Bus4",dsNet,10.0,0.08),"3phaseFault@Bus4");
+		dsNet.addDynamicEvent(create3PhaseFaultEvent("Bus4",dsNet,1.0,0.08),"3phaseFault@Bus4");
 		
 		StateVariableRecorder ssRecorder = new StateVariableRecorder(0.0001);
 		ssRecorder.addCacheRecords("Bus2-mach1",      // mach id 

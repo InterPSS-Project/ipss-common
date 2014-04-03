@@ -220,7 +220,7 @@ public class ComplexFunc {
 	 * @return the string representation of the obj
 	 */
 	public static String toMagAng(final Complex c) {
-		return Number2String.toStr(c.abs()) + "("
+		return Number2String.toStr(c.abs()) + " ("
 				+ Number2String.toStr( Math.toDegrees(arg(c)), "###0.#") + ")";
 	}
 
