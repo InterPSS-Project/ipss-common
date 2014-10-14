@@ -3,7 +3,10 @@ package org.interpss.tutorial.ch3_loadflow;
 import org.interpss.CorePluginObjFactory;
 import org.interpss.IpssCorePlugin;
 import org.interpss.display.AclfOutFunc;
+import org.interpss.display.AclfOutFunc.BusIdStyle;
+import org.interpss.display.impl.AclfOut_BusStyle;
 import org.interpss.fadapter.IpssFileAdapter;
+
 import com.interpss.CoreObjectFactory;
 import com.interpss.common.exp.InterpssException;
 import com.interpss.core.aclf.AclfNetwork;
@@ -27,8 +30,11 @@ public class IEEE9BusLoadFlow {
 	  	algo.loadflow();
 	  	
 	  		
-		//output load flow result
+		//output load flow summary result
 		System.out.println(AclfOutFunc.loadFlowSummary(net));
+		
+		//BusStyle output provides bus generation and load, as well as branch power flow info
+		System.out.println(AclfOut_BusStyle.lfResultsBusStyle(net, BusIdStyle.BusId_No));
 	}
 
 }

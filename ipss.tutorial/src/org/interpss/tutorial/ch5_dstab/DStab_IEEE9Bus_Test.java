@@ -77,6 +77,8 @@ public class DStab_IEEE9Bus_Test {
 		assertTrue(aclfAlgo.loadflow());
 		System.out.println(AclfOutFunc.loadFlowSummary(dsNet));
 		
+		//assertTrue(dsNet.getMachine("Bus2-mach1").checkData());
+		
 		dstabAlgo.setSimuMethod(DynamicSimuMethod.MODIFIED_EULER);
 		dstabAlgo.setSimuStepSec(0.001);
 		dstabAlgo.setTotalSimuTimeSec(5.0);
@@ -100,6 +102,12 @@ public class DStab_IEEE9Bus_Test {
 		ssRecorder.addCacheRecords("Bus2-mach1",      // mach id 
 				StateVarRecType.MachineState,    // record type
 				DStabOutSymbol.OUT_SYMBOL_MACH_Efd,       // state variable name
+				0.005,                                      // time steps for recording 
+				1000);
+		
+		ssRecorder.addCacheRecords("Bus2-mach1",      // mach id 
+				StateVarRecType.MachineState,    // record type
+				DStabOutSymbol.OUT_SYMBOL_MACH_PM,       // state variable name
 				0.005,                                      // time steps for recording 
 				1000);
 		// set the output handler
@@ -137,6 +145,13 @@ public class DStab_IEEE9Bus_Test {
 		list = ssRecorder.getMachineRecords(
 				"Bus2-mach1", StateVarRecType.MachineState, DStabOutSymbol.OUT_SYMBOL_MACH_Efd);
 		System.out.println("\n\n Bus2 Machine Efd");
+		for (StateRecord rec : list) {
+			System.out.println(Number2String.toStr(rec.t) + ", " + Number2String.toStr(rec.variableValue));
+		}
+		
+		list = ssRecorder.getMachineRecords(
+				"Bus2-mach1", StateVarRecType.MachineState, DStabOutSymbol.OUT_SYMBOL_MACH_PM);
+		System.out.println("\n\n Bus2 Machine PM");
 		for (StateRecord rec : list) {
 			System.out.println(Number2String.toStr(rec.t) + ", " + Number2String.toStr(rec.variableValue));
 		}
