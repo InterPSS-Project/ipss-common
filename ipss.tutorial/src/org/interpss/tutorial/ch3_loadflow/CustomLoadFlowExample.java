@@ -30,6 +30,7 @@ import org.interpss.numeric.datatype.Matrix_xy;
 import org.interpss.numeric.sparse.ISparseEqnMatrix2x2;
 
 import com.interpss.CoreObjectFactory;
+import com.interpss.common.exp.InterpssException;
 import com.interpss.core.aclf.AclfNetwork;
 import com.interpss.core.algo.LoadflowAlgorithm;
 import com.interpss.core.algo.impl.DefaultNrSolver;
@@ -131,7 +132,12 @@ public class CustomLoadFlowExample {
                 algo.setNrSolver(new CustomNrSolver(net));
 
                 // run Loadflow
-                net.accept(algo);
+                try {
+					net.accept(algo);
+				} catch (InterpssException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
                 
                 // output loadflow calculation results
                 System.out.println(AclfOutFunc.loadFlowSummary(net));

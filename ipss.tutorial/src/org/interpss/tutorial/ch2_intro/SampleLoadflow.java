@@ -51,7 +51,7 @@ import com.interpss.core.algo.LoadflowAlgorithm;
 
 
 public class SampleLoadflow {
-	public static void main(String args[]) {
+	public static void main(String args[]) throws InterpssException {
 		IpssCorePlugin.init();
 		
 		// set session message to Warning level
@@ -64,7 +64,7 @@ public class SampleLoadflow {
 		loadflowWithAdjustment(msg);
 	}	
 
-	public static void simpleLoadflow(IPSSMsgHub msg) {
+	public static void simpleLoadflow(IPSSMsgHub msg) throws InterpssException {
 		// Create an AclfNetwork object
 		AclfNetwork net = CoreObjectFactory.createAclfNetwork();
 
@@ -125,7 +125,7 @@ public class SampleLoadflow {
 	  	System.out.println(AclfOutFunc.loadFlowSummary(net));
     }	
 
-	public static void simpleLoadflowPSSL(IPSSMsgHub msg) {
+	public static void simpleLoadflowPSSL(IPSSMsgHub msg) throws InterpssException {
 		// Create an AclfNetwork object
 		AclfNetwork net = IpssAclfNet.createAclfNetwork("Net")
 				.setBaseKva(100000.0)
@@ -140,14 +140,19 @@ public class SampleLoadflow {
 	  	// use the loadflow algorithm to perform loadflow calculation
 	  	PerformanceTimer timer = new PerformanceTimer(ipssLogger);
 	  	timer.start();
-	  	algo.loadflow();
+	  	try {
+			algo.loadflow();
+		} catch (InterpssException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	  	timer.logStd("Duration for loadflow: ");
 	  	
 	  	// output loadflow calculation results
 	  	System.out.println(AclfOutFunc.loadFlowSummary(net));
     }	
 
-	public static void setSimpleLoadflowDataByPSSL(AclfNetwork net, IPSSMsgHub msg) {
+	public static void setSimpleLoadflowDataByPSSL(AclfNetwork net, IPSSMsgHub msg) throws InterpssException {
 		IpssAclfNet.addAclfBus("Bus1", "Bus 1", net)
 				.setBaseVoltage(4000.0)
 				.setGenCode(AclfGenCode.SWING)
@@ -165,7 +170,7 @@ public class SampleLoadflow {
 				.setZ(new Complex(0.05, 0.1), UnitType.PU);
 	}	
 
-	public static void loadflowWithAdjustment(IPSSMsgHub msg) {
+	public static void loadflowWithAdjustment(IPSSMsgHub msg) throws InterpssException {
 		// Create an AclfAdjNetwork object
 		AclfNetwork net = IpssAclfNet.createAclfNetwork("Net")
 				.setBaseKva(100000.0)

@@ -16,6 +16,7 @@ import org.junit.Test;
 import com.interpss.CoreObjectFactory;
 import com.interpss.DStabObjectFactory;
 import com.interpss.SimuObjectFactory;
+import com.interpss.common.exp.InterpssException;
 import com.interpss.common.msg.IPSSMsgHub;
 import com.interpss.core.acsc.fault.AcscBusFault;
 import com.interpss.core.acsc.fault.SimpleFaultCode;
@@ -61,7 +62,12 @@ public class DStab_IEEE39Bus_Test  {
 		    
 			DynamicSimuAlgorithm dstabAlgo = simuCtx.getDynSimuAlgorithm();
 			LoadflowAlgorithm aclfAlgo = dstabAlgo.getAclfAlgorithm();
-			assertTrue(aclfAlgo.loadflow());
+			try {
+				assertTrue(aclfAlgo.loadflow());
+			} catch (InterpssException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			System.out.println(AclfOutFunc.loadFlowSummary(dsNet));
 			
 			dstabAlgo.setSimuMethod(DynamicSimuMethod.MODIFIED_EULER);

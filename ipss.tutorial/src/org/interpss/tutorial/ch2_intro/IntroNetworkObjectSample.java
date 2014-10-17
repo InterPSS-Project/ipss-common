@@ -1,6 +1,6 @@
 package org.interpss.tutorial.ch2_intro;
 
-import static org.interpss.CorePluginFunction.FormatKVStr;
+import static org.interpss.CorePluginFunction.formatKVStr;
 
 import org.apache.commons.math3.complex.Complex;
 import org.interpss.IpssCorePlugin;
@@ -10,6 +10,7 @@ import org.interpss.numeric.util.Number2String;
 
 import com.interpss.CoreObjectFactory;
 import com.interpss.common.datatype.UnitHelper;
+import com.interpss.common.exp.InterpssException;
 import com.interpss.core.aclf.AclfBranch;
 import com.interpss.core.aclf.AclfBranchCode;
 import com.interpss.core.aclf.AclfBus;
@@ -26,7 +27,7 @@ import com.interpss.core.net.Branch;
 
 public class IntroNetworkObjectSample {
 	
-	public static void main(String[] args){
+	public static void main(String[] args) throws InterpssException{
 		IpssCorePlugin.init();
 		//create a sample system consisting of two buses
 		AclfNetwork net = createSampleNetwork();
@@ -57,7 +58,7 @@ public class IntroNetworkObjectSample {
 		String id = bus.getId();
 		//output the bus data with specific format
 		str.append(Number2String.toStr(-12, id) + " ");
-		str.append(String.format(" %s ", FormatKVStr.f(bus.getBaseVoltage()*0.001)));
+		str.append(String.format(" %s ", formatKVStr.apply(bus.getBaseVoltage()*0.001)));
 		str.append(Number2String.toStr("0.0000", bus.getVoltageMag(UnitType.PU)) + " ");
 		str.append(Number2String.toStr("##0.00", bus.getVoltageAng(UnitType.Deg)) + " ");
 		str.append(Number2String.toStr("####0.00", busGen.getReal()) + " ");
@@ -153,8 +154,9 @@ public class IntroNetworkObjectSample {
 	/**
 	 * create a two-bus network and run the power flow
 	 * @return an aclf network with converged power flow state.
+	 * @throws InterpssException 
 	 */
-	private static AclfNetwork createSampleNetwork(){
+	private static AclfNetwork createSampleNetwork() throws InterpssException{
 		// Create an AclfNetwork object
 				AclfNetwork net = CoreObjectFactory.createAclfNetwork();
 

@@ -19,7 +19,7 @@ import com.interpss.core.algo.SimpleFaultAlgorithm;
 import com.interpss.simu.util.input.AcscInputUtilFunc;
 
 import static com.interpss.common.util.IpssLogger.ipssLogger;
-import static com.interpss.core.funcImpl.AcscFunction.AcscXfrAptr;
+import static com.interpss.core.funcImpl.AcscFunction.acscXfrAptr;
 
 public class Acsc5BusExample {
 
@@ -49,7 +49,7 @@ public class Acsc5BusExample {
     
 	}
 	
-	public static void load_SC_5BusSystem( AcscNetwork net) {
+	public static void load_SC_5BusSystem( AcscNetwork net) throws InterpssException {
 		net.setId( "ACSC 5-bus test system" );
 		net.setBaseKva(100000.0);
         String IdPrefix = "Bus";
@@ -84,7 +84,7 @@ public class Acsc5BusExample {
 		net.addBranch(bra, IdPrefix+"4", IdPrefix+"2");
 		bra.setZ( new Complex( 0.0, 0.015 ));
 		bra.setZ0( new Complex(0.0, 0.03 ));
-		AcscXformer xfr = AcscXfrAptr.f(bra);
+		AcscXformer xfr = acscXfrAptr.apply(bra);
 		xfr.setFromConnectGroundZ(XfrConnectCode.WYE_UNGROUNDED, new Complex(0.0,0.0), UnitType.PU);
 		xfr.setToConnectGroundZ(XfrConnectCode.DELTA, new Complex(0.0,0.0), UnitType.PU);
 
@@ -93,7 +93,7 @@ public class Acsc5BusExample {
 		net.addBranch(bra, IdPrefix+"5", IdPrefix+"3");
 		bra.setZ( new Complex( 0.0, 0.03 ));
 		bra.setZ0( new Complex(0.0, 0.03 ));
-		xfr = AcscXfrAptr.f(bra);
+		xfr = acscXfrAptr.apply(bra);
 		xfr.setFromConnectGroundZ(XfrConnectCode.WYE_UNGROUNDED, new Complex(0.0,0.0), UnitType.PU);
 		xfr.setToConnectGroundZ(XfrConnectCode.DELTA, new Complex(0.0,0.0), UnitType.PU);
 

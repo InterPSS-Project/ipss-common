@@ -22,6 +22,7 @@ import org.junit.Test;
 import com.interpss.CoreObjectFactory;
 import com.interpss.DStabObjectFactory;
 import com.interpss.SimuObjectFactory;
+import com.interpss.common.exp.InterpssException;
 import com.interpss.common.msg.IPSSMsgHub;
 import com.interpss.common.util.IpssLogger;
 import com.interpss.core.aclf.AclfGenCode;
@@ -74,7 +75,12 @@ public class DStab_IEEE9Bus_Test {
 	    
 		DynamicSimuAlgorithm dstabAlgo = simuCtx.getDynSimuAlgorithm();
 		LoadflowAlgorithm aclfAlgo = dstabAlgo.getAclfAlgorithm();
-		assertTrue(aclfAlgo.loadflow());
+		try {
+			assertTrue(aclfAlgo.loadflow());
+		} catch (InterpssException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println(AclfOutFunc.loadFlowSummary(dsNet));
 		
 		//assertTrue(dsNet.getMachine("Bus2-mach1").checkData());
@@ -292,10 +298,10 @@ public class DStab_IEEE9Bus_Test {
 	     */
 	    
 	    DStabBus bus1 = dsNet.getDStabBus("Bus1");
-	    assertTrue(bus1.getGenList().size()==1);
+	    assertTrue(bus1.getContributeGenList().size()==1);
 	    
-	    assertTrue(bus1.getGenList().get(0) instanceof DStabGen);
-	    DStabGen gen1 =(DStabGen) bus1.getGenList().get(0);
+	    assertTrue(bus1.getContributeGenList().get(0) instanceof DStabGen);
+	    DStabGen gen1 =(DStabGen) bus1.getContributeGenList().get(0);
 	    assertTrue(bus1.getGenCode()==AclfGenCode.SWING);
 	    
 	    /*

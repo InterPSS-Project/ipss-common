@@ -5,6 +5,7 @@ package org.interpss.tutorial.ch6_gams;
 import org.interpss.IpssCorePlugin;
 import org.interpss.display.DclfOutFunc;
 import org.interpss.fadapter.IpssFileAdapter;
+import org.interpss.numeric.exp.IpssNumericException;
 
 import com.gams.api.GAMSDatabase;
 import com.gams.api.GAMSJob;
@@ -18,11 +19,12 @@ import com.interpss.core.DclfObjectFactory;
 import com.interpss.core.aclf.AclfBus;
 import com.interpss.core.aclf.AclfNetwork;
 import com.interpss.core.dclf.DclfAlgorithm;
+import com.interpss.core.dclf.common.ReferenceBusException;
 import com.interpss.core.net.Bus;
 
 
 	public class EconomicDispatchGAMS {	        
-	        public static void main(String[] args) throws InterpssException {
+	        public static void main(String[] args) throws InterpssException, ReferenceBusException, IpssNumericException {
 	        
 	        IpssCorePlugin.init();
 	               
