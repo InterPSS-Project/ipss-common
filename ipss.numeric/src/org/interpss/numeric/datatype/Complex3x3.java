@@ -5,9 +5,6 @@ import org.apache.commons.math3.linear.Array2DRowFieldMatrix;
 import org.apache.commons.math3.linear.FieldLUDecomposition;
 
 public class Complex3x3 {
-	
-	private static final long serialVersionUID = 1;
-	
 	private static final Complex a = new Complex(-0.5, Math.sqrt(3)/2);
 	public static final Complex[][] T120_abc = new Complex[][]{
 			{new Complex(1,0),new Complex(1,0),new Complex(1,0)},
@@ -52,15 +49,10 @@ public class Complex3x3 {
 
 	}
 	
-	public Complex3x3(Complex[][] cplxAry3x3){
+	public Complex3x3(Complex[][] cplxAry3x3) {
 		if(cplxAry3x3.length!=3 || cplxAry3x3[0].length!=3)
-			try {
-				throw new Exception("Input Complex array is not a 3 by 3 matrix");
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		else{
+			throw new RuntimeException("Input Complex array cplxAry3x3 is not a 3 by 3 matrix");
+
 		this.aa = cplxAry3x3[0][0];
 		this.ab = cplxAry3x3[0][1];
 		this.ac = cplxAry3x3[0][2];
@@ -73,9 +65,6 @@ public class Complex3x3 {
 		this.ca = cplxAry3x3[2][0];
 		this.cb = cplxAry3x3[2][1];
 		this.cc = cplxAry3x3[2][2];
-		
-		}
-		
 	}
 	
 
@@ -161,7 +150,7 @@ public class Complex3x3 {
     }
     
     public Complex3x3 inv(){
-    	Array2DRowFieldMatrix fm = new Array2DRowFieldMatrix(this.toComplex2DAry());
+    	Array2DRowFieldMatrix<Complex> fm = new Array2DRowFieldMatrix<>(this.toComplex2DAry());
     	FieldLUDecomposition<Complex> lu = new FieldLUDecomposition<>(fm);
 		Complex[][] inv = lu.getSolver().getInverse().getData();
 		return new Complex3x3(inv);
