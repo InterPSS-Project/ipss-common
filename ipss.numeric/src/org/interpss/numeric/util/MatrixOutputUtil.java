@@ -7,7 +7,7 @@ import java.io.OutputStream;
 import org.interpss.numeric.sparse.ISparseEqnComplex;
 import org.interpss.numeric.sparse.ISparseEqnDouble;
 
-public class MatrixUtil {
+public class MatrixOutputUtil {
 	
  public static boolean matrixToMatlabMFile(String mFileName,ISparseEqnComplex sparseMatrix){
 		StringBuffer sb = new StringBuffer();
@@ -27,6 +27,12 @@ public class MatrixUtil {
 			}
 		}
 		
+//		sb.append("\n\n");
+//		for(int i=0;i<dim;i++){
+//			sb.append("B("+i+") = " +Number2String.toFixLengthStr(sparseMatrix..getReal(),"#######.0000")
+//					   +" + j*("+Number2String.toFixLengthStr(sparseMatrix.getA(i, j).getImaginary(),"#######.0000")+");\n");
+//		}
+//		
 		try {
 			OutputStream out = new BufferedOutputStream(new FileOutputStream(mFileName));
 			out.write(sb.toString().getBytes());

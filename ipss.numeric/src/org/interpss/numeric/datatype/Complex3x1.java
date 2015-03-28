@@ -95,9 +95,13 @@ public class Complex3x1 implements java.io.Serializable {
 	 * @return resulting 3x1 complex vector in abc system
 	 */
 	public static Complex3x1 z12_to_abc(final Complex3x1 z12) {
-		final Complex a = z12.a_0.add(z12.b_1.add(z12.c_2)), b = z12.a_0.add(
+		final Complex a = z12.a_0.add(z12.b_1.add(z12.c_2)), 
+				
+				b = z12.a_0.add(
 				NumericConstant.a2.multiply(z12.b_1)).add(
-				NumericConstant.a.multiply(z12.c_2)), c = z12.a_0.add(
+				NumericConstant.a.multiply(z12.c_2)), 
+				
+				c = z12.a_0.add(
 				NumericConstant.a.multiply(z12.b_1)).add(
 				NumericConstant.a2.multiply(z12.c_2));
 		return new Complex3x1(a, b, c);
@@ -113,5 +117,14 @@ public class Complex3x1 implements java.io.Serializable {
 		return Number2String.toStr(a_0) + "  "
 				+ Number2String.toStr(b_1) + "  "
 				+ Number2String.toStr(c_2);
+	}
+
+	public Complex3x1 multiply(double d) {
+		return new Complex3x1(this.a_0.multiply(d),this.b_1.multiply(d),this.c_2.multiply(d));
+	}
+
+	public Complex3x1 add(Complex3x1 y) {
+		
+		return new Complex3x1(this.a_0.add(y.a_0),this.b_1.add(y.b_1),this.c_2.add(y.c_2));
 	}
 }
