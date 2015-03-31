@@ -127,4 +127,9 @@ public class Complex3x1 implements java.io.Serializable {
 		
 		return new Complex3x1(this.a_0.add(y.a_0),this.b_1.add(y.b_1),this.c_2.add(y.c_2));
 	}
+	
+	public Complex3x1 subtract(Complex3x1 y) {
+		
+		return new Complex3x1(this.a_0.subtract(y.a_0),this.b_1.subtract(y.b_1),this.c_2.subtract(y.c_2));
+	}
 }

@@ -131,6 +131,17 @@ public class Complex3x3 {
 		
    	}
     
+    public  Complex3x1 mulitply(final Complex3x1 m3x1){
+    	
+    	 Complex3x1 cplxM3x1 = new  Complex3x1();
+    	 cplxM3x1.a_0 = this.aa.multiply(m3x1.a_0).add(this.ab.multiply(m3x1.b_1)).add(this.ac.multiply(m3x1.c_2));
+    	 cplxM3x1.b_1 = this.ba.multiply(m3x1.a_0).add(this.bb.multiply(m3x1.b_1)).add(this.bc.multiply(m3x1.c_2));
+    	 cplxM3x1.c_2 = this.ca.multiply(m3x1.a_0).add(this.cb.multiply(m3x1.b_1)).add(this.cc.multiply(m3x1.c_2));
+    	 
+    	 return cplxM3x1;
+    	
+    }
+    
     
     public  Complex3x3 mulitply (double factor){
     	 Complex3x3 cplxM3x3 = new  Complex3x3();
