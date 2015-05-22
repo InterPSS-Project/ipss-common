@@ -110,7 +110,7 @@ public class Complex3x3 {
 		
 	}
     
-    public  Complex3x3 mulitply(final Complex3x3 m3x3){
+    public  Complex3x3 multiply(final Complex3x3 m3x3){
     	
     	 Complex3x3 cplxM3x3 = new  Complex3x3();
     	 cplxM3x3.aa = this.aa.multiply(m3x3.aa).add(this.ab.multiply(m3x3.ba)).add(this.ac.multiply(m3x3.ca));
@@ -131,7 +131,7 @@ public class Complex3x3 {
 		
    	}
     
-    public  Complex3x1 mulitply(final Complex3x1 m3x1){
+    public  Complex3x1 multiply(final Complex3x1 m3x1){
     	
     	 Complex3x1 cplxM3x1 = new  Complex3x1();
     	 cplxM3x1.a_0 = this.aa.multiply(m3x1.a_0).add(this.ab.multiply(m3x1.b_1)).add(this.ac.multiply(m3x1.c_2));
@@ -143,7 +143,7 @@ public class Complex3x3 {
     }
     
     
-    public  Complex3x3 mulitply (double factor){
+    public  Complex3x3 multiply (double factor){
     	 Complex3x3 cplxM3x3 = new  Complex3x3();
     	 cplxM3x3.aa = aa.multiply(factor);
     	 cplxM3x3.ab = ab.multiply(factor);
@@ -186,14 +186,18 @@ public class Complex3x3 {
 		 return cplxM3x3;
     }
     
+    public double abs(){
+    	return (this.aa.abs()+this.ba.abs()+this.ca.abs()+this.ab.abs()+this.bb.abs()+this.cb.abs()+this.ac.abs()+this.bc.abs()+this.cc.abs());
+    }
+    
     
     public  Complex3x3 To120(){
-    	return new Complex3x3( Tabc_120).mulitply(this).mulitply(new Complex3x3( T120_abc));
+    	return new Complex3x3( Tabc_120).multiply(this).multiply(new Complex3x3( T120_abc));
 		
    	}
     
     public Complex3x3 ToAbc(){
-    	return new Complex3x3(T120_abc).mulitply(this).mulitply(new Complex3x3(Tabc_120 ));
+    	return new Complex3x3(T120_abc).multiply(this).multiply(new Complex3x3(Tabc_120 ));
     }
     
     /**
@@ -202,11 +206,11 @@ public class Complex3x3 {
      * @return
      */
 	public  static Complex3x3 abc_to_120(final Complex3x3 abc) {
-		return new Complex3x3( Tabc_120).mulitply(abc).mulitply(new Complex3x3( T120_abc));
+		return new Complex3x3( Tabc_120).multiply(abc).multiply(new Complex3x3( T120_abc));
 	}
 	
 	public static Complex3x3 z12_to_abc(final Complex3x3 z12) {
-		return new Complex3x3( T120_abc).mulitply( z12).mulitply(new Complex3x3(Tabc_120 ));
+		return new Complex3x3( T120_abc).multiply( z12).multiply(new Complex3x3(Tabc_120 ));
 	}
     
     public Complex[][] toComplex2DAry(){
