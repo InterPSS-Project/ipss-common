@@ -45,6 +45,16 @@ public class MatrixUtil {
 	}
 	
 	
+	public static String complex3x1Ary2String(Complex3x1[] ary){
+		StringBuffer sb = new StringBuffer();
+		int row = ary.length;
+
+		for(int i=0;i<row;i++){
+		    sb.append(ary[i].toString()+", ");
+		}
+		return sb.toString();
+	}
+	
 	public static String complex2DAry2String(Complex[][] ary){
 		StringBuffer sb = new StringBuffer();
 		int row = ary.length;
