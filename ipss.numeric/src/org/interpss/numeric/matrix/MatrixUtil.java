@@ -156,6 +156,105 @@ public class MatrixUtil {
 	}
 	
 	
+	/**
+	 *  multiply the matrix by a transformation matrix. 
+	 *  result = matrix*transMatrix
+	 *  
+	 *  A typical application is multiplying the ISparseEqnComplexMatrix3x3 matrix by the corresponding incidence matrix
+	 *  
+	 * @param matrix
+	 * @param transMatrix
+	 * @return matrix * transMatrix
+	 */
+	public static  Complex3x3[][] multiply( Complex3x3[][] matrix, double[][] transMatrix){
+		
+		if(matrix==null || transMatrix==null){
+			return null;
+		}
+		else{
+		
+			// Check dimension consistency
+			// the column size of the matrix must be equal to the row size of the transMatrix
+			final int  rowCount = matrix.length;
+			final int mCol = matrix[0].length;
+			final int tRow = transMatrix.length;
+			final int columnCount = transMatrix[0].length;
+			
+			Complex3x3[][]  result =  createComplex3x32DArray(rowCount,columnCount);
+			
+			if(mCol!=tRow){
+				throw new Error("The dimensions of the two matrice are not consistent!");
+			}
+			
+			// implementation based on the basic matrix multiplication rule
+			 for (int row = 0; row < rowCount; row++) {
+				 Complex3x3[] mRowData = matrix[row];
+				 
+				 for (int col = 0; col < columnCount; col++) {
+					 Complex3x3 sum = new Complex3x3();
+					 for(int j = 0;j<mCol;j++){
+						 
+						 // Bik = sum  {Aij*Tjk} over j
+						 sum = sum.add(mRowData[j].multiply(transMatrix[j][col]));
+					 } // end of for-j
+					 result[row][col] = sum;
+				
+				 } // for-col
+				 
+			 } // for-row
+			 
+			 return result;
+		
+		} // end of else
+		
+		
+	}
+	
+	
+	 public static  Complex3x3[][] preMultiply( double[][] transMatrix, Complex3x3[][] matrix){
+	    	if(matrix==null || transMatrix==null){
+				return null;
+			}
+			else{
+			
+				// Check dimension consistency
+				// the column size of the matrix must be equal to the row size of the transMatrix
+				final int  rowCount = transMatrix.length;
+				final int tCol =transMatrix[0].length;
+				final int mRow = matrix.length;
+				final int columnCount =  matrix[0].length;
+				
+				Complex3x3[][]  result =  createComplex3x32DArray(rowCount,columnCount);
+				
+				if(tCol!=mRow){
+					throw new Error("The dimensions of the two matrice are not consistent!");
+				}
+				
+				// implementation based on the basic matrix multiplication rule
+				 for (int row = 0; row < rowCount; row++) {
+					 double[] tRowData = transMatrix[row];
+					 
+					 for (int col = 0; col < columnCount; col++) {
+						 
+						 Complex3x3 sum = new Complex3x3();
+						 
+						 for(int j = 0;j<tCol;j++){
+							 
+							 // Bik = sum  {T_ij*Matrix_jk} over j
+							 sum = sum.add(matrix[j][col].multiply(tRowData[j]));
+						 } // end of for-j
+						 result[row][col] = sum;
+					
+					 } // for-col
+					 
+				 } // for-row
+				 
+				 return result;
+			
+			} // end of else
+		}
+	
+	
     public static  Complex3x3[][] preMultiply( int[][] transMatrix, Complex3x3[][] matrix){
     	if(matrix==null || transMatrix==null){
 			return null;
@@ -244,6 +343,51 @@ public class MatrixUtil {
     }
     
     
+    
+    public static  Complex3x1[] preMultiply( double[][] transMatrix, Complex3x1[] vector){
+    	if(transMatrix==null || vector==null){
+			return null;
+		}
+		else{
+		
+			// Check dimension consistency
+			// the column size of the matrix must be equal to the row size of the transMatrix
+			final int  rowCount = transMatrix.length;
+			final int tCol =transMatrix[0].length;
+			final int vRow = vector.length;
+			
+			
+			
+			if(tCol!=vRow){
+				throw new Error("The dimensions of the two matrice are not consistent!");
+			}
+			
+			Complex3x1[]  result =  new Complex3x1[rowCount];
+			
+			// implementation based on the basic matrix multiplication rule
+			 for (int row = 0; row < rowCount; row++) {
+				     
+				     double[] tRowData = transMatrix[row];
+				     Complex3x1 sum = new Complex3x1();
+				    
+					 for(int j = 0;j<vRow;j++){
+						 
+						 // Bik = sum  {T_ij*Matrix_jk} over j
+						 sum = sum.add(vector[j].multiply(tRowData[j]));
+					 } // end of for-j
+					 result[row] = sum;
+				
+				 
+			 } // for-row
+			 
+			 return result;
+		
+		} // end of else
+    	
+    	
+    }
+    
+    
     public static  Complex3x3[][] add( Complex3x3[][] A,Complex3x3[][] B ){
     	if(A==null || B==null){
 			return null;
@@ -309,6 +453,26 @@ public class MatrixUtil {
     		int tRow = t.length;
     		int tCol = t[0].length;
     		int[][] result = new int[tCol][tRow];
+    		
+    		for(int i=0;i<tRow;i++){
+    			for(int j=0;j<tCol;j++){
+    				result[j][i] = t[i][j];
+    			}
+    		}
+    		return result;
+    	}
+    		
+    }
+    
+     public static double[][] transpose(double[][] t){
+    	
+    	if(t==null){
+    		return null;
+    	}
+    	else{
+    		int tRow = t.length;
+    		int tCol = t[0].length;
+    		double[][] result = new double[tCol][tRow];
     		
     		for(int i=0;i<tRow;i++){
     			for(int j=0;j<tCol;j++){
