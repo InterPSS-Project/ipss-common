@@ -120,5 +120,9 @@ public interface ISparseEquation {
 	 * 
 	 * @return the row number
 	 */
-	int getZeroAii_row();	
+	int getZeroAii_row();
+	
+	boolean isFactorized();
+	
+	void setFactorized(boolean isLUFac);
 }	

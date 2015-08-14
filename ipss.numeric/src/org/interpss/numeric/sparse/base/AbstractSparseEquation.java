@@ -33,7 +33,8 @@ import org.interpss.numeric.exp.IpssNumericException;
  *
  */
 public class AbstractSparseEquation implements ISparseEquation {
-	int dimenstion = 0;
+	protected int dimenstion = 0;
+	protected boolean isLUed = false;
 
 	@Override public int getDimension() {
 		return this.dimenstion;
@@ -82,4 +83,18 @@ public class AbstractSparseEquation implements ISparseEquation {
 	@Override public void solveEqn() throws IpssNumericException {
 		throw new UnsupportedOperationException();
 	}
+
+	@Override
+	public boolean isFactorized() {
+
+		return this.isLUed;
+	}
+
+	@Override
+	public void setFactorized(boolean isLUFac) {
+		this.isLUed = isLUFac;
+		
+	}
+	
+	
 }

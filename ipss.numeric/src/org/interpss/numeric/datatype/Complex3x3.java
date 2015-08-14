@@ -41,6 +41,13 @@ public class Complex3x3 {
 		ca= mutualZorY; cb= mutualZorY;
 	}
 	
+	/**
+	 * create a diagonal 3x3 matrix, all non-diagnoal elements are zero 
+	 * 
+	 * @param pos  - diagonal element aa
+	 * @param neg  - diagonal element bb
+	 * @param zero - diagonal element cc
+	 */
 	public Complex3x3(Complex pos,Complex neg, Complex zero){
 		
 		aa = pos;

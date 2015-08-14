@@ -89,5 +89,6 @@ public class SparseEqnDoubleCommonMathImpl extends AbstractSparseEqnDouble {
 	public void solveEqn() {
 		LUDecomposition lu = new LUDecomposition(A);
 		this.X = lu.getSolver().solve(B);
+		this.isLUed = true;
 	}
 }
