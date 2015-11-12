@@ -1,5 +1,8 @@
 package org.interpss.numeric.datatype;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.linear.Array2DRowFieldMatrix;
 import org.apache.commons.math3.linear.FieldLUDecomposition;
@@ -167,6 +170,24 @@ public class Complex3x3 {
     	 return cplxM3x3;
     }
     
+    public Complex3x3 multiply(Complex factor) {
+    	 Complex3x3 cplxM3x3 = new  Complex3x3();
+    	 cplxM3x3.aa = aa.multiply(factor);
+    	 cplxM3x3.ab = ab.multiply(factor);
+    	 cplxM3x3.ac = ac.multiply(factor);
+    	 
+    	 cplxM3x3.ba = ba.multiply(factor);
+    	 cplxM3x3.bb = bb.multiply(factor);
+    	 cplxM3x3.bc = bc.multiply(factor);
+    	 
+    	 cplxM3x3.ca = ca.multiply(factor);
+    	 cplxM3x3.cb = cb.multiply(factor);
+    	 cplxM3x3.cc = cc.multiply(factor);
+    	 
+    	 return cplxM3x3;
+
+	}
+    
     public Complex3x3 inv(){
     	Array2DRowFieldMatrix<Complex> fm = new Array2DRowFieldMatrix<>(this.toComplex2DAry());
     	FieldLUDecomposition<Complex> lu = new FieldLUDecomposition<>(fm);
@@ -195,6 +216,20 @@ public class Complex3x3 {
     
     public double abs(){
     	return (this.aa.abs()+this.ba.abs()+this.ca.abs()+this.ab.abs()+this.bb.abs()+this.cb.abs()+this.ac.abs()+this.bc.abs()+this.cc.abs());
+    }
+    public double absMax(){
+    	Double[] array = new Double[]{this.aa.abs(),this.ba.abs(),this.ca.abs(),this.ab.abs(),this.bb.abs(),this.cb.abs(),this.ac.abs(),this.bc.abs(),this.cc.abs()};
+    	return Collections.max(Arrays.asList(array));
+    	
+    }
+    
+    public  static Complex3x3 createUnitMatrix(){
+    	 Complex3x3 cplxM3x3 = new  Complex3x3();
+    	 cplxM3x3.aa = new Complex(1,0);
+    	 cplxM3x3.bb = new Complex(1,0);
+    	 cplxM3x3.cc = new Complex(1,0);
+    	 
+    	 return cplxM3x3;
     }
     
     
@@ -259,6 +294,8 @@ public class Complex3x3 {
     	
     			
     }
+
+	
     
    
     

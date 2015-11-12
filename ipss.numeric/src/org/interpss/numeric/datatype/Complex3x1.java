@@ -87,6 +87,38 @@ public class Complex3x1 implements java.io.Serializable {
 		n = ComplexFunc.div(n, 3.0);
 		return new Complex3x1(z, p, n);
 	}
+	
+	public Complex3x1 To012(){
+		Complex z = a_0.add(b_1.add(c_2)), 
+				
+				p = a_0.add(
+				          NumericConstant.a.multiply(b_1)).add(
+				          NumericConstant.a2.multiply(c_2)),
+				
+				n = a_0.add(
+				            NumericConstant.a2.multiply(b_1)).add(
+				            NumericConstant.a.multiply(c_2));
+		z = ComplexFunc.div(z, 3.0);
+		p = ComplexFunc.div(p, 3.0);
+		n = ComplexFunc.div(n, 3.0);
+		return new Complex3x1(z, p, n);
+	}
+	
+	public Complex3x1 ToAbc(){
+        Complex a = a_0.add(b_1.add(c_2)), 
+				
+				b = a_0.add(
+				NumericConstant.a2.multiply(b_1)).add(
+				NumericConstant.a.multiply(c_2)), 
+				
+				c = a_0.add(
+				NumericConstant.a.multiply(b_1)).add(
+				NumericConstant.a2.multiply(c_2));
+        
+		return new Complex3x1(a, b, c);
+		
+	}
+	
 
 	/**
 	 * Transformation from 012 to abc system
@@ -111,6 +143,13 @@ public class Complex3x1 implements java.io.Serializable {
 		return this.a_0.abs()+this.b_1.abs()+this.c_2.abs();
 	}
 	
+	public double absMax(){
+		double max =this.a_0.abs();
+		if(this.b_1.abs()>max) max = this.b_1.abs();
+		if(this.c_2.abs()>max) max = this.c_2.abs();
+		
+		return max;
+	}
 
 	/**
 	 * Convert the obj to a string.
@@ -136,5 +175,14 @@ public class Complex3x1 implements java.io.Serializable {
 	public Complex3x1 subtract(Complex3x1 y) {
 		
 		return new Complex3x1(this.a_0.subtract(y.a_0),this.b_1.subtract(y.b_1),this.c_2.subtract(y.c_2));
+	}
+	
+	public Complex3x1 divide(Complex3x1 y) {
+		
+		return new Complex3x1(this.a_0.divide(y.a_0),this.b_1.divide(y.b_1),this.c_2.divide(y.c_2));
+	}
+	
+	public Complex3x1 conjugate(){
+		return new Complex3x1(this.a_0.conjugate(),this.b_1.conjugate(),this.c_2.conjugate());
 	}
 }
