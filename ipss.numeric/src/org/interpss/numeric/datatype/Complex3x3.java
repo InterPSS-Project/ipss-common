@@ -45,7 +45,7 @@ public class Complex3x3 {
 	}
 	
 	/**
-	 * create a diagonal 3x3 matrix, all non-diagnoal elements are zero 
+	 * create a diagonal 3x3 matrix, all non-diagonal elements are zero 
 	 * 
 	 * @param pos  - diagonal element aa
 	 * @param neg  - diagonal element bb
