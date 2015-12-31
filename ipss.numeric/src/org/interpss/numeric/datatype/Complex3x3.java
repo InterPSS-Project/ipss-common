@@ -9,11 +9,14 @@ import org.apache.commons.math3.linear.FieldLUDecomposition;
 
 public class Complex3x3 {
 	private static final Complex a = new Complex(-0.5, Math.sqrt(3)/2);
+	
+	// transformation matrix from 012 coordinates to abc coordinates
 	public static final Complex[][] T120_abc = new Complex[][]{
 			{new Complex(1,0),new Complex(1,0),new Complex(1,0)},
 			{a.multiply(a),      a            ,new Complex(1,0)},
 			{a,               a.multiply(a)   ,new Complex(1,0)}};
 	
+	// transformation matrix from abc coordinates to 012 coordinates
 	 public static final Complex[][] Tabc_120 = new Complex[][]{
 			{new Complex(1.0/3,0), a.divide(3)              ,a.multiply(a).divide(3)},
 			{new Complex(1.0/3,0), a.multiply(a).divide(3)  ,a.divide(3)},
