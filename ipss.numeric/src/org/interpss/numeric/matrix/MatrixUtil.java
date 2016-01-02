@@ -91,6 +91,14 @@ public class MatrixUtil {
 		return complexs;
 	}
 	
+	public static Complex[] createComplex1DArray(int row){
+		Complex[] complexs = new Complex[row];
+		for(int i=0;i<row;i++){
+			  complexs[i]= new Complex(0.0,0.0);
+			}
+		
+		return complexs;
+	}
 	
 	public static Complex3x1[] createComplex3x1DArray(int row){
 		Complex3x1[] complexs = new Complex3x1[row];
