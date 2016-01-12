@@ -1,6 +1,10 @@
 package org.interpss.numeric.matrix;
 
 import org.apache.commons.math3.complex.Complex;
+import org.apache.commons.math3.linear.ArrayFieldVector;
+import org.apache.commons.math3.linear.FieldLUDecomposition;
+import org.apache.commons.math3.linear.FieldMatrix;
+import org.apache.commons.math3.linear.MatrixUtils;
 import org.interpss.numeric.NumericLogger;
 import org.interpss.numeric.datatype.Complex3x1;
 import org.interpss.numeric.datatype.Complex3x3;
@@ -12,6 +16,8 @@ import org.interpss.numeric.datatype.Complex3x3;
  *
  */
 public class ComplexMatrixEqn extends AbstractMatrixEqn<Complex, Complex>{
+	private FieldMatrix<Complex> inverse = null;
+	
 	/**
 	 * constructor
 	 * 
@@ -21,6 +27,67 @@ public class ComplexMatrixEqn extends AbstractMatrixEqn<Complex, Complex>{
 		super(d);
 		this.a = MatrixUtil.createComplex2DArray(d,d);
 		this.b = MatrixUtil.createComplex1DArray(d);
+	}
+
+	/**
+	 * constructor
+	 * 
+	 * @param matrix the [A] matrix
+	 */
+	public ComplexMatrixEqn(Complex[][] matrix) {
+		super(matrix[0].length);
+		this.a = matrix;
+		this.b = new Complex[matrix[0].length];
+	}
+	
+	/**
+	 * constructor
+	 * 
+	 * @param matrix the [A] matrix
+	 * @param vector the [b] vector
+	 */
+	public ComplexMatrixEqn(Complex[][] matrix, Complex[] vector) {
+		super(matrix[0].length);
+		this.a = matrix;
+		this.b = vector;
+	}
+	
+	/**
+	 * solve the equation using Apache Common Math lib
+	 * 
+	 * @param inverse if true, the [A] will be inversed, otherwise the cached matrix inverse will be use 
+	 *            for solve the eqn
+	 * @return the solution [x] vector
+	 */
+	public Complex[] solveEqn(boolean inverse) {
+		if (inverse) {
+			//FieldDecompositionSolver<Complex> solver = new FieldLUDecomposition<Complex>(MatrixUtils.createFieldMatrix(this.a)).getSolver();
+			return new FieldLUDecomposition<Complex>(MatrixUtils.createFieldMatrix(this.a))
+							.getSolver()
+							.solve(new ArrayFieldVector<>(this.b))
+							.toArray();
+		}
+		else {
+			int n = this.b.length;
+			Complex[] result = new Complex[n];
+	    	for (int i = 0; i < n; i++) {
+	    		Complex sum = new Complex(0.0, 0.0);
+	    		for (int j = 0; j < n; j++)
+	    			sum = sum.add(this.inverse.getEntry(i,j).multiply(this.b[j]));
+	    		result[i] = sum;
+	    	}
+			return result;
+		}
+	}
+	
+	/**
+	 * inverse the [A] matrix
+	 */
+	public void inverseMatrix() {
+		//FieldDecompositionSolver<Complex> solver = new FieldLUDecomposition<Complex>(MatrixUtils.createFieldMatrix(this.a)).getSolver();
+		this.inverse = new FieldLUDecomposition<Complex>(MatrixUtils.createFieldMatrix(this.a))
+								.getSolver()
+								.getInverse();
 	}
 	
 	/**
