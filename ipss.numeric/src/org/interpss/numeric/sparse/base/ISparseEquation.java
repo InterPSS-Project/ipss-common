@@ -135,4 +135,20 @@ public interface ISparseEquation {
 	 * @param isLUFac the flag
 	 */
 	void setFactorized(boolean isLUFac);
+	
+	/**
+	 * get cached bus id by the row number
+	 * 
+	 * @param row row number
+	 * @return the bus id
+	 */
+	String getBusId(int row);
+	
+	/**
+	 * set bus id corresponding to the row
+	 * 
+	 * @param row row number
+	 * @param id bus id
+	 */
+	void setBusId(int row, String id);
 }	

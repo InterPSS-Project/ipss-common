@@ -35,6 +35,8 @@ import org.interpss.numeric.exp.IpssNumericException;
 public class AbstractSparseEquation implements ISparseEquation {
 	protected int dimenstion = 0;
 	protected boolean isLUed = false;
+	
+	protected String[] busIdAry = null;
 
 	@Override public int getDimension() {
 		return this.dimenstion;
@@ -86,15 +88,21 @@ public class AbstractSparseEquation implements ISparseEquation {
 
 	@Override
 	public boolean isFactorized() {
-
 		return this.isLUed;
 	}
 
 	@Override
 	public void setFactorized(boolean isLUFac) {
 		this.isLUed = isLUFac;
-		
 	}
 	
-	
+	@Override
+	public String getBusId(int row) {
+		return this.busIdAry[row];
+	}
+
+	@Override
+	public void setBusId(int row, String id) {
+		this.busIdAry[row] = id;
+	}	
 }
