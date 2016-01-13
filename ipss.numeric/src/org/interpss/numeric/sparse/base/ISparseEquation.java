@@ -122,7 +122,17 @@ public interface ISparseEquation {
 	 */
 	int getZeroAii_row();
 	
+	/**
+	 * Flag to indicate if the matrix is factorized
+	 * 
+	 * @return the boolean flag
+	 */
 	boolean isFactorized();
 	
+	/**
+	 * set the factorized flag
+	 * 
+	 * @param isLUFac the flag
+	 */
 	void setFactorized(boolean isLUFac);
 }	
