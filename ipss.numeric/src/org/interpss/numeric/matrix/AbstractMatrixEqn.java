@@ -77,6 +77,15 @@ public class AbstractMatrixEqn<TMatrix, TVector> {
 	}
 
 	/**
+	 * set the [b] vector
+	 * 
+	 * @param bAry the [b] vector
+	 */
+	public void setB(TVector[] bAry) {
+		this.b = bAry;
+	}
+	
+	/**
 	 * get the [A]ij element
 	 * 
 	 * @param i row number

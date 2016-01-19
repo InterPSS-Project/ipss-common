@@ -51,6 +51,11 @@ public class ComplexMatrixEqn extends AbstractMatrixEqn<Complex, Complex>{
 		this.a = matrix;
 		this.b = vector;
 	}
+
+	public Complex[] solveEqn(Complex[]bVector, boolean inverse) {
+		this.setB(bVector);
+		return solveEqn(inverse);
+	}
 	
 	/**
 	 * solve the equation using Apache Common Math lib

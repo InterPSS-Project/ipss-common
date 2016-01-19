@@ -3,6 +3,7 @@ package org.interpss.numeric.matrix;
 import org.apache.commons.math3.complex.Complex;
 import org.interpss.numeric.datatype.Complex3x1;
 import org.interpss.numeric.datatype.Complex3x3;
+import org.interpss.numeric.datatype.ComplexFunc;
 import org.interpss.numeric.exp.IpssNumericException;
 import org.interpss.numeric.sparse.ISparseEqnComplexMatrix3x3;
 
@@ -163,6 +164,48 @@ public class MatrixUtil {
 		
 	}
 	
+	//TODO
+	public static  Complex[][] multiply( Complex[][] matrix, int[][] transMatrix){
+		
+		if(matrix==null || transMatrix==null){
+			return null;
+		}
+		else{
+		
+			// Check dimension consistency
+			// the column size of the matrix must be equal to the row size of the transMatrix
+			final int  rowCount = matrix.length;
+			final int mCol = matrix[0].length;
+			final int tRow = transMatrix.length;
+			final int columnCount = transMatrix[0].length;
+			
+			Complex[][] result =  new Complex[rowCount][columnCount];
+			
+			if(mCol!=tRow){
+				throw new Error("The dimensions of the two matrice are not consistent!");
+			}
+			
+			// implementation based on the basic matrix multiplication rule
+			 for (int row = 0; row < rowCount; row++) {
+				 Complex[] mRowData = matrix[row];
+				 
+				 for (int col = 0; col < columnCount; col++) {
+					 Complex sum = new Complex(0.0,0.0);
+					 for(int j = 0;j<mCol;j++){
+						 
+						 // Bik = sum  {Aij*Tjk} over j
+						 sum = sum.add(mRowData[j].multiply(transMatrix[j][col]));
+					 } // end of for-j
+					 result[row][col] = sum;
+				
+				 } // for-col
+				 
+			 } // for-row
+			 
+			 return result;
+		
+		} // end of else
+	}
 	
 	/**
 	 *  multiply the matrix by a transformation matrix. 
@@ -305,7 +348,62 @@ public class MatrixUtil {
 		
 		} // end of else
 	}
+
+    /**
+     * transpose[M] x [A] x [M]
+     * 
+     * @param matrix matrix [A]
+     * @param transM transformation matrix
+     * @return
+     */
+    public static  Complex[][] prePostMultiply( Complex[][] matrix,  int[][] transM) {
+    	Complex[][] m = multiply(matrix, transM);
+    	return preMultiply(transpose(transM), m);
+    }
     
+
+    public static  Complex[][] preMultiply( int[][] transMatrix, Complex[][] matrix){
+    	if(matrix==null || transMatrix==null){
+			return null;
+		}
+		else{
+		
+			// Check dimension consistency
+			// the column size of the matrix must be equal to the row size of the transMatrix
+			final int  rowCount = transMatrix.length;
+			final int tCol =transMatrix[0].length;
+			final int mRow = matrix.length;
+			final int columnCount =  matrix[0].length;
+			
+			Complex[][]  result =  new Complex[rowCount][columnCount];
+			
+			if(tCol!=mRow){
+				throw new Error("The dimensions of the two matrice are not consistent!");
+			}
+			
+			// implementation based on the basic matrix multiplication rule
+			 for (int row = 0; row < rowCount; row++) {
+				 int[] tRowData = transMatrix[row];
+				 
+				 for (int col = 0; col < columnCount; col++) {
+					 
+					 Complex sum = new Complex(0.0,0.0);
+					 
+					 for(int j = 0;j<tCol;j++){
+						 
+						 // Bik = sum  {T_ij*Matrix_jk} over j
+						 sum = sum.add(matrix[j][col].multiply(tRowData[j]));
+					 } // end of for-j
+					 result[row][col] = sum;
+				
+				 } // for-col
+				 
+			 } // for-row
+			 
+			 return result;
+		
+		} // end of else
+	}    
     
     public static  Complex3x1[] preMultiply( int[][] transMatrix, Complex3x1[] vector){
     	if(transMatrix==null || vector==null){
@@ -491,5 +589,13 @@ public class MatrixUtil {
     	}
     		
     }
+     
+     public static String toString(Complex[][] m) {
+    	 StringBuffer buffer = new StringBuffer("\n\n");
+    	 for (int i = 0; i < m.length; i++)
+    		 for (int j = 0; j < m[0].length; j++)
+    			 buffer.append(i + "," + j + ": (" + ComplexFunc.toStr(m[i][j]) + ")\n");
+    	 return buffer.toString();
+     }
 
 }
