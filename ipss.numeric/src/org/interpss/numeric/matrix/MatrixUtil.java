@@ -5,7 +5,6 @@ import org.interpss.numeric.datatype.Complex3x1;
 import org.interpss.numeric.datatype.Complex3x3;
 import org.interpss.numeric.datatype.ComplexFunc;
 import org.interpss.numeric.exp.IpssNumericException;
-import org.interpss.numeric.sparse.ISparseEqnComplexMatrix3x3;
 
 public class MatrixUtil {
 	/**
@@ -32,55 +31,31 @@ public class MatrixUtil {
 		return rnt;
 	}
 	
-	public static String complex3x32DAry2String(Complex3x3[][] ary){
-		StringBuffer sb = new StringBuffer();
-		int row = ary.length;
-		int col = ary[0].length;
-		for(int i=0;i<row;i++){
-			for(int j=0;j<col;j++){
-				sb.append(ary[i][j].toString()+", ");
-			}
-			sb.append("\n");
-		}
-		return sb.toString();
-	}
-	
-	
-	public static String complex3x1Ary2String(Complex3x1[] ary){
-		StringBuffer sb = new StringBuffer();
-		int row = ary.length;
-
-		for(int i=0;i<row;i++){
-		    sb.append(ary[i].toString()+", ");
-		}
-		return sb.toString();
-	}
-	
-	public static String complex2DAry2String(Complex[][] ary){
-		StringBuffer sb = new StringBuffer();
-		int row = ary.length;
-		int col = ary[0].length;
-		for(int i=0;i<row;i++){
-			for(int j=0;j<col;j++){
-				sb.append(ary[i][j].toString()+", ");
-			}
-			sb.append("\n");
-		}
-		return sb.toString();
-	}
-	
+	/**
+	 * create a Complex matrix with all fields initialized to (0.0,0.0)
+	 * 
+	 * @param row row count
+	 * @param col column cound
+	 * @return
+	 */
 	public static Complex[][] createComplex2DArray(int row,int col){
 		Complex[][] complexs = new Complex[row][col];
 		
 		for(int i=0;i<row;i++){
 			for(int j=0;j<col;j++){
 			  complexs[i][j] = new Complex(0,0);
-			  
 			}
 		}
 		return complexs;
 	}
 	
+	/**
+	 * create a Complex3x3 block matrix with all fields initialized
+	 * 
+	 * @param row row count
+	 * @param col column cound
+	 * @return
+	 */
 	public static Complex3x3[][] createComplex3x32DArray(int row,int col){
 		Complex3x3[][] complexs = new Complex3x3[row][col];
 		
@@ -92,15 +67,26 @@ public class MatrixUtil {
 		return complexs;
 	}
 	
+	/**
+	 * create a Complex vector with all fields initialized to (0.0,0.0)
+	 * 
+	 * @param row row count
+	 * @return
+	 */
 	public static Complex[] createComplex1DArray(int row){
 		Complex[] complexs = new Complex[row];
 		for(int i=0;i<row;i++){
 			  complexs[i]= new Complex(0.0,0.0);
 			}
-		
 		return complexs;
 	}
 	
+	/**
+	 * create a Complex3x1 vector with all fields initialized
+	 * 
+	 * @param row row count
+	 * @return
+	 */
 	public static Complex3x1[] createComplex3x1DArray(int row){
 		Complex3x1[] complexs = new Complex3x1[row];
 		for(int i=0;i<row;i++){
@@ -164,7 +150,15 @@ public class MatrixUtil {
 		
 	}
 	
-	//TODO
+
+	/**
+	 *  multiply the matrix by a transformation matrix. 
+	 *  result = matrix*transMatrix
+	 *  
+	 * @param matrix
+	 * @param transMatrix
+	 * @return matrix * transMatrix
+	 */
 	public static  Complex[][] multiply( Complex[][] matrix, int[][] transMatrix){
 		
 		if(matrix==null || transMatrix==null){
@@ -262,7 +256,15 @@ public class MatrixUtil {
 	}
 	
 	
-	 public static  Complex3x3[][] preMultiply( double[][] transMatrix, Complex3x3[][] matrix){
+	/**
+	 *  pre-multiply the matrix by a transformation matrix. 
+	 *  result = transMatrix*matrix
+	 *  
+	 * @param transMatrix
+	 * @param matrix
+	 * @return transMatrix * matrix
+	 */
+	public static  Complex3x3[][] preMultiply( double[][] transMatrix, Complex3x3[][] matrix){
 	    	if(matrix==null || transMatrix==null){
 				return null;
 			}
@@ -306,6 +308,14 @@ public class MatrixUtil {
 		}
 	
 	
+	/**
+	 *  pre-multiply the matrix by a transformation matrix. 
+	 *  result = transMatrix*matrix
+	 *  
+	 * @param transMatrix
+	 * @param matrix
+	 * @return transMatrix * matrix
+	 */
     public static  Complex3x3[][] preMultiply( int[][] transMatrix, Complex3x3[][] matrix){
     	if(matrix==null || transMatrix==null){
 			return null;
@@ -362,6 +372,14 @@ public class MatrixUtil {
     }
     
 
+	/**
+	 *  pre-multiply the matrix by a transformation matrix. 
+	 *  result = transMatrix*matrix
+	 *  
+	 * @param transMatrix
+	 * @param matrix
+	 * @return transMatrix * matrix
+	 */
     public static  Complex[][] preMultiply( int[][] transMatrix, Complex[][] matrix){
     	if(matrix==null || transMatrix==null){
 			return null;
@@ -405,6 +423,14 @@ public class MatrixUtil {
 		} // end of else
 	}    
     
+	/**
+	 *  pre-multiply the vector by a transformation matrix. 
+	 *  result = transMatrix*vector
+	 *  
+	 * @param transMatrix
+	 * @param vector
+	 * @return transMatrix * vector
+	 */
     public static  Complex3x1[] preMultiply( int[][] transMatrix, Complex3x1[] vector){
     	if(transMatrix==null || vector==null){
 			return null;
@@ -448,8 +474,14 @@ public class MatrixUtil {
     	
     }
     
-    
-    
+	/**
+	 *  pre-multiply the vector by a transformation matrix. 
+	 *  result = transMatrix*vector
+	 *  
+	 * @param transMatrix
+	 * @param vector
+	 * @return transMatrix * vector
+	 */
     public static  Complex3x1[] preMultiply( double[][] transMatrix, Complex3x1[] vector){
     	if(transMatrix==null || vector==null){
 			return null;
@@ -493,7 +525,13 @@ public class MatrixUtil {
     	
     }
     
-    
+    /**
+     * add the two matrix together
+     * 
+     * @param A
+     * @param B
+     * @return
+     */
     public static  Complex3x3[][] add( Complex3x3[][] A,Complex3x3[][] B ){
     	if(A==null || B==null){
 			return null;
@@ -513,17 +551,53 @@ public class MatrixUtil {
 			 for (int row = 0; row < rowCount; row++) {
 				 for (int col = 0; col < columnCount; col++) {
 					 result[row][col] = A[row][col].add(B[row][col]);
-					 
 				 }
-				 
 			 }
 			 
 			 return result;
     	}
-    	
-    	
     }
     
+    /**
+     * add the two matrix together
+     * 
+     * @param A
+     * @param B
+     * @return
+     */
+    public static  Complex[][] add( Complex[][] A, Complex[][] B ){
+    	if(A==null || B==null){
+			return null;
+		}
+    	else{
+    		
+    		//first, check dimension consistency
+    		if(A.length !=B.length ||A[0].length!=B[0].length){
+    			throw new Error("The dimensions of the two matrice are not the same!");
+    		}
+    		
+    		final int  rowCount = A.length;
+			final int columnCount =  A[0].length;
+			
+			Complex[][]  result = new Complex[rowCount][columnCount];
+			
+			 for (int row = 0; row < rowCount; row++) {
+				 for (int col = 0; col < columnCount; col++) {
+					 result[row][col] = A[row][col].add(B[row][col]);
+				 }
+			 }
+			 
+			 return result;
+    	}
+    }
+
+    /**
+     * add the two vector together
+     * 
+     * @param A
+     * @param B
+     * @return
+     */
     public static  Complex3x1[] add( Complex3x1[] A,Complex3x1[] B ){
     	if(A==null || B==null){
 			return null;
@@ -549,7 +623,12 @@ public class MatrixUtil {
     	
     }
     
-    
+    /**
+     * transpose the matrix, result = [matrix]T
+     * 
+     * @param t
+     * @return
+     */
     public static int[][] transpose(int[][] t){
     	
     	if(t==null){
@@ -570,8 +649,13 @@ public class MatrixUtil {
     		
     }
     
-     public static double[][] transpose(double[][] t){
-    	
+    /**
+     * transpose the matrix, result = [matrix]T
+     * 
+     * @param t
+     * @return
+     */
+    public static double[][] transpose(double[][] t){
     	if(t==null){
     		return null;
     	}
@@ -589,6 +673,47 @@ public class MatrixUtil {
     	}
     		
     }
+
+     /*
+      * output utility functions
+      */
+ 	public static String complex3x32DAry2String(Complex3x3[][] ary){
+		StringBuffer sb = new StringBuffer();
+		int row = ary.length;
+		int col = ary[0].length;
+		for(int i=0;i<row;i++){
+			for(int j=0;j<col;j++){
+				sb.append(ary[i][j].toString()+", ");
+			}
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
+	
+	
+	public static String complex3x1Ary2String(Complex3x1[] ary){
+		StringBuffer sb = new StringBuffer();
+		int row = ary.length;
+
+		for(int i=0;i<row;i++){
+		    sb.append(ary[i].toString()+", ");
+		}
+		return sb.toString();
+	}
+	
+	public static String complex2DAry2String(Complex[][] ary){
+		StringBuffer sb = new StringBuffer();
+		int row = ary.length;
+		int col = ary[0].length;
+		for(int i=0;i<row;i++){
+			for(int j=0;j<col;j++){
+				sb.append(ary[i][j].toString()+", ");
+			}
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
+	
      
      public static String toString(Complex[][] m) {
     	 StringBuffer buffer = new StringBuffer("\n\n");
