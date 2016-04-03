@@ -14,3 +14,5 @@ Update History
 6/27/2012 update to 2.8
 
 6/25/2014 updated to 2.10
+
+4/3/2016 updated to 2.11
