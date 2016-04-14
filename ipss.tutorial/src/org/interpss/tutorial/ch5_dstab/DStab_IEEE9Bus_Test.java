@@ -78,15 +78,14 @@ public class DStab_IEEE9Bus_Test {
 		try {
 			assertTrue(aclfAlgo.loadflow());
 		} catch (InterpssException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		System.out.println(AclfOutFunc.loadFlowSummary(dsNet));
 		
-		//assertTrue(dsNet.getMachine("Bus2-mach1").checkData());
 		
 		dstabAlgo.setSimuMethod(DynamicSimuMethod.MODIFIED_EULER);
-		dstabAlgo.setSimuStepSec(0.001);
+		dstabAlgo.setSimuStepSec(0.005);
 		dstabAlgo.setTotalSimuTimeSec(5.0);
 		dstabAlgo.setRefMachine(dsNet.getMachine("Bus1-mach1"));
 		

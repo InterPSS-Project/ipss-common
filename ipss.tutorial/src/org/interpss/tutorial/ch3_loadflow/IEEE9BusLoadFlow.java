@@ -10,6 +10,7 @@ import org.interpss.fadapter.IpssFileAdapter;
 import com.interpss.CoreObjectFactory;
 import com.interpss.common.exp.InterpssException;
 import com.interpss.core.aclf.AclfNetwork;
+import com.interpss.core.algo.AclfMethod;
 import com.interpss.core.algo.LoadflowAlgorithm;
 
 public class IEEE9BusLoadFlow {
@@ -26,6 +27,17 @@ public class IEEE9BusLoadFlow {
 	    
 		//create a load flow algorithm object
 	  	LoadflowAlgorithm algo = CoreObjectFactory.createLoadflowAlgorithm(net);
+	  	
+	  	/*
+	  	 * users can also customize the configurations of the load flow algorithm
+	  	 *
+	  	  algo.setLfMethod(AclfMethod.PQ);
+	  	  algo.setMaxIterations(20);
+	  	  algo.setInitBusVoltage(false);
+	  	  algo.setTurnOffIslandBus(true);
+	  	 */ 
+	  	 
+	  	
 	  	//run load flow using default setting
 	  	algo.loadflow();
 	  	
