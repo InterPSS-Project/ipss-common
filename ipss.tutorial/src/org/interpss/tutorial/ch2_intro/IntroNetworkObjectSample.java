@@ -31,7 +31,17 @@ public class IntroNetworkObjectSample {
 		IpssCorePlugin.init();
 		//create a sample system consisting of two buses
 		AclfNetwork net = createSampleNetwork();
-		//output the Bus1
+		
+		// create the default loadflow algorithm
+	  	LoadflowAlgorithm algo = CoreObjectFactory.createLoadflowAlgorithm(net);
+
+	  	// use the loadflow algorithm to perform loadflow calculation
+	  	algo.loadflow();
+	  	
+	  	// output loadflow calculation results
+	  	System.out.println(AclfOutFunc.loadFlowSummary(net));
+	  	
+		//output the power flow result related to Bus1
 		System.out.println(busOrientedOutPut(net,net.getBus("Bus1")));
 	}
 	/**
@@ -207,14 +217,7 @@ public class IntroNetworkObjectSample {
 		  		lineBranch.setZ(new Complex(0.05, 0.1), UnitType.PU, 4000.0);
 		  		// add the branch from Bus1 to Bus2
 			  	
-			  	// create the default loadflow algorithm
-			  	LoadflowAlgorithm algo = CoreObjectFactory.createLoadflowAlgorithm(net);
-
-			  	// use the loadflow algorithm to perform loadflow calculation
-			  	algo.loadflow();
 			  	
-			  	// output loadflow calculation results
-			  	System.out.println(AclfOutFunc.loadFlowSummary(net));
 			  	
 			  	return net;
 	}

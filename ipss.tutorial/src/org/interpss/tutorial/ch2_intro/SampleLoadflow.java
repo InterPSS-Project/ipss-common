@@ -57,11 +57,12 @@ public class SampleLoadflow {
 		// set session message to Warning level
 		IPSSMsgHub msg = IpssAclf.psslMsg;
 		
+		//use interpss basic functions to create network
 		simpleLoadflow(msg);
 
+		// use PSSL to create network
 		simpleLoadflowPSSL(msg);
 
-		loadflowWithAdjustment(msg);
 	}	
 
 	public static void simpleLoadflow(IPSSMsgHub msg) throws InterpssException {
@@ -137,16 +138,9 @@ public class SampleLoadflow {
 	  	// create the default loadflow algorithm
 	  	LoadflowAlgorithm algo = CoreObjectFactory.createLoadflowAlgorithm(net);
 
-	  	// use the loadflow algorithm to perform loadflow calculation
-	  	PerformanceTimer timer = new PerformanceTimer(ipssLogger);
-	  	timer.start();
-	  	try {
-			algo.loadflow();
-		} catch (InterpssException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	  	timer.logStd("Duration for loadflow: ");
+	  	// run power flow using default setting
+		algo.loadflow();
+		
 	  	
 	  	// output loadflow calculation results
 	  	System.out.println(AclfOutFunc.loadFlowSummary(net));
@@ -170,40 +164,5 @@ public class SampleLoadflow {
 				.setZ(new Complex(0.05, 0.1), UnitType.PU);
 	}	
 
-	public static void loadflowWithAdjustment(IPSSMsgHub msg) throws InterpssException {
-		// Create an AclfAdjNetwork object
-		AclfNetwork net = IpssAclfNet.createAclfNetwork("Net")
-				.setBaseKva(100000.0)
-				.getAclfNet();
-
-		// set the network data
-		setSimpleLoadflowDataByPSSL(net, msg);
-	  	
-	  	//	  define a function load object, 
-	  	//	  p = p(0)*(a + b*v + (1.0-a-b)*v*v)
-	  	//	  q = q(0)*(a + b*v + (1.0-a-b)*v*v)
-	  	AclfBus bus2 = net.getBus("Bus2");
-  		try {
-  			FunctionLoad fload = CoreObjectFactory.createFunctionLoad(bus2);
-  			fload.getP().setA(0.3);
-  			fload.getP().setB(0.5);
-  			fload.getQ().setA(0.1);
-  			fload.getQ().setB(0.6);
-  		} catch (InterpssException e) {
-  			e.printStackTrace();
-  			return;
-  		}
-	  	
-	  	// create the default loadflow algorithm
-	  	LoadflowAlgorithm algo = CoreObjectFactory.createLoadflowAlgorithm(net);
-
-	  	// use the loadflow algorithm to perform loadflow calculation
-	  	algo.loadflow();
-	  	
-	  	// output loadflow calculation results
-	  	System.out.println(AclfOutFunc.loadFlowSummary(net));
-
-	  	// output net object info for debug purpose 
-	  	System.out.println(net.net2String());
-    }
+	
 }
