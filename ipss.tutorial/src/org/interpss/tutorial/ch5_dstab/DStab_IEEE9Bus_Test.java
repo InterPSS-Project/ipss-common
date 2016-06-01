@@ -122,9 +122,19 @@ public class DStab_IEEE9Bus_Test {
 		if (dstabAlgo.initialization()) {
 
 			System.out.println("Running DStab simulation ...");
+			
+			//NOTE: There are two ways to perform the simulation
+			
+			// 1. standard one--run till the end
 			dstabAlgo.performSimulation();
-			//dstabAlgo.performOneStepSimulation();
-
+			
+			// 2. run step by step, this provides users more flexibility to make changes to the network 
+			/*
+			for (double t =0;t<dstabAlgo.getTotalSimuTimeSec();t+=dstabAlgo.getSimuStepSec()){
+			     dstabAlgo.solveDEqnStep(true);
+			     //Here users can make some changes to the system, or the set point of a dynamic model
+			}
+			*/
 		}
 		/*
 		 * Machine Initial angle 
