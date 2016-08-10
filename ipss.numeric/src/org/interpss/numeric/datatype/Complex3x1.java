@@ -230,4 +230,9 @@ public class Complex3x1 implements java.io.Serializable {
 	public Complex3x1 conjugate(){
 		return new Complex3x1(this.a_0.conjugate(),this.b_1.conjugate(),this.c_2.conjugate());
 	}
+	
+	public Complex3x1 clone(){
+		return new Complex3x1(this.a_0,this.b_1,this.c_2);
+	}
+	
 }
