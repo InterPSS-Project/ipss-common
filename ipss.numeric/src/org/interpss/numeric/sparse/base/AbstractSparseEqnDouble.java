@@ -57,4 +57,8 @@ public class AbstractSparseEqnDouble extends AbstractSparseEquation implements I
 	@Override public void setBi(double bi, int i) {
 		throw new UnsupportedOperationException();
 	}
+	
+	@Override public double[] solveEqn(double[] b) {
+		throw new UnsupportedOperationException();
+	}	
 }

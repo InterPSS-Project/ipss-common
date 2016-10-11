@@ -24,6 +24,7 @@
 
 package org.interpss.numeric.sparse;
 
+import org.interpss.numeric.exp.IpssNumericException;
 import org.interpss.numeric.sparse.base.ISparseEquation;
 
 
@@ -84,4 +85,10 @@ public interface ISparseEqnDouble extends ISparseEquation {
 	 * @param i row number 
 	 */
 	void addToBi( final double bi, final int i );	
+	
+	/**
+	 * Solve the [A]X = B problem
+	 * 
+	 */
+	double[] solveEqn(double[] b) throws IpssNumericException;	
 }
