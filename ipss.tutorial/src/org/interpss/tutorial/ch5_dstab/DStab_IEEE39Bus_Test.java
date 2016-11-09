@@ -13,6 +13,7 @@ import org.interpss.mapper.odm.ODMDStabParserMapper;
 import org.interpss.numeric.NumericConstant;
 import org.junit.Test;
 
+import com.interpss.CoreCommonFactory;
 import com.interpss.CoreObjectFactory;
 import com.interpss.DStabObjectFactory;
 import com.interpss.SimuObjectFactory;
@@ -31,10 +32,9 @@ import com.interpss.dstab.devent.DynamicEvent;
 import com.interpss.dstab.devent.DynamicEventType;
 import com.interpss.simu.SimuContext;
 import com.interpss.simu.SimuCtxType;
-import com.interpss.spring.CoreCommonSpringFactory;
 
 public class DStab_IEEE39Bus_Test  {
-	    IPSSMsgHub msg = CoreCommonSpringFactory.getIpssMsgHub();
+	    IPSSMsgHub msg = CoreCommonFactory.getIpssMsgHub();
 		
 		@Test
 		public void IEEE39_Dstab_benchMark(){

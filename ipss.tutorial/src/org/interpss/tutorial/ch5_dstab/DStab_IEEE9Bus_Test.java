@@ -19,6 +19,7 @@ import org.interpss.numeric.util.Number2String;
 import org.interpss.numeric.util.NumericUtil;
 import org.junit.Test;
 
+import com.interpss.CoreCommonFactory;
 import com.interpss.CoreObjectFactory;
 import com.interpss.DStabObjectFactory;
 import com.interpss.SimuObjectFactory;
@@ -43,10 +44,9 @@ import com.interpss.dstab.devent.DynamicEventType;
 import com.interpss.dstab.mach.SalientPoleMachine;
 import com.interpss.simu.SimuContext;
 import com.interpss.simu.SimuCtxType;
-import com.interpss.spring.CoreCommonSpringFactory;
 
 public class DStab_IEEE9Bus_Test {
-	IPSSMsgHub msg = CoreCommonSpringFactory.getIpssMsgHub();
+	IPSSMsgHub msg = CoreCommonFactory.getIpssMsgHub();
 	@Test
 	public void test_IEEE9Bus_Dstab(){
 		IpssCorePlugin.init();
@@ -218,7 +218,7 @@ public class DStab_IEEE9Bus_Test {
 	//@Test
 	public void Dstab_data_check(){
 		IpssCorePlugin.init();
-		IPSSMsgHub msg = CoreCommonSpringFactory.getIpssMsgHub();
+		IPSSMsgHub msg = CoreCommonFactory.getIpssMsgHub();
 		IpssLogger.getLogger().setLevel(Level.WARNING);
 		
 		PSSEAdapter adapter = new PSSEAdapter(PsseVersion.PSSE_30);

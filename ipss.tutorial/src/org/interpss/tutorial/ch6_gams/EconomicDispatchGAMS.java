@@ -1,7 +1,7 @@
 package org.interpss.tutorial.ch6_gams;
 
 
-	import org.interpss.CorePluginObjFactory;
+	import org.interpss.CorePluginFactory;
 import org.interpss.IpssCorePlugin;
 import org.interpss.display.DclfOutFunc;
 import org.interpss.fadapter.IpssFileAdapter;
@@ -30,7 +30,7 @@ import com.interpss.core.net.Bus;
 	               
 	        
 	        //Step-1. Read in IEEE 14 Bus data
-	        AclfNetwork net = CorePluginObjFactory
+	        AclfNetwork net = CorePluginFactory
 	                                .getFileAdapter(IpssFileAdapter.FileFormat.IEEECDF)
 	                                .loadDebug("testData/ieee/IEEE14Bus.dat")
 	                                .getAclfNet();

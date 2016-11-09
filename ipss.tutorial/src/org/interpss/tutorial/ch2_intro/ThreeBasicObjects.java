@@ -3,7 +3,7 @@ package org.interpss.tutorial.ch2_intro;
 import java.util.List;
 
 import org.apache.commons.math3.complex.Complex;
-import org.interpss.CorePluginObjFactory;
+import org.interpss.CorePluginFactory;
 import org.interpss.IpssCorePlugin;
 import org.interpss.fadapter.IpssFileAdapter;
 
@@ -19,7 +19,7 @@ public class ThreeBasicObjects {
 		IpssCorePlugin.init();
 		
 		// import IEEE CDF format data to create a network object
-		AclfNetwork net = CorePluginObjFactory
+		AclfNetwork net = CorePluginFactory
 				.getFileAdapter(IpssFileAdapter.FileFormat.IEEECDF)
 				.load("testData/ieee/009ieee.dat")
 				.getAclfNet();	
