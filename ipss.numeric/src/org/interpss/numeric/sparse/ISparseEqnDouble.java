@@ -35,7 +35,6 @@ import org.interpss.numeric.sparse.base.ISparseEquation;
  */
 
 public interface ISparseEqnDouble extends ISparseEquation {
-
   /**
    * Add the aij element to the matrix. If aij exists, aij += x.
 	* 

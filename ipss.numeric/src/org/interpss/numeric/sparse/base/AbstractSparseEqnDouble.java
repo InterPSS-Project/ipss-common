@@ -33,7 +33,6 @@ import org.interpss.numeric.sparse.ISparseEqnDouble;
  *
  */
 public class AbstractSparseEqnDouble extends AbstractSparseEquation implements ISparseEqnDouble {
-
 	@Override public void addToAij(double x, int i, int j) {
 		throw new UnsupportedOperationException();
 	}
