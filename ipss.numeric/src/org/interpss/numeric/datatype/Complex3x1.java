@@ -33,6 +33,15 @@ import org.interpss.numeric.util.Number2String;
  */
 public class Complex3x1 implements java.io.Serializable {
 	private static final long serialVersionUID = 1;
+	
+	// index to transfer the object to a complex[]
+	public final static int Index_0 = 0;
+	public final static int Index_1 = 1;
+	public final static int Index_2 = 2;
+	
+	public final static int Index_a = 0;
+	public final static int Index_b = 1;
+	public final static int Index_c = 2;
 
 	public Complex 
 		a_0 = new Complex(0.0, 0.0), 
@@ -59,6 +68,19 @@ public class Complex3x1 implements java.io.Serializable {
 		c_2 = c2;
 	}
 
+	/**
+	 * Constructor. this obj = [a0, b1, c2]
+	 *
+	 * @param a0 a complex number 
+	 * @param b1 a complex number 
+	 * @param c2 a complex number 
+	 */
+	public Complex3x1(final Complex[] c) {
+		a_0 = c[Index_0];
+		b_1 = c[Index_1];
+		c_2 = c[Index_2];
+	}
+	
 	/**
 	 * Copy Constructor
 	 *
@@ -235,4 +257,7 @@ public class Complex3x1 implements java.io.Serializable {
 		return new Complex3x1(this.a_0,this.b_1,this.c_2);
 	}
 	
+	public Complex[] toArray() {
+		return new Complex[] { this.a_0, this.b_1, this.c_2};
+	}
 }
