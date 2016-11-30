@@ -112,7 +112,6 @@ public class MatrixUtil {
 			return null;
 		}
 		else{
-		
 			// Check dimension consistency
 			// the column size of the matrix must be equal to the row size of the transMatrix
 			final int  rowCount = matrix.length;
@@ -133,21 +132,15 @@ public class MatrixUtil {
 				 for (int col = 0; col < columnCount; col++) {
 					 Complex3x3 sum = new Complex3x3();
 					 for(int j = 0;j<mCol;j++){
-						 
 						 // Bik = sum  {Aij*Tjk} over j
 						 sum = sum.add(mRowData[j].multiply(transMatrix[j][col]));
 					 } // end of for-j
 					 result[row][col] = sum;
-				
 				 } // for-col
-				 
 			 } // for-row
 			 
 			 return result;
-		
 		} // end of else
-		
-		
 	}
 	
 
@@ -165,7 +158,6 @@ public class MatrixUtil {
 			return null;
 		}
 		else{
-		
 			// Check dimension consistency
 			// the column size of the matrix must be equal to the row size of the transMatrix
 			final int  rowCount = matrix.length;
@@ -186,18 +178,13 @@ public class MatrixUtil {
 				 for (int col = 0; col < columnCount; col++) {
 					 Complex sum = new Complex(0.0,0.0);
 					 for(int j = 0;j<mCol;j++){
-						 
 						 // Bik = sum  {Aij*Tjk} over j
 						 sum = sum.add(mRowData[j].multiply(transMatrix[j][col]));
 					 } // end of for-j
-					 result[row][col] = sum;
-				
+					 result[row][col] = sum;	
 				 } // for-col
-				 
 			 } // for-row
-			 
 			 return result;
-		
 		} // end of else
 	}
 
@@ -215,7 +202,6 @@ public class MatrixUtil {
 			return null;
 		}
 		else{
-		
 			// Check dimension consistency
 			// the column size of the matrix must be equal to the row size of the transMatrix
 			final int  rowCount = matrix.length;
@@ -236,16 +222,12 @@ public class MatrixUtil {
 				 for (int col = 0; col < columnCount; col++) {
 					 Complex3x1 sum = new Complex3x1();
 					 for(int j = 0;j<mCol;j++){
-						 
 						 // Bik = sum  {Aij*Tjk} over j
 						 sum = sum.add(mRowData[j].multiply(transMatrix[j][col]));
 					 } // end of for-j
 					 result[row][col] = sum;
-				
 				 } // for-col
-				 
 			 } // for-row
-			 
 			 return result;
 		} // end of else
 	}
@@ -287,21 +269,16 @@ public class MatrixUtil {
 				 for (int col = 0; col < columnCount; col++) {
 					 Complex3x3 sum = new Complex3x3();
 					 for(int j = 0;j<mCol;j++){
-						 
 						 // Bik = sum  {Aij*Tjk} over j
 						 sum = sum.add(mRowData[j].multiply(transMatrix[j][col]));
 					 } // end of for-j
 					 result[row][col] = sum;
-				
 				 } // for-col
-				 
 			 } // for-row
 			 
 			 return result;
 		
 		} // end of else
-		
-		
 	}
 	
 	
