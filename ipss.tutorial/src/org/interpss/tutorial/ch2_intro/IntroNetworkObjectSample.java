@@ -17,6 +17,7 @@ import com.interpss.core.aclf.AclfBus;
 import com.interpss.core.aclf.AclfGenCode;
 import com.interpss.core.aclf.AclfLoadCode;
 import com.interpss.core.aclf.AclfNetwork;
+import com.interpss.core.aclf.BaseAclfBus;
 import com.interpss.core.aclf.adpter.AclfGenBusAdapter;
 import com.interpss.core.aclf.adpter.AclfLine;
 import com.interpss.core.aclf.adpter.AclfLoadBusAdapter;
@@ -85,7 +86,7 @@ public class IntroNetworkObjectSample {
 
 				Complex pq = new Complex(0.0, 0.0);
 				double amp = 0.0, fromRatio = 1.0, toRatio = 1.0, fromAng = 0.0, toAng = 0.0;
-				AclfBus toBus = null;
+				BaseAclfBus<?,?> toBus = null;
 				if (bra.isActive()) {
 					// to determine whether the bus is at the from- or to-end of the branch.
 					if (bus.getId().equals(bra.getFromAclfBus().getId())) {
