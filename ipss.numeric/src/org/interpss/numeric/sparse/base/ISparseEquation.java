@@ -100,13 +100,6 @@ public interface ISparseEquation {
 	int getDimension();
 
 	/**
-	 * 	Set matrix dimension. The index number is from 0 to n-1
-     * 
-     * @param n
-     */
-	//void setDimension( final int n );
-
-	/**
 	 * Increase matrix dimension by 1. B[n] = 0.0, aii(n)=1.0, aij(n)=0.0 
      * 
      * @param n
@@ -114,12 +107,19 @@ public interface ISparseEquation {
 	void increaseDimension();
 
 	/**
-	 * LU decomposition of the matrix.
+	 * Factorization, for example LU decomposition, of the matrix.
+	 * 
+	 * @return if succeed return true.
+	 */
+	boolean factorization() throws IpssNumericException;
+	
+	/**
+	 * Factorization, for example LU decomposition, of the matrix.
 	 * 
 	 * @param tolerance the tolerance for matrix singular detection
 	 * @return if succeed return true.
 	 */
-	boolean luMatrix( final double tolerance) throws IpssNumericException;
+	boolean factorization( final double tolerance) throws IpssNumericException;	
 		
 	/**
 	 * LU decomposition of the matrix and the solve the [A]X = B problem.
@@ -127,7 +127,7 @@ public interface ISparseEquation {
 	 * @param tolerance the tolerance for matrix singular detection
 	 * @return if succeed return true.
 	 */
-	boolean luMatrixAndSolveEqn( final double tolerance)  throws IpssNumericException;
+	boolean solveEqn( final double tolerance)  throws IpssNumericException;
 		
 	/**
 	 * Solve the [A]X = B problem
@@ -168,12 +168,4 @@ public interface ISparseEquation {
      * @return the dimension
      */
 	int getDimension(IndexType type);
-
-	/**
-	 * 	Set matrix dimension. The index number is from 0 to n-1
-     * 
-     * @param row
-     * @param col
-     */
-	//void setDimension( final int row, final int col );	
 }	
