@@ -22,7 +22,8 @@ import com.interpss.common.msg.IPSSMsgHub;
 import com.interpss.core.acsc.fault.AcscBusFault;
 import com.interpss.core.acsc.fault.SimpleFaultCode;
 import com.interpss.core.algo.LoadflowAlgorithm;
-import com.interpss.dstab.DStabBus;
+import com.interpss.dstab.BaseDStabBus;
+import com.interpss.dstab.BaseDStabNetwork;
 import com.interpss.dstab.DStabilityNetwork;
 import com.interpss.dstab.algo.DynamicSimuAlgorithm;
 import com.interpss.dstab.algo.DynamicSimuMethod;
@@ -56,7 +57,7 @@ public class DStab_IEEE39Bus_Test  {
 			}
 			
 			
-		    DStabilityNetwork dsNet =simuCtx.getDStabilityNet();
+		    BaseDStabNetwork<?,?> dsNet =simuCtx.getDStabilityNet();
 		    //System.out.println(dsNet.net2String());
 
 		    
@@ -112,7 +113,7 @@ public class DStab_IEEE39Bus_Test  {
 				event1.setDurationSec(durationTime);
 				
 		      // define a bus fault
-				DStabBus faultBus = net.getDStabBus(faultBusId);
+				BaseDStabBus<?,?> faultBus = net.getDStabBus(faultBusId);
 				AcscBusFault fault = CoreObjectFactory.createAcscBusFault("Bus Fault 3P@"+faultBusId, net);
 		  		fault.setBus(faultBus);
 				fault.setFaultCode(SimpleFaultCode.GROUND_3P);

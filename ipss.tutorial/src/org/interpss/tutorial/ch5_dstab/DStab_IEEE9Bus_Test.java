@@ -30,6 +30,8 @@ import com.interpss.core.aclf.AclfGenCode;
 import com.interpss.core.acsc.fault.AcscBusFault;
 import com.interpss.core.acsc.fault.SimpleFaultCode;
 import com.interpss.core.algo.LoadflowAlgorithm;
+import com.interpss.dstab.BaseDStabBus;
+import com.interpss.dstab.BaseDStabNetwork;
 import com.interpss.dstab.DStabBus;
 import com.interpss.dstab.DStabGen;
 import com.interpss.dstab.DStabilityNetwork;
@@ -70,7 +72,7 @@ public class DStab_IEEE9Bus_Test {
 		}
 		
 		
-	    DStabilityNetwork dsNet =simuCtx.getDStabilityNet();
+	    BaseDStabNetwork<?,?> dsNet =simuCtx.getDStabilityNet();
 	    //System.out.println(dsNet.net2String());
 	    
 		DynamicSimuAlgorithm dstabAlgo = simuCtx.getDynSimuAlgorithm();
@@ -241,7 +243,7 @@ public class DStab_IEEE9Bus_Test {
 		}
 		
 		
-	    DStabilityNetwork dsNet =simuCtx.getDStabilityNet();
+	    BaseDStabNetwork<?,?> dsNet =simuCtx.getDStabilityNet();
 	    
 	    /*
 	     * check generator data
@@ -306,7 +308,7 @@ public class DStab_IEEE9Bus_Test {
             </dstabBus>
 	     */
 	    
-	    DStabBus bus1 = dsNet.getDStabBus("Bus1");
+	    BaseDStabBus<?,?> bus1 = dsNet.getDStabBus("Bus1");
 	    assertTrue(bus1.getContributeGenList().size()==1);
 	    
 	    assertTrue(bus1.getContributeGenList().get(0) instanceof DStabGen);
@@ -363,7 +365,7 @@ public class DStab_IEEE9Bus_Test {
 	     */
 	}
     
-	private DynamicEvent create3PhaseFaultEvent(String faultBusId, DStabilityNetwork net,double startTime, double durationTime){
+	private DynamicEvent create3PhaseFaultEvent(String faultBusId, BaseDStabNetwork<?,?> net,double startTime, double durationTime){
 	       // define an event, set the event id and event type.
 			DynamicEvent event1 = DStabObjectFactory.createDEvent("BusFault3P@"+faultBusId, "Bus Fault 3P@"+faultBusId, 
 					DynamicEventType.BUS_FAULT, net);
@@ -371,7 +373,7 @@ public class DStab_IEEE9Bus_Test {
 			event1.setDurationSec(durationTime);
 			
 	      // define a bus fault
-			DStabBus faultBus = net.getDStabBus(faultBusId);
+			BaseDStabBus<?,?> faultBus = net.getDStabBus(faultBusId);
 			AcscBusFault fault = CoreObjectFactory.createAcscBusFault("Bus Fault 3P@"+faultBusId, net);
 	  		fault.setBus(faultBus);
 			fault.setFaultCode(SimpleFaultCode.GROUND_3P);
