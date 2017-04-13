@@ -191,6 +191,17 @@ public class Complex3x1 implements java.io.Serializable {
 	public Complex3x1 multiply(double d) {
 		return new Complex3x1(this.a_0.multiply(d),this.b_1.multiply(d),this.c_2.multiply(d));
 	}
+	
+	/**
+	 * multiply the object with a complex3x1 object
+	 * 
+	 * @param y the complex3x1 value
+	 * @return
+	 *
+	*/
+	public Complex3x1 multiply(Complex3x1 y) {
+		return new Complex3x1(this.a_0.multiply(y.a_0),this.b_1.multiply(y.b_1),this.c_2.multiply(y.c_2));
+	}
 
 	/**
 	 * add this object with a Complex3x1 x+y = [ x.a_0+y.a_0, x.b_1+y.b_1, x.c_2+y.c_2 ] 
