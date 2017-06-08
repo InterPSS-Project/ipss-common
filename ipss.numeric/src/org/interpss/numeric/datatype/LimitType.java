@@ -160,6 +160,28 @@ public class LimitType implements java.io.Serializable {
 			return x;
 		}
 	}
+	
+	/**
+	 * calculate limit mismatch 
+	 *  if (x > getMax()) {
+			return x - getMax();
+		} else if (x < getMin()) {
+			return x - getMin();
+		} else {
+			return 0;
+		}
+	 *
+	 * @return the resulting number
+	 */
+	public double mismatch(final double x) {
+		if (x > getMax()) {
+			return x - getMax();
+		} else if (x < getMin()) {
+			return x - getMin();
+		} else {
+			return 0;
+		}
+	}
 
 	/**
 	 * Perform discrete limit action. 
