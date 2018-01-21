@@ -25,7 +25,10 @@
 package org.interpss.numeric.sparse;
 
 import org.apache.commons.math3.complex.Complex;
+import org.interpss.numeric.exp.IpssNumericException;
 import org.interpss.numeric.sparse.base.ISparseEqnObject;
+
+import edu.emory.mathcs.csparsej.tdcomplex.DZcs_common.DZcsa;
 
 /**
  * Sparse Equation of data type Complex for solving the [A]X=B problem. 
@@ -33,4 +36,11 @@ import org.interpss.numeric.sparse.base.ISparseEqnObject;
  *
  */
 public interface ISparseEqnComplex extends ISparseEqnObject<Complex, Complex> {
+	/**
+	 * Solve the [A]X = B problem
+	 * 
+	 * @param b the b vector
+	 * @param n the dimension
+	 */
+	DZcsa solveEqn(DZcsa b, int n) throws IpssNumericException;	
 }
