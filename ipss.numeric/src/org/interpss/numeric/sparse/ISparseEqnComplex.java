@@ -40,7 +40,7 @@ public interface ISparseEqnComplex extends ISparseEqnObject<Complex, Complex> {
 	 * Solve the [A]X = B problem
 	 * 
 	 * @param b the b vector
-	 * @param n the dimension
+	 * @return the x vector
 	 */
-	DZcsa solveEqn(DZcsa b, int n) throws IpssNumericException;	
+	DZcsa solveEqn(DZcsa b) throws IpssNumericException;	
 }
