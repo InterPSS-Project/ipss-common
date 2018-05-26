@@ -76,8 +76,10 @@ public class DStab_IEEE39Bus_Test  {
 			dstabAlgo.setTotalSimuTimeSec(1);
 			dstabAlgo.setRefMachine(dsNet.getMachine("Bus31-mach1"));
 			double[] timePoints   = {0.0,    0.04,    0.3,    0.5},
-		      			 machPePoints = {0.83333, 0.83333,   0.83333,   0.83333},
-		      			 machAngPoints  = {-8.58308, -8.58308,  -8.58308,   -8.58308},
+		      			 //machPePoints = {0.8330, 0.83333,   0.83333,   0.83333},
+		      			 machPePoints = {0.83309, 0.83321, 0.83378, 0.83356 },
+		      			 //machAngPoints  = {-8.58308, -8.58308,  -8.58308,   -8.58308},
+		      			 machAngPoints  = {-8.58308, -8.58350, -8.57127, -8.56934},
 		      			 machEfdPoints  = {3.06708, 3.06708,   3.06708,   3.06708};
 			
 			StateVariableRecorder stateTestRecorder = new StateVariableRecorder(0.0001);
