@@ -102,14 +102,27 @@ public class DStab_IEEE9Bus_CoSimu {
 			for (double t =0; t<dstabAlgo.getTotalSimuTimeSec(); t+=dstabAlgo.getSimuStepSec()){
 				System.out.println("\nSimu Time: " + t);
 				
-				// 
+				/*
+				 * performance simulation of the MySimulator.
+				 */
 				mySimu.performSimulation(t);
 				
+				/*
+				 * update the DStabilityNetwork object based on the MySimulator simulation
+				 * results
+				 */
 				this.updateDStabilityNet(dsNet, mySimu);
 				
+				/*
+				 * performance simulation of the DStabilityNetwork
+				 */
 				System.out.println("Perform simulaiton of InterPSS");
 				dstabAlgo.solveDEqnStep(true);
 
+				/*
+				 * update the MySimulator object based on the InterPSS simulation
+				 * results
+				 */
 			    this.updateMySimu(mySimu, dsNet);
 			}
 		}
