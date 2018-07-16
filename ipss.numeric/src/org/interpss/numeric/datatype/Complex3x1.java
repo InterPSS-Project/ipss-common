@@ -271,4 +271,9 @@ public class Complex3x1 implements java.io.Serializable {
 	public Complex[] toArray() {
 		return new Complex[] { this.a_0, this.b_1, this.c_2};
 	}
+
+	public Complex dotProduct(Complex3x1 value) {
+		
+		return this.a_0.multiply(value.a_0).add( this.b_1.multiply(value.b_1)).add( this.c_2.multiply(value.c_2));
+	}
 }
