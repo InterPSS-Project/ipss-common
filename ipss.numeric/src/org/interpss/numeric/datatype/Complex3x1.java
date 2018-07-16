@@ -215,7 +215,7 @@ public class Complex3x1 implements java.io.Serializable {
 	}
 	
 	/**
-	 * multiply the object with a complex3x1 object
+	 * multiply the object with a complex3x1 object => [x.a*y.a, x.b*y.b, x.c*y.c, ]
 	 * 
 	 * @param y the complex3x1 value
 	 * @return
@@ -223,6 +223,17 @@ public class Complex3x1 implements java.io.Serializable {
 	*/
 	public Complex3x1 multiply(Complex3x1 y) {
 		return new Complex3x1(this.a_0.multiply(y.a_0),this.b_1.multiply(y.b_1),this.c_2.multiply(y.c_2));
+	}
+	
+	/**
+	 * multiply the object with a complex3x1 object => [x.a*y.a + x.b*y.b + x.c*y.c, ]
+	 * 
+	 * @param y the complex value
+	 * @return
+	 *
+	*/
+	public Complex dotProduct(Complex3x1 value) {
+		return this.a_0.multiply(value.a_0).add( this.b_1.multiply(value.b_1)).add( this.c_2.multiply(value.c_2));
 	}
 
 	/**
@@ -270,10 +281,5 @@ public class Complex3x1 implements java.io.Serializable {
 	
 	public Complex[] toArray() {
 		return new Complex[] { this.a_0, this.b_1, this.c_2};
-	}
-
-	public Complex dotProduct(Complex3x1 value) {
-		
-		return this.a_0.multiply(value.a_0).add( this.b_1.multiply(value.b_1)).add( this.c_2.multiply(value.c_2));
 	}
 }
