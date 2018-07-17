@@ -25,7 +25,7 @@ import com.interpss.dstab.algo.DynamicSimuMethod;
 import com.interpss.simu.SimuContext;
 import com.interpss.simu.SimuCtxType;
 
-public class DStab_IEEE9Bus_CoSimu {
+public class DStab_IEEE9Bus_Pause {
 	IPSSMsgHub msg = CoreCommonFactory.getIpssMsgHub();
 	@Test
 	public void test_IEEE9Bus_Dstab(){
@@ -37,9 +37,6 @@ public class DStab_IEEE9Bus_CoSimu {
 				"testData/psse/IEEE9Bus/ieee9_dyn_onlyGen.dyr"
 		}));
 		DStabModelParser parser =(DStabModelParser) adapter.getModel();
-		
-		//System.out.println(parser.toXmlDoc());
-
 		
 		SimuContext simuCtx = SimuObjectFactory.createSimuNetwork(SimuCtxType.DSTABILITY_NET);
 		if (!new ODMDStabParserMapper(msg)
@@ -64,63 +61,45 @@ public class DStab_IEEE9Bus_CoSimu {
 		
 		dstabAlgo.setSimuMethod(DynamicSimuMethod.MODIFIED_EULER);
 		dstabAlgo.setSimuStepSec(0.005);
-		dstabAlgo.setTotalSimuTimeSec(0.05);
+		dstabAlgo.setTotalSimuTimeSec(1.0);
 		dstabAlgo.setRefMachine(dsNet.getMachine("Bus1-mach1"));
 		
 		IpssLogger.getLogger().setLevel(Level.INFO);
 		
-		MySimulator mySimu = new MySimulator();
-		
-		mySimu.initialization();
+		double pauseT1 = 0.2,
+			   pauseT2 = 0.5;	
 		
 		if (dstabAlgo.initialization()) {
 
 			System.out.println("Running DStab simulation ...");
 			
-			for (double t =0; t<dstabAlgo.getTotalSimuTimeSec(); t+=dstabAlgo.getSimuStepSec()){
-				System.out.println("\nSimu Time: " + t);
-				
-				/*
-				 * performance simulation of the MySimulator.
-				 */
-				mySimu.performSimulation(t);
-				
-				/*
-				 * update the DStabilityNetwork object based on the MySimulator simulation
-				 * results
-				 */
-				this.updateDStabilityNet(dsNet, mySimu);
-				
-				/*
-				 * performance simulation of the DStabilityNetwork
-				 */
-				System.out.println("Perform simulaiton of InterPSS");
+			for (double t =0; t<pauseT1; t+=dstabAlgo.getSimuStepSec()){
 				dstabAlgo.solveDEqnStep(true);
-
-				/*
-				 * update the MySimulator object based on the InterPSS simulation
-				 * results
-				 */
-			    this.updateMySimu(mySimu, dsNet);
 			}
+			
+			/*
+			 * Pause and update the DStabilityNetwork object
+			 */
+			this.updateDStabilityNet(dsNet, dstabAlgo.getSimuTime());
+			
+			for (double t =pauseT1; t<pauseT2; t+=dstabAlgo.getSimuStepSec()){
+				dstabAlgo.solveDEqnStep(true);
+			}
+			
+			/*
+			 * Pause and update the DStabilityNetwork object
+			 */
+			this.updateDStabilityNet(dsNet, dstabAlgo.getSimuTime());
+			
+			for (double t =pauseT2; t<dstabAlgo.getTotalSimuTimeSec(); t+=dstabAlgo.getSimuStepSec()){
+				dstabAlgo.solveDEqnStep(true);
+			}
+
+			System.out.println("Completed DStab simulation, total simu time: " + dstabAlgo.getSimuTime());
 		}
 	}
 	
-	private void updateDStabilityNet(BaseDStabNetwork<?,?> dsNet, MySimulator mySimu) {
-		System.out.println("Update DStabilityNetwork object, if necessory");
-	}
-
-	private void updateMySimu(MySimulator mySimu, BaseDStabNetwork<?,?> dsNet) {
-		System.out.println("Update MySimulator object, if necessory");
-	}
-}
-
-class MySimulator {
-	public void initialization() {
-		System.out.println("Initialize MySimulator object");
-	}
-	
-	public void performSimulation(double t) {
-		System.out.println("Perform simulaiton of MySimulator");
+	private void updateDStabilityNet(BaseDStabNetwork<?,?> dsNet, double t) {
+		System.out.println("Update DStabilityNetwork object, if necessory, time:" + t);
 	}
 }
