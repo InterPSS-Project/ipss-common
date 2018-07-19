@@ -27,8 +27,9 @@ import com.interpss.simu.SimuCtxType;
 
 public class DStab_IEEE9Bus_Pause {
 	IPSSMsgHub msg = CoreCommonFactory.getIpssMsgHub();
+	
 	@Test
-	public void test_IEEE9Bus_Dstab(){
+	public void test_IEEE9Bus_Dstab() throws InterpssException {
 		IpssCorePlugin.init();
 		PSSEAdapter adapter = new PSSEAdapter(PsseVersion.PSSE_30);
 		assertTrue(adapter.parseInputFile(NetType.DStabNet, new String[]{
@@ -73,27 +74,21 @@ public class DStab_IEEE9Bus_Pause {
 
 			System.out.println("Running DStab simulation ...");
 			
-			for (double t =0; t<pauseT1; t+=dstabAlgo.getSimuStepSec()){
-				dstabAlgo.solveDEqnStep(true);
-			}
+			performSimuTo(dstabAlgo, pauseT1);
 			
 			/*
 			 * Pause and update the DStabilityNetwork object
 			 */
 			this.updateDStabilityNet(dsNet, dstabAlgo.getSimuTime());
 			
-			for (double t =pauseT1; t<pauseT2; t+=dstabAlgo.getSimuStepSec()){
-				dstabAlgo.solveDEqnStep(true);
-			}
+			performSimuTo(dstabAlgo, pauseT2);
 			
 			/*
 			 * Pause and update the DStabilityNetwork object
 			 */
 			this.updateDStabilityNet(dsNet, dstabAlgo.getSimuTime());
 			
-			for (double t =pauseT2; t<dstabAlgo.getTotalSimuTimeSec(); t+=dstabAlgo.getSimuStepSec()){
-				dstabAlgo.solveDEqnStep(true);
-			}
+			performSimuTo(dstabAlgo, dstabAlgo.getTotalSimuTimeSec());
 
 			System.out.println("Completed DStab simulation, total simu time: " + dstabAlgo.getSimuTime());
 		}
@@ -101,5 +96,16 @@ public class DStab_IEEE9Bus_Pause {
 	
 	private void updateDStabilityNet(BaseDStabNetwork<?,?> dsNet, double t) {
 		System.out.println("Update DStabilityNetwork object, if necessory, time:" + t);
+	}
+	
+	private void performSimuTo(DynamicSimuAlgorithm dstabAlgo, double toTime) throws InterpssException {
+		double time = dstabAlgo.getSimuTime();
+		if (toTime <= time )
+				throw new InterpssException("performSimuTo().toTime <= dstabAlgo.getSimuTime()");
+		if (toTime > dstabAlgo.getTotalSimuTimeSec())
+			throw new InterpssException("\"performSimuTo().toTime > dstabAlgo.getTotalSimuTimeSec()\"");
+		for (double t = time; t< toTime; t+=dstabAlgo.getSimuStepSec()){
+			dstabAlgo.solveDEqnStep(true);
+		}		
 	}
 }
