@@ -1,5 +1,7 @@
 package org.interpss.numeric.datatype;
 
+import org.interpss.numeric.util.Number2String;
+
 public class Triplet {
 	
 
@@ -28,5 +30,9 @@ public class Triplet {
 		return new double[]{this.v1,this.v2,this.v3};
 	}
 	
-
+	public String toString() {
+		return "(v1:" + Number2String.toStr(this.v1) + 
+				", v2:" + Number2String.toStr(this.v1) + 
+				", v3:" + Number2String.toStr(this.v1) + ")";
+	}
 }
