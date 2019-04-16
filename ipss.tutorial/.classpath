@@ -18,7 +18,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/ipss.lib.3rdPty/lib/sparse/csparsej-1.1.1.jar"/>
 	<classpathentry kind="lib" path="/ipss.lib.3rdPty/lib/swing/swing-layout-1.0.3.jar"/>
-	<classpathentry kind="lib" path="/ipss.lib.3rdPty/lib/cache/hazelcast-3.8.jar"/>
-	<classpathentry kind="lib" path="/ipss.lib.3rdPty/lib/cache/hazelcast-client-3.8.jar"/>
+	<classpathentry kind="lib" path="/ipss.lib.3rdPty/lib/cache/hazelcast-3.11.1.jar"/>
+	<classpathentry kind="lib" path="/ipss.lib.3rdPty/lib/cache/hazelcast-client-3.11.1.jar"/>
 	<classpathentry kind="output" path="runtime"/>
 </classpath>
