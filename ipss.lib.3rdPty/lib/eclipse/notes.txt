@@ -3,6 +3,8 @@ Note:
 1) The jar file containing the class, org.eclipse.emf.ecore.EObject has been signed. Google App Engine doesn't currently 
 support signed jar files. One simple way to work around this is to yank the manifest out of the jar. (META-INF/MANIFEST.MF) 
 
+2) make sure to get jar files from the plugin dir
+
 Update History
 
 10/26-2010 updated to EMF 2.6
@@ -20,3 +22,5 @@ Update History
 11/8/2017 updated to 2.13
 
 07/12/2017 updated to 2.14
+
+07/25/2019 updated to 2.18
