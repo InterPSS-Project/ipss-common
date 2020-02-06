@@ -8,16 +8,11 @@
 	<classpathentry kind="lib" path="/ipss.lib/lib/ieee/ieee.odm.schema.jar"/>
 	<classpathentry kind="lib" path="/ipss.lib/lib/ipss/ipss_core.jar"/>
 	<classpathentry kind="lib" path="/ipss.lib/lib/ipss/ipss_plugin.jar"/>
-	<classpathentry kind="lib" path="/ipss.lib.3rdPty/lib/eclipse/org.eclipse.emf.common.jar"/>
-	<classpathentry kind="lib" path="/ipss.lib.3rdPty/lib/eclipse/org.eclipse.emf.ecore.change.jar"/>
-	<classpathentry kind="lib" path="/ipss.lib.3rdPty/lib/eclipse/org.eclipse.emf.ecore.jar"/>
-	<classpathentry kind="lib" path="/ipss.lib.3rdPty/lib/eclipse/org.eclipse.emf.ecore.xmi.jar"/>
-	<classpathentry kind="lib" path="/ipss.lib.3rdPty/lib/eclipse/org.eclipse.emf.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/ipss.lib.3rdPty/lib/sparse/csparsej-1.1.1.jar"/>
 	<classpathentry kind="lib" path="/ipss.lib.3rdPty/lib/swing/swing-layout-1.0.3.jar"/>
-	<classpathentry kind="lib" path="/ipss.lib.3rdPty/lib/cache/hazelcast-3.11.1.jar"/>
-	<classpathentry kind="lib" path="/ipss.lib.3rdPty/lib/cache/hazelcast-client-3.11.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/EMF"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Hazelcast"/>
 	<classpathentry kind="output" path="runtime"/>
 </classpath>
