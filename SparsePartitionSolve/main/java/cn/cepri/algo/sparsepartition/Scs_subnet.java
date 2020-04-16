@@ -1,10 +1,10 @@
-package Double;
+package cn.cepri.algo.sparsepartition;
 
 
 import java.util.ArrayList;
 
-import Double.Scs_coordinate.UValue;
-import Double.Scs_coordinate.branch;
+import cn.cepri.algo.sparsepartition.Scs_coordinate.UValue;
+import cn.cepri.algo.sparsepartition.Scs_coordinate.branch;
 import edu.emory.mathcs.csparsej.tdouble.Dcs_common.Dcs;
 import edu.emory.mathcs.csparsej.tdouble.Dcs_common.Dcsn;
 import edu.emory.mathcs.csparsej.tdouble.Dcs_spsolve;
@@ -14,8 +14,8 @@ public class Scs_subnet {
 	// process the subnets 
 	
 	
-	ArrayList<branch> intbranch=new ArrayList<branch>();
-	ArrayList<branch> bordbranch=new ArrayList<branch>();
+	public ArrayList<branch> intbranch=new ArrayList<branch>();
+	public ArrayList<branch> bordbranch=new ArrayList<branch>();
 	
 	Dcs Yiidev;
 	Dcsn YiiLU;
@@ -32,7 +32,7 @@ public class Scs_subnet {
 	
 	ArrayList<UValue> Ui=new ArrayList<UValue>();
 	
-	Scs_subnet()
+	public Scs_subnet()
 	{
 	
 	}

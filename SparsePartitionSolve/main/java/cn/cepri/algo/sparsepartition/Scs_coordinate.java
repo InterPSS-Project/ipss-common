@@ -1,4 +1,4 @@
-package Double;
+package cn.cepri.algo.sparsepartition;
 
 import java.util.ArrayList;
 
@@ -9,13 +9,13 @@ public class Scs_coordinate {
 
 	
 	ArrayList<Scs_subnet> list_Yii=new ArrayList<Scs_subnet>();
-	ArrayList<branch> YTTBranch=new ArrayList<branch>();
+	public ArrayList<branch> YTTBranch=new ArrayList<branch>();
 	Dcs YTT;
 	ArrayList<UValue> UTT=new ArrayList<UValue>();
 	
 	ArrayList<UValue> UAll=new ArrayList<UValue>();
 	
-	Scs_coordinate()
+	public Scs_coordinate()
 	{
 		
 	}

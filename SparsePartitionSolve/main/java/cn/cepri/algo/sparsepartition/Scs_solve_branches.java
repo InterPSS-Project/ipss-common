@@ -1,4 +1,4 @@
-package Double;
+package cn.cepri.algo.sparsepartition;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
+import cn.cepri.algo.sparsepartition.Scs_coordinate.branch;
 import edu.emory.mathcs.csparsej.tdouble.Dcs_sqr;
 import edu.emory.mathcs.csparsej.tdouble.Dcs_usolve;
 import edu.emory.mathcs.csparsej.tdouble.Dcs_common.Dcs;
@@ -17,7 +18,6 @@ import edu.emory.mathcs.csparsej.tdouble.Dcs_ipvec;
 import edu.emory.mathcs.csparsej.tdouble.Dcs_lsolve;
 import edu.emory.mathcs.csparsej.tdouble.Dcs_lu;
 import edu.emory.mathcs.csparsej.tdouble.Dcs_util;
-import Double.Scs_coordinate.branch;
 
 public class Scs_solve_branches {
 	//solves Ax=b as a whole by loading the coordinate file and subnet files 

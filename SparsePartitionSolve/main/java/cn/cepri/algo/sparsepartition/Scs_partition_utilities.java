@@ -1,4 +1,4 @@
-package Double;
+package cn.cepri.algo.sparsepartition;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
-import Double.Scs_coordinate.branch;
+import cn.cepri.algo.sparsepartition.Scs_coordinate.branch;
 import edu.emory.mathcs.csparsej.tdouble.Dcs_common.Dcs;
 import edu.emory.mathcs.csparsej.tdouble.Dcs_entry;
 

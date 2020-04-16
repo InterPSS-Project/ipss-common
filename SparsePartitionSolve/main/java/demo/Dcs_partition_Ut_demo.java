@@ -1,7 +1,11 @@
-package Double;
+package demo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import cn.cepri.algo.sparsepartition.Scs_coordinate;
+import cn.cepri.algo.sparsepartition.Scs_partition_utilities;
+import cn.cepri.algo.sparsepartition.Scs_subnet;
 
 public class Dcs_partition_Ut_demo {
 	// gets UT

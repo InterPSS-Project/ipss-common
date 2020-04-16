@@ -1,4 +1,4 @@
-package Double;
+package cn.cepri.algo.sparsepartition;
 
 import java.util.HashMap;
 import java.util.Iterator;
