@@ -10,18 +10,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
-import cn.cepri.algo.sparsepartition.Dcs_compress;
-import cn.cepri.algo.sparsepartition.Dcs_entry;
-import cn.cepri.algo.sparsepartition.Dcs_ipvec;
-import cn.cepri.algo.sparsepartition.Dcs_lsolve;
-import cn.cepri.algo.sparsepartition.Dcs_lu;
-import cn.cepri.algo.sparsepartition.Dcs_sqr;
-import cn.cepri.algo.sparsepartition.Dcs_usolve;
-import cn.cepri.algo.sparsepartition.Dcs_util;
 import cn.cepri.algo.sparsepartition.Dcs_common.Dcs;
 import cn.cepri.algo.sparsepartition.Dcs_common.Dcsn;
 import cn.cepri.algo.sparsepartition.Dcs_common.Dcss;
-import cn.cepri.algo.sparsepartition.Scs_coordinate.branch;
+import cn.cepri.algo.sparsepartition.Scs_partition_utilities.branch;
 
 public class Scs_solve_branches {
 	// For verification only
@@ -85,7 +77,7 @@ public class Scs_solve_branches {
         Ai = A.i;
         Ax = A.x;
         for (j = 0; j < n; j++) {
-            for (p = Ap[j]; p < Ap[j + 1]; p++) {
+            for (p = Ap[j]; p < Ap[j]; p++) {
                 y[Ai[p]] += Ax[p] * x[j];
             }
         }
@@ -113,7 +105,7 @@ public class Scs_solve_branches {
 
 	}
 
-	public static int allocate_entries(ArrayList<Scs_coordinate.branch> A,HashMap<Integer,Integer>H,int r,Integer rnd )
+	public static int allocate_entries(ArrayList<Scs_partition_utilities.branch> A,HashMap<Integer,Integer>H,int r,Integer rnd )
 	{
 		for(int i =0; i<A.size(); i++) {
 			int new_i=0;
@@ -196,7 +188,7 @@ public class Scs_solve_branches {
         return;
     }
     
-			public static void old_tnew_index(ArrayList<Scs_coordinate.branch> L, HashMap<Integer,Integer> otn,Integer rnd){
+			public static void old_tnew_index(ArrayList<Scs_partition_utilities.branch> L, HashMap<Integer,Integer> otn,Integer rnd){
 				//L:arraylist contains all branches from the old list; otn:  list of hashmap for recording old to new index; rnd: reference node
 				//find all the different nodes in the net and then re-arranging them, put the old and new nodes in a new structure
 				ArrayList<Integer> old_ind = new ArrayList<Integer>(); //temporary list for temporary containers
@@ -246,8 +238,8 @@ public class Scs_solve_branches {
 			return rowsum;
 				
 			}
-			public static int load (String fileName,ArrayList<Scs_coordinate.branch> intList,
-					ArrayList<Scs_coordinate.branch> bordList,HashMap<Integer, Double> injMap,
+			public static int load (String fileName,ArrayList<Scs_partition_utilities.branch> intList,
+					ArrayList<Scs_partition_utilities.branch> bordList,HashMap<Integer, Double> injMap,
 					int snd)
 			
 			{
@@ -272,7 +264,7 @@ public class Scs_solve_branches {
 			    //    T = Scs_util.cs_spalloc(0, 0, 1, true, true); /* allocate result */
 			        String line;
 			        int fieldnum=3;
-			        ArrayList<Scs_coordinate.branch> alist=null;
+			        ArrayList<Scs_partition_utilities.branch> alist=null;
 			        HashMap<Integer,Double> amap=null;
 			        
 			        try {
@@ -312,7 +304,7 @@ public class Scs_solve_branches {
 				                x = Double.parseDouble(tokens[2]);
 				              //  if (!Scs_entry.cs_entry(T, i, j, x))
 				              //      return (null);
-				                branch ab=new branch();
+				                branch ab=new Scs_partition_utilities().new branch();
 				                ab.fnd=i;
 				                ab.tnd=j;
 				                ab.x=x;
@@ -342,8 +334,8 @@ public class Scs_solve_branches {
 	 public static void main(String[] args) {		
 		 
 		 		int s=-1; //initialize the reference node
-				ArrayList<Scs_coordinate.branch> intlist=new ArrayList<Scs_coordinate.branch>(); 
-				ArrayList<Scs_coordinate.branch> bordlist=new ArrayList<Scs_coordinate.branch>();
+				ArrayList<Scs_partition_utilities.branch> intlist=new ArrayList<Scs_partition_utilities.branch>(); 
+				ArrayList<Scs_partition_utilities.branch> bordlist=new ArrayList<Scs_partition_utilities.branch>();
 				HashMap<Integer, Double> inj=new HashMap<Integer, Double>(); // for rhs 
 				
 				for (int i=0; i<args.length; i++) {
@@ -351,7 +343,7 @@ public class Scs_solve_branches {
 					 s=load(args[i],intlist,bordlist,inj,s);
 				 }
 				
-				ArrayList<Scs_coordinate.branch>alllist;// = new ArrayList<Scs_coordinate.branch>();
+				ArrayList<Scs_partition_utilities.branch>alllist;// = new ArrayList<Scs_coordinate.branch>();
 				intlist.addAll(bordlist);
 				alllist = intlist;
 				HashMap<Integer, Integer>otnmap = new HashMap<Integer, Integer>();

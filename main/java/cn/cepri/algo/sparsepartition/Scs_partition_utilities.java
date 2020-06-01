@@ -37,7 +37,7 @@ public class Scs_partition_utilities {
 //	}
 	public  ArrayList<HashMap<Integer, Double>> mat=new ArrayList<HashMap<Integer, Double>>(); //temporary container for i.j.x of an element in the matrix
 
-	public static class branch
+	public class branch
 	{
 		int fnd; //row
 		int tnd; //column
@@ -45,6 +45,23 @@ public class Scs_partition_utilities {
 	}
 
 //	
+  public  double[] cs_gaxpy(Dcs A, double[] x, double[] y) {
+  int p, j, n, Ap[], Ai[];
+  double Ax[];
+  if (!Dcs_util.CS_CSC(A) || x == null || y == null)
+      return (null); /* check inputs */
+  n = A.n;
+  Ap = A.p;
+  Ai = A.i;
+  Ax = A.x;
+  for (j = 0; j < n; j++) {
+      for (p = Ap[j]; p < Ap[j + 1]; p++) {
+          y[Ai[p]] += Ax[p] * x[j];
+      }
+  }
+  return (y);
+}
+//
 	public int putElement(int i, int j, double x, int rowsum)
 	//i == row indices
 	{
@@ -108,7 +125,7 @@ public class Scs_partition_utilities {
 	}
 	
 	
-	public static void old_tnew_index(ArrayList<Scs_partition_utilities.branch> L, HashMap<Integer,Integer> otn,Integer rnd){
+	public void old_tnew_index(ArrayList<Scs_partition_utilities.branch> L, HashMap<Integer,Integer> otn,Integer rnd){
 		//L:arraylist contains all branches from the old list; otn:  
 		//list of hashmap for recording old to new index; rnd: reference node
 		//find all the different nodes in the net and then re-arranging them,
@@ -134,7 +151,7 @@ public class Scs_partition_utilities {
 	}
 	
 	//print any Dcs matrix
-	public static void printMatrix(String remark,Dcs A)
+	public void printMatrix(String remark,Dcs A)
 	{
 		int m,n,Ai[],Ap[];
 		double Ax[];
@@ -164,12 +181,12 @@ public class Scs_partition_utilities {
 		}
 	}
 	
-	public static void dcs_to_hashmat(ArrayList<HashMap<Integer,Double>>Amat,Dcs T) {
+	public void dcs_to_hashmat(ArrayList<HashMap<Integer,Double>>Amat,Dcs T) {
 		//convert a triplet formed matrix into a hash_mat
 		
 	}
 	
-	public static void hash_mat_to_dcs(ArrayList<HashMap<Integer,Double>>Amat, Dcs T) {
+	public void hash_mat_to_dcs(ArrayList<HashMap<Integer,Double>>Amat, Dcs T) {
 		// Convert a hash_mat to a triplet formed matrix
 		//collect all keys/ column numbers in Amat 
 		// T is in triplet form
@@ -191,7 +208,7 @@ public class Scs_partition_utilities {
 
 	}
 	//returns the lower/upper tirangular decomp. of any sparse mat. 
-	public static Dcsn ludev(Dcs A,int intSize) {//intSize is inner size
+	public  Dcsn ludev(Dcs A,int intSize) {//intSize is inner size
 			int tol=0;
 	        Dcs L, U;
 	        Dcsn N;
@@ -291,7 +308,7 @@ public class Scs_partition_utilities {
 	    }
 		
 	
-	public static int load (String fileName,ArrayList<branch> intList,
+	public  int load (String fileName,ArrayList<branch> intList,
 			ArrayList<branch> bordList,HashMap<Integer, Double> injMap,
 			int snd)
 	

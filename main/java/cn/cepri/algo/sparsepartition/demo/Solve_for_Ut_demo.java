@@ -3,10 +3,10 @@ package cn.cepri.algo.sparsepartition.demo;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import cn.cepri.algo.sparsepartition.Scs_coordinate;
+import cn.cepri.algo.sparsepartition.Scs_coordinate.Scs_coord;
+import cn.cepri.algo.sparsepartition.Scs_coordinate.UValue;
 import cn.cepri.algo.sparsepartition.Scs_partition_utilities;
 import cn.cepri.algo.sparsepartition.Scs_subnet;
-import cn.cepri.algo.sparsepartition.Scs_coordinate.UValue;
 public class Solve_for_Ut_demo {
 	//solves Ut, the coordinate 
 	 public static void main(String[] args) {	
@@ -20,7 +20,7 @@ public class Solve_for_Ut_demo {
 		 if(i==0)
 		 {
 			 // note that the first file is going to be a YTT system;
-			 Scs_coordinate scsMain=new Scs_coordinate();
+			 Scs_coordinate scsMain=new Scs_coordinate().new Scs_coordinate();
 			 intBrlist=scsMain.YTTBranch;
 			 bordBrlist=null; 
 		 }
@@ -33,8 +33,8 @@ public class Solve_for_Ut_demo {
 		 	}
 		 Scs_partition_utilities.load(args[i],intBrlist,bordBrlist,s,inj);
 	 	}   
-	 scsMain.solve();
-	 ArrayList<UValue> resultU=scsMain.getResult(); //get UT
+	 	csMain.solve();
+	 	ArrayList<UValue> resultU=scsMain.getResult(); //get UT
 
 	 }
 }
