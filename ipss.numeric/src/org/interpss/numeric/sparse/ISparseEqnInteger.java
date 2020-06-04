@@ -61,6 +61,17 @@ public interface ISparseEqnInteger extends ISparseEquation {
 	* @param j the element column number (starts from 0)
    */
 	void setAij( final int n, final int i, final int j );
+	
+
+		
+	/**
+	* Get the aij element.
+	* 
+	* @param i the element row number 
+	* @param j the element column number 
+	*/
+	int getAijElement(final int i, final int j );
+
 }
 
 

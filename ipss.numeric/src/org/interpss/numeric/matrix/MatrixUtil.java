@@ -895,5 +895,13 @@ public class MatrixUtil {
     			 buffer.append(i + "," + j + ": (" + ComplexFunc.toStr(m[i][j]) + ")\n");
     	 return buffer.toString();
      }
+     
+     public static String toString(int[][] m) {
+    	 StringBuffer buffer = new StringBuffer("\n\n");
+    	 for (int i = 0; i < m.length; i++)
+    		 for (int j = 0; j < m[0].length; j++)
+    			 buffer.append(i + "," + j + ": (" + m[i][j] + ")\n");
+    	 return buffer.toString();
+     }
 
 }
