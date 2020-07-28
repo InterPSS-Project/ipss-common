@@ -11,7 +11,7 @@ public class JavaOOTest {
 
         System.out.println("a = " + a);
         System.out.println("b = " + b);
-        System.out.println("-a + b*b + b/a = " + c2);
+        System.out.println("expression: -a + b*b + b/a = " + c2);
 
         if (c1.compareTo(c2)<0 || c1.compareTo(c2)>0) // without OO
             System.out.println("impossible");
@@ -23,5 +23,7 @@ public class JavaOOTest {
             map.put("qwe", map.get("asd")); // without OO
         if (map["qwe"]==null)
             map["qwe"] = map["asd"]; // with OO
+
+
     }
 }
