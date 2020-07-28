@@ -17,6 +17,6 @@
       </library>
     </orderEntry>
     <orderEntry type="inheritedJdk" />
-    <orderEntry type="library" name="javac8-oo-plugin-0.5" level="project" />
+    <orderEntry type="library" name="javac8-oo-plugin-0.51" level="project" />
   </component>
 </module>
