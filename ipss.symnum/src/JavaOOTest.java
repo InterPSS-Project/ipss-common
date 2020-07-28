@@ -1,5 +1,8 @@
+import org.apache.commons.math3.complex.Complex;
+
 import java.math.*;
 import java.util.*;
+import org.apache.commons.math3.complex.*;
 
 public class JavaOOTest {
     public static void main(String[] args) {
@@ -24,6 +27,20 @@ public class JavaOOTest {
         if (map["qwe"]==null)
             map["qwe"] = map["asd"]; // with OO
 
+        Complex x = new Complex(1.0, 1.0);
+        Complex y = new Complex(2.0, 2.0);
+
+        Complex z = x + y;
+        System.out.println("x+y: " + z.getReal() + " + j" + z.getImaginary());
+
+        z = x - y;
+        System.out.println("x-y: " + z.getReal() + " + j" + z.getImaginary());
+
+        z = x * y;
+        System.out.println("x*y: " + z.getReal() + " + j" + z.getImaginary());
+
+        z = x / y;
+        System.out.println("x/y: " + z.getReal() + " + j" + z.getImaginary());
 
     }
 }
