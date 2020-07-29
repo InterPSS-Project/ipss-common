@@ -5,6 +5,9 @@ import java.util.*;
 import org.apache.commons.math3.complex.*;
 
 public class JavaOOTest {
+    private static String Key1 = "qwe",
+                    Key2 = "asd";
+
     public static void main(String[] args) {
         BigInteger a = BigInteger.valueOf(1), // without OO
                 b = 2, // with OO
@@ -22,10 +25,10 @@ public class JavaOOTest {
             System.out.println("impossible");
 
         HashMap<String, String> map = new HashMap<>();
-        if (!map.containsKey("qwe"))
-            map.put("qwe", map.get("asd")); // without OO
-        if (map["qwe"]==null)
-            map["qwe"] = map["asd"]; // with OO
+        if (!map.containsKey(Key1))
+            map.put(Key1, map.get(Key2)); // without OO
+        if (map[Key1]==null)
+            map[Key1] = map[Key2]; // with OO
 
         Complex x = new Complex(1.0, 1.0);
         Complex y = new Complex(2.0, 2.0);
