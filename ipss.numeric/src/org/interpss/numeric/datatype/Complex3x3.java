@@ -42,9 +42,9 @@ public class Complex3x3 {
 	
 	public Complex3x3(Complex selfZorY, Complex mutualZorY){
 		this.aa = selfZorY; bb = selfZorY; cc = selfZorY;
-		ab= mutualZorY; ac= mutualZorY;
-		ba= mutualZorY; bc= mutualZorY;
-		ca= mutualZorY; cb= mutualZorY;
+		this.ab= mutualZorY; ac= mutualZorY;
+		this.ba= mutualZorY; bc= mutualZorY;
+		this.ca= mutualZorY; cb= mutualZorY;
 	}
 	
 	/**
@@ -55,11 +55,9 @@ public class Complex3x3 {
 	 * @param zero - diagonal element cc
 	 */
 	public Complex3x3(Complex pos,Complex neg, Complex zero){
-		
-		aa = pos;
-		bb = neg;
-		cc = zero;
-
+		this.aa = pos;
+		this.bb = neg;
+		this.cc = zero;
 	}
 	
 	public Complex3x3(Complex[][] cplxAry3x3) {
@@ -80,9 +78,29 @@ public class Complex3x3 {
 		this.cc = cplxAry3x3[2][2];
 	}
 	
-
+	/*
+		Operator methods
+     */	
 	
-	public  Complex3x3 add(final Complex3x3 m3x3){
+	public static Complex3x1 valueOf(Complex3x1 c) {
+		return new Complex3x1(c);
+	}
+	
+    public  Complex3x3 negate() {
+    	return new Complex3x3(
+    			new Complex[][] {
+    				{ this.aa.negate(), this.ab.negate(), this.ac.negate() }, 
+    				{ this.ba.negate(), this.bb.negate(), this.bc.negate() }, 
+					{ this.ca.negate(), this.cb.negate(), this.cc.negate() }
+    			}
+    		);
+    }
+	
+	/*
+		Math methods
+	 */	
+	
+    public  Complex3x3 add(final Complex3x3 m3x3){
 		
 		 Complex3x3 cplxM3x3 = new  Complex3x3();
 		 cplxM3x3.aa = this.aa.add(m3x3.aa);
@@ -100,11 +118,10 @@ public class Complex3x3 {
 		 cplxM3x3.cc = this.cc.add(m3x3.cc);
 				 
 		return cplxM3x3;
-		
 	}
-	
-    public  Complex3x3 subtract(final Complex3x3 m3x3){
-    	
+
+	public  Complex3x3 subtract(final Complex3x3 m3x3){
+		
 		 Complex3x3 cplxM3x3 = new  Complex3x3();
 		 cplxM3x3.aa = this.aa.subtract(m3x3.aa);
 		 cplxM3x3.ab = this.ab.subtract(m3x3.ab);
@@ -120,10 +137,9 @@ public class Complex3x3 {
 		 cplxM3x3.cb = this.cb.subtract(m3x3.cb);
 		 cplxM3x3.cc = this.cc.subtract(m3x3.cc);
 		return cplxM3x3;
-		
 	}
-    
-    public  Complex3x3 multiply(final Complex3x3 m3x3){
+
+	public  Complex3x3 multiply(final Complex3x3 m3x3){
     	
     	 Complex3x3 cplxM3x3 = new  Complex3x3();
     	 cplxM3x3.aa = this.aa.multiply(m3x3.aa).add(this.ab.multiply(m3x3.ba)).add(this.ac.multiply(m3x3.ca));
@@ -218,10 +234,15 @@ public class Complex3x3 {
     }
     
     public double abs(){
-    	return (this.aa.abs()+this.ba.abs()+this.ca.abs()+this.ab.abs()+this.bb.abs()+this.cb.abs()+this.ac.abs()+this.bc.abs()+this.cc.abs());
+    	return (this.aa.abs()+this.ba.abs()+this.ca.abs() + 
+    			this.ab.abs()+this.bb.abs()+this.cb.abs() +
+    			this.ac.abs()+this.bc.abs()+this.cc.abs());
     }
     public double absMax(){
-    	Double[] array = new Double[]{this.aa.abs(),this.ba.abs(),this.ca.abs(),this.ab.abs(),this.bb.abs(),this.cb.abs(),this.ac.abs(),this.bc.abs(),this.cc.abs()};
+    	Double[] array = new Double[]{
+    			this.aa.abs(),this.ba.abs(),this.ca.abs(),
+    			this.ab.abs(),this.bb.abs(),this.cb.abs(),
+    			this.ac.abs(),this.bc.abs(),this.cc.abs()};
     	return Collections.max(Arrays.asList(array));
     	
     }
@@ -294,16 +315,5 @@ public class Complex3x3 {
     	s += "cc = "+this.cc.toString()+"\n";
     	
     	return s;
-    	
-    			
     }
-
-	
-    
-   
-    
-    
-    
-    
-
 }

@@ -68,12 +68,39 @@ public class Vector_xy extends Point implements java.io.Serializable {
 	public Vector_xy(final Complex c) {
 		super(c.getReal(), c.getImaginary());
 	}
+	
+    /*
+    	Operator methods
+     */
+
+	public static Vector_xy valueOf(Vector_xy v) {
+		return new Vector_xy(v.x, v.y);
+	}
+
+	// immutable
+	public Vector_xy negate() {
+		return new Vector_xy(-this.x, this.y);
+	}
+
+	/*
+    	Math methods
+	 */
+	// immutable
+	public Vector_xy add(Vector_xy v) {
+		return new Vector_xy(this.x+v.x, this.y+v.y);
+	}
+
+	// immutable
+	public Vector_xy subtract(Vector_xy v) {
+		return new Vector_xy(this.x-v.x, this.y-v.y);
+	}
 
 	/**
 	 * Return the magnitude of the vector
 	 * 
 	 * @return the magnitude
 	 */
+	// immutable
 	public double abs() {
 		return Math.sqrt(this.x * this.x + this.y * this.y);
 	}

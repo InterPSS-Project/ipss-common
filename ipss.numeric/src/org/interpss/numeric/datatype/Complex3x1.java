@@ -110,6 +110,139 @@ public class Complex3x1 implements java.io.Serializable {
 		return new Complex3x1(z, p, n);
 	}
 	
+    /*
+		Operator methods
+     */
+
+	public static Complex3x1 valueOf(Complex3x1 c) {
+		return new Complex3x1(c);
+	}
+
+	// immutable
+	public Complex3x1 negate() {
+		return clone();
+	}	
+	
+	// immutable
+	public Complex3x1 clone(){
+		return new Complex3x1(this.a_0,this.b_1,this.c_2);
+	}
+	
+	/**
+	 * convert the complex object to its conjugate
+	 * 
+	 * @return the converted object (a new Complex3x1 object)
+	 */
+	// immutable
+	public Complex3x1 conjugate(){
+		return new Complex3x1(this.a_0.conjugate(),this.b_1.conjugate(),this.c_2.conjugate());
+	}
+	
+	// immutable
+	public Complex[] toArray() {
+		return new Complex[] { this.a_0, this.b_1, this.c_2};
+	}	
+	
+	/*
+		Math methods
+	 */	
+	
+	/**
+	 * add this object with a Complex3x1 x+y = [ x.a_0+y.a_0, x.b_1+y.b_1, x.c_2+y.c_2 ] 
+	 * 
+	 * @param y the add value
+	 * @return the resulting object (a new Complex3x1 object)
+	 */
+	// immutable
+	public Complex3x1 add(Complex3x1 y) {
+		return new Complex3x1(this.a_0.add(y.a_0),this.b_1.add(y.b_1),this.c_2.add(y.c_2));
+	}
+
+	/**
+	 * subtract this object with a Complex3x1 x - y = [ x.a_0-y.a_0, x.b_1-y.b_1, x.c_2-y.c_2 ] 
+	 * 
+	 * @param y the subtract value
+	 * @return the resulting object (a new Complex3x1 object)
+	 */
+	// immutable
+	public Complex3x1 subtract(Complex3x1 y) {
+		return new Complex3x1(this.a_0.subtract(y.a_0),this.b_1.subtract(y.b_1),this.c_2.subtract(y.c_2));
+	}
+
+	/**
+	 * multiply the object with a double value 
+	 * 
+	 * @param d the double value
+	 * @return
+	 */
+	// immutable
+	public Complex3x1 multiply(double d) {
+		return new Complex3x1(this.a_0.multiply(d),this.b_1.multiply(d),this.c_2.multiply(d));
+	}
+
+	/**
+	 * multiply the object with a complex3x1 object => [x.a*y.a, x.b*y.b, x.c*y.c, ]
+	 * 
+	 * @param y the complex3x1 value
+	 * @return
+	 *
+	*/
+	// immutable
+	public Complex3x1 multiply(Complex3x1 y) {
+		return new Complex3x1(this.a_0.multiply(y.a_0),this.b_1.multiply(y.b_1),this.c_2.multiply(y.c_2));
+	}
+
+	/**
+	 * multiply the object with a complex3x1 object => [x.a*y.a + x.b*y.b + x.c*y.c, ]
+	 * 
+	 * @param y the complex value
+	 * @return
+	 *
+	*/
+	// immutable
+	public Complex dotProduct(Complex3x1 value) {
+		return this.a_0.multiply(value.a_0).add( this.b_1.multiply(value.b_1)).add( this.c_2.multiply(value.c_2));
+	}
+
+	/**
+	 * devide this object with a Complex3x1 x/y = [ x.a_0/y.a_0, x.b_1/y.b_1, x.c_2/y.c_2 ] 
+	 * 
+	 * @param y the devider
+	 * @return the resulting object (a new Complex3x1 object)
+	 */
+	// immutable
+	public Complex3x1 divide(Complex3x1 y) {
+		return new Complex3x1(this.a_0.divide(y.a_0),this.b_1.divide(y.b_1),this.c_2.divide(y.c_2));
+	}
+	
+	/**
+	 * get the absolute value of this object
+	 * 
+	 * @return the absolute value
+	 */
+	// immutable
+	public double abs(){
+		return this.a_0.abs()+this.b_1.abs()+this.c_2.abs();
+	}
+
+	/**
+	 * get max[abs(a_0), abs(b_1), abs(c_2)]
+	 * 
+	 * @return the max value
+	 */
+	// immutable
+	public double absMax(){
+		double max =this.a_0.abs();
+		if(this.b_1.abs()>max) max = this.b_1.abs();
+		if(this.c_2.abs()>max) max = this.c_2.abs();
+		
+		return max;
+	}
+
+	/*
+	 * 
+	 */
+	
 	/**
 	 * convert this object from abc to 012
 	 * 
@@ -169,28 +302,6 @@ public class Complex3x1 implements java.io.Serializable {
 				NumericConstant.a2.multiply(z12.c_2));
 		return new Complex3x1(a, b, c);
 	}
-	
-	/**
-	 * get the absolute value of this object
-	 * 
-	 * @return the absolute value
-	 */
-	public double abs(){
-		return this.a_0.abs()+this.b_1.abs()+this.c_2.abs();
-	}
-	
-	/**
-	 * get max[abs(a_0), abs(b_1), abs(c_2)]
-	 * 
-	 * @return the max value
-	 */
-	public double absMax(){
-		double max =this.a_0.abs();
-		if(this.b_1.abs()>max) max = this.b_1.abs();
-		if(this.c_2.abs()>max) max = this.c_2.abs();
-		
-		return max;
-	}
 
 	/**
 	 * Convert the obj to a string.
@@ -202,84 +313,5 @@ public class Complex3x1 implements java.io.Serializable {
 		return Number2String.toStr(a_0) + "  "
 				+ Number2String.toStr(b_1) + "  "
 				+ Number2String.toStr(c_2);
-	}
-
-	/**
-	 * multiply the object with a double value 
-	 * 
-	 * @param d the double value
-	 * @return
-	 */
-	public Complex3x1 multiply(double d) {
-		return new Complex3x1(this.a_0.multiply(d),this.b_1.multiply(d),this.c_2.multiply(d));
-	}
-	
-	/**
-	 * multiply the object with a complex3x1 object => [x.a*y.a, x.b*y.b, x.c*y.c, ]
-	 * 
-	 * @param y the complex3x1 value
-	 * @return
-	 *
-	*/
-	public Complex3x1 multiply(Complex3x1 y) {
-		return new Complex3x1(this.a_0.multiply(y.a_0),this.b_1.multiply(y.b_1),this.c_2.multiply(y.c_2));
-	}
-	
-	/**
-	 * multiply the object with a complex3x1 object => [x.a*y.a + x.b*y.b + x.c*y.c, ]
-	 * 
-	 * @param y the complex value
-	 * @return
-	 *
-	*/
-	public Complex dotProduct(Complex3x1 value) {
-		return this.a_0.multiply(value.a_0).add( this.b_1.multiply(value.b_1)).add( this.c_2.multiply(value.c_2));
-	}
-
-	/**
-	 * add this object with a Complex3x1 x+y = [ x.a_0+y.a_0, x.b_1+y.b_1, x.c_2+y.c_2 ] 
-	 * 
-	 * @param y the add value
-	 * @return the resulting object (a new Complex3x1 object)
-	 */
-	public Complex3x1 add(Complex3x1 y) {
-		return new Complex3x1(this.a_0.add(y.a_0),this.b_1.add(y.b_1),this.c_2.add(y.c_2));
-	}
-	
-	/**
-	 * subtract this object with a Complex3x1 x - y = [ x.a_0-y.a_0, x.b_1-y.b_1, x.c_2-y.c_2 ] 
-	 * 
-	 * @param y the subtract value
-	 * @return the resulting object (a new Complex3x1 object)
-	 */
-	public Complex3x1 subtract(Complex3x1 y) {
-		return new Complex3x1(this.a_0.subtract(y.a_0),this.b_1.subtract(y.b_1),this.c_2.subtract(y.c_2));
-	}
-	
-	/**
-	 * devide this object with a Complex3x1 x/y = [ x.a_0/y.a_0, x.b_1/y.b_1, x.c_2/y.c_2 ] 
-	 * 
-	 * @param y the devider
-	 * @return the resulting object (a new Complex3x1 object)
-	 */
-	public Complex3x1 divide(Complex3x1 y) {
-		return new Complex3x1(this.a_0.divide(y.a_0),this.b_1.divide(y.b_1),this.c_2.divide(y.c_2));
-	}
-	
-	/**
-	 * convert the complex object to its conjugate
-	 * 
-	 * @return the converted object (a new Complex3x1 object)
-	 */
-	public Complex3x1 conjugate(){
-		return new Complex3x1(this.a_0.conjugate(),this.b_1.conjugate(),this.c_2.conjugate());
-	}
-	
-	public Complex3x1 clone(){
-		return new Complex3x1(this.a_0,this.b_1,this.c_2);
-	}
-	
-	public Complex[] toArray() {
-		return new Complex[] { this.a_0, this.b_1, this.c_2};
 	}
 }
