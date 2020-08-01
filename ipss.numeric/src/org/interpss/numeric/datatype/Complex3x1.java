@@ -115,12 +115,12 @@ public class Complex3x1 implements java.io.Serializable {
      */
 
 	public static Complex3x1 valueOf(Complex3x1 c) {
-		return new Complex3x1(c);
+		return new Complex3x1(c.a_0, c.b_1, c.c_2);
 	}
 
 	// immutable
 	public Complex3x1 negate() {
-		return clone();
+		return new Complex3x1(this.a_0.negate(), this.b_1.negate(), this.c_2.negate());
 	}	
 	
 	// immutable
