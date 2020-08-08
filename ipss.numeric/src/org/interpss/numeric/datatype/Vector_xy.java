@@ -104,6 +104,16 @@ public class Vector_xy extends Point implements java.io.Serializable {
 	public double abs() {
 		return Math.sqrt(this.x * this.x + this.y * this.y);
 	}
+	
+	/**
+	 * Return the angle of the vector in Rad
+	 * 
+	 * @return the angle
+	 */
+	// immutable
+	public double arg() {
+		return ComplexFunc.arg(new Complex(this.x, this.y));
+	}
 
 	/**
 	 * Convert the obj to a string.
