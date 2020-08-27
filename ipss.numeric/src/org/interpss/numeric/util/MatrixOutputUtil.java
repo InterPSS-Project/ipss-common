@@ -40,9 +40,8 @@ public class MatrixOutputUtil {
 			out.close();
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new RuntimeException(e.toString());
 		}
-		return false;
 	}
 	
  public static  boolean matrixToMatlabMFile(String mFileName,ISparseEqnDouble sparseMatrix){
@@ -66,9 +65,7 @@ public class MatrixOutputUtil {
 			out.close();
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new RuntimeException(e.toString());
 		}
-		return false;
 	}
-
 }
