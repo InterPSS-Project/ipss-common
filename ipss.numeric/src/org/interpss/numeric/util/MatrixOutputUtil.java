@@ -9,6 +9,27 @@ import org.interpss.numeric.sparse.ISparseEqnDouble;
 
 public class MatrixOutputUtil {
 	
+ public static String matrixToString(ISparseEqnComplex sparseMatrix){
+		StringBuffer sb = new StringBuffer();
+		int dim=sparseMatrix.getDimension();
+		sb.append(" j = sqrt(-1);\n");
+		sb.append(" matrix = sparse("+dim+");\n");
+		//NOTE: matlab is 1-based index, i.e., index starting from 1.
+		//while sparse matrix used in InterPSS are all 0-based index, 
+		//thus the indices need to add one during output.
+		for(int i=0;i<dim;i++){
+			for(int j=0;j<dim;j++){
+				if(sparseMatrix.getA(i, j)!=null && sparseMatrix.getA(i, j).abs()>0)
+				   sb.append("matrix("+Number2String.toFixLengthStr("#####0", i+1)+","+
+						   Number2String.toFixLengthStr("#####0", j+1)+")  = "
+						   +Number2String.toFixLengthStr(sparseMatrix.getA(i, j).getReal(),"#######.0000")
+						   +" + j*("+Number2String.toFixLengthStr(sparseMatrix.getA(i, j).getImaginary(),"#######.0000")+");\n");
+			}
+		}
+		return sb.toString();
+
+	}
+
  public static boolean matrixToMatlabMFile(String mFileName,ISparseEqnComplex sparseMatrix){
 		StringBuffer sb = new StringBuffer();
 		int dim=sparseMatrix.getDimension();

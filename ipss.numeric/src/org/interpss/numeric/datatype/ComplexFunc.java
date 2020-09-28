@@ -208,8 +208,10 @@ public class ComplexFunc {
 			}
 		} else {
 			double ang = Math.atan(c.getImaginary() / c.getReal());
-			if (c.getReal() < 0.0)
+			if (c.getReal() < 0.0 && c.getImaginary()>0.0)
 				ang += Math.PI;
+			else if (c.getReal() < 0.0 && c.getImaginary()<0.0)
+				ang -= Math.PI;
 			return ang;
 		}
 	}

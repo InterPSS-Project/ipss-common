@@ -67,6 +67,19 @@ public class Complex3x1 implements java.io.Serializable {
 		b_1 = b1;
 		c_2 = c2;
 	}
+	
+	/**
+	 * Constructor. this obj = [a0, b1, c2]
+	 *
+	 * @param a0 a complex number 
+	 * @param b1 a complex number 
+	 * @param c2 a complex number 
+	 */
+	public Complex3x1(final double a0, final double b1, final double c2) {
+		a_0 = new Complex(a0,0);
+		b_1 = new Complex(b1,0);
+		c_2 = new Complex(c2,0);
+	}
 
 	/**
 	 * Constructor. this obj = [a0, b1, c2]
@@ -179,9 +192,20 @@ public class Complex3x1 implements java.io.Serializable {
 	public Complex3x1 multiply(double d) {
 		return new Complex3x1(this.a_0.multiply(d),this.b_1.multiply(d),this.c_2.multiply(d));
 	}
+	
+	/**
+	 * multiply the object with three double values, as follows 
+	 * this.a_0.multiply(d0), this.b_1.multiply(d1), this.c_2.multiply(d2)
+	 * 
+	 * @param d the double value
+	 * @return
+	 */
+	public Complex3x1 multiply(double d0, double d1,double d2) {
+		return new Complex3x1(this.a_0.multiply(d0),this.b_1.multiply(d1),this.c_2.multiply(d2));
+	}
 
 	/**
-	 * multiply the object with a complex3x1 object => [x.a*y.a, x.b*y.b, x.c*y.c, ]
+	 * multiply the object with a complex3x1 object => [x.a*y.a, x.b*y.b, x.c*y.c]
 	 * 
 	 * @param y the complex3x1 value
 	 * @return
