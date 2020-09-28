@@ -217,7 +217,7 @@ public class Complex3x1 implements java.io.Serializable {
 	}
 
 	/**
-	 * multiply the object with a complex3x1 object => [x.a*y.a + x.b*y.b + x.c*y.c, ]
+	 * multiply the object with a complex3x1 object, and get the sum. i.e., x.a*y.a + x.b*y.b + x.c*y.c
 	 * 
 	 * @param y the complex value
 	 * @return
