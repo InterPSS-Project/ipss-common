@@ -45,10 +45,18 @@ public interface ISparseEqnComplex extends ISparseEqnObject<Complex, Complex> {
 	DZcsa solveEqn(DZcsa b) throws IpssNumericException;	
 	
 	/**
-	 * Multiply the complex matrix and the array x
+	 * Multiply the complex matrix of the eqn with the array x
 	 * 
 	 * @param xAry
 	 * @return
 	 */
 	Complex[] multiply(Complex[] xAry);
+	
+	/**
+	 * Multiply the complex matrix of the eqn with the array x
+	 * 
+	 * @param xAry
+	 * @return
+	 */
+	DZcsa multiply(DZcsa xAry);	
 }
