@@ -37,12 +37,20 @@ import edu.emory.mathcs.csparsej.tdcomplex.DZcs_common.DZcsa;
  */
 public interface ISparseEqnComplex extends ISparseEqnObject<Complex, Complex> {
 	/**
-	 * Solve the [A]X = B problem
+	 * Solve the [A]X = B problem  after the [A] is LUed
 	 * 
 	 * @param b the b vector
 	 * @return the x vector
 	 */
 	DZcsa solveLUedEqn(DZcsa b) throws IpssNumericException;	
+	
+	/**
+	 * Solve the [A]X = B problem after the [A] is LUed
+	 * 
+	 * @param b the b vector
+	 * @return the x vector
+	 */
+	Complex[] solveLUedEqn(Complex[] b) throws IpssNumericException;	
 	
 	/**
 	 * Multiply the complex matrix of the eqn with the array x
