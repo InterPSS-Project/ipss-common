@@ -86,7 +86,7 @@ public interface ISparseEqnDouble extends ISparseEquation {
 	void addToBi( final double bi, final int i );	
 	
 	/**
-	 * Solve the [A]X = B problem
+	 * Solve the [A]X = B problem after [A] is LUed
 	 * 
 	 */
 	double[] solveLUedEqn(double[] b) throws IpssNumericException;	
