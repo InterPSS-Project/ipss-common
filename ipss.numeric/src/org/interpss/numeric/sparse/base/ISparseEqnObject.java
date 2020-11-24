@@ -75,6 +75,13 @@ public interface ISparseEqnObject<TAij, TBi> extends ISparseEquation {
 	void setBi( final TBi bi, final int i );
 	
 	/**
+	 * Set b vector, before solving the eqn.
+	* 
+	* @param bAry the b vector elements
+	*/
+	void setBVector( final TBi[] bAry);	
+	
+	/**
 	 * add to bi element.
 		* 
 		* @param bi the bi element
