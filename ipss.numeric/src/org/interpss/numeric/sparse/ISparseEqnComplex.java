@@ -42,7 +42,7 @@ public interface ISparseEqnComplex extends ISparseEqnObject<Complex, Complex> {
 	 * @param b the b vector
 	 * @return the x vector
 	 */
-	DZcsa solveEqn(DZcsa b) throws IpssNumericException;	
+	DZcsa solveLUedEqn(DZcsa b) throws IpssNumericException;	
 	
 	/**
 	 * Multiply the complex matrix of the eqn with the array x

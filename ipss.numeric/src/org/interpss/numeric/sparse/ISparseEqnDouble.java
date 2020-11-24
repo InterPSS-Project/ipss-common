@@ -89,5 +89,5 @@ public interface ISparseEqnDouble extends ISparseEquation {
 	 * Solve the [A]X = B problem
 	 * 
 	 */
-	double[] solveEqn(double[] b) throws IpssNumericException;	
+	double[] solveLUedEqn(double[] b) throws IpssNumericException;	
 }
