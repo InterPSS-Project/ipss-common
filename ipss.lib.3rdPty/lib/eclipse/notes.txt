@@ -24,3 +24,5 @@ Update History
 07/12/2017 updated to 2.14
 
 07/25/2019 updated to 2.18
+
+12/20/2020 updated to 2.24
