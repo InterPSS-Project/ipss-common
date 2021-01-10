@@ -23,8 +23,8 @@ import com.interpss.core.acsc.fault.AcscBusFault;
 import com.interpss.core.acsc.fault.SimpleFaultCode;
 import com.interpss.core.algo.AclfMethod;
 import com.interpss.core.algo.LoadflowAlgorithm;
-import com.interpss.core.algo.ScBusVoltageType;
-import com.interpss.core.algo.SimpleFaultAlgorithm;
+import com.interpss.core.algo.sc.ScBusVoltageType;
+import com.interpss.core.algo.sc.SimpleFaultAlgorithm;
 
 
 public class IEEE9Bus_Acsc_test {

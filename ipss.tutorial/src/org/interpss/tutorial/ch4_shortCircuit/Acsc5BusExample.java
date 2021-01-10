@@ -1,10 +1,12 @@
 package org.interpss.tutorial.ch4_shortCircuit;
 
+import static com.interpss.common.util.IpssLogger.ipssLogger;
+import static com.interpss.core.funcImpl.AcscFunction.acscXfrAptr;
+
 import org.apache.commons.math3.complex.Complex;
 import org.interpss.IpssCorePlugin;
 import org.interpss.display.AcscOutFunc;
 import org.interpss.numeric.datatype.Unit.UnitType;
-import org.interpss.numeric.util.TestUtilFunc;
 
 import com.interpss.CoreObjectFactory;
 import com.interpss.common.exp.InterpssException;
@@ -15,11 +17,8 @@ import com.interpss.core.acsc.XfrConnectCode;
 import com.interpss.core.acsc.adpter.AcscXformer;
 import com.interpss.core.acsc.fault.AcscBusFault;
 import com.interpss.core.acsc.fault.SimpleFaultCode;
-import com.interpss.core.algo.SimpleFaultAlgorithm;
+import com.interpss.core.algo.sc.SimpleFaultAlgorithm;
 import com.interpss.simu.util.input.AcscInputUtilFunc;
-
-import static com.interpss.common.util.IpssLogger.ipssLogger;
-import static com.interpss.core.funcImpl.AcscFunction.acscXfrAptr;
 
 public class Acsc5BusExample {
 
