@@ -15,11 +15,11 @@ import com.gams.api.GAMSSet;
 import com.gams.api.GAMSVariableRecord;
 import com.gams.api.GAMSWorkspace;
 import com.interpss.common.exp.InterpssException;
-import com.interpss.core.DclfObjectFactory;
+import com.interpss.core.DclfAlgoObjectFactory;
 import com.interpss.core.aclf.AclfBus;
 import com.interpss.core.aclf.AclfNetwork;
-import com.interpss.core.dclf.DclfAlgorithm;
-import com.interpss.core.dclf.common.ReferenceBusException;
+import com.interpss.core.algo.dclf.SenAnalysisAlgorithm;
+import com.interpss.core.common.ReferenceBusException;
 import com.interpss.core.net.Bus;
 
 
@@ -147,7 +147,7 @@ import com.interpss.core.net.Bus;
 	        }
 	        
 	        //perform dc load flow to check whether there is any line rating violation
-	        DclfAlgorithm algo = DclfObjectFactory.createDclfAlgorithm(net);
+	        SenAnalysisAlgorithm algo = DclfAlgoObjectFactory.createSenAnalysisAlgorithm(net);
 	        
 	        algo.calculateDclf();
 	        
