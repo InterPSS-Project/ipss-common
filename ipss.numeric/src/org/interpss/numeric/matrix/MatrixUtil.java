@@ -95,6 +95,30 @@ public class MatrixUtil {
 		
 		return complexs;
 	}
+
+	/**
+	 *  multiply the matrix by the vector.
+	 *  
+	 * @param matrix
+	 * @param vector
+	 * @return matrix * vector
+	 */
+	public static double[] multiply( double[][] matrix, double[] vector) throws IpssNumericException {
+		int size = vector.length;
+		
+		if (matrix.length != size && matrix[0].length != size)
+			throw new IpssNumericException("Error: Matrix and Vector size mismatch");
+		
+		double[] dAry = new double[size];
+		for (int i = 0; i < 2; i++) {
+			double sum = 0.0;
+			for (int j = 0; j < 2; j++) {
+				sum += matrix[i][j] * vector[j];
+			}	
+			dAry[i] = sum;
+		}
+		return dAry;
+	}
 	
 	/**
 	 *  multiply the matrix by a transformation matrix. 
