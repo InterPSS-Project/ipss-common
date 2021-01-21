@@ -7,8 +7,8 @@ import org.interpss.display.AclfOutFunc.BusIdStyle;
 import org.interpss.display.impl.AclfOut_BusStyle;
 import org.interpss.fadapter.IpssFileAdapter;
 
-import com.interpss.CoreObjectFactory;
 import com.interpss.common.exp.InterpssException;
+import com.interpss.core.CoreObjectFactory;
 import com.interpss.core.aclf.AclfNetwork;
 import com.interpss.core.algo.LoadflowAlgorithm;
 

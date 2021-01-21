@@ -29,8 +29,8 @@ import org.interpss.display.AclfOutFunc;
 import org.interpss.numeric.datatype.Matrix_xy;
 import org.interpss.numeric.sparse.ISparseEqnMatrix2x2;
 
-import com.interpss.CoreObjectFactory;
 import com.interpss.common.exp.InterpssException;
+import com.interpss.core.CoreObjectFactory;
 import com.interpss.core.aclf.AclfNetwork;
 import com.interpss.core.algo.LoadflowAlgorithm;
 import com.interpss.core.algo.impl.DefaultNrSolver;

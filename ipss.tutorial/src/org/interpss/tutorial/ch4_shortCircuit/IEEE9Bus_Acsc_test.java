@@ -15,8 +15,8 @@ import org.interpss.numeric.sparse.ISparseEqnComplex;
 import org.interpss.numeric.util.TestUtilFunc;
 import org.junit.Test;
 
-import com.interpss.CoreObjectFactory;
 import com.interpss.common.exp.InterpssException;
+import com.interpss.core.CoreObjectFactory;
 import com.interpss.core.acsc.AcscNetwork;
 import com.interpss.core.acsc.SequenceCode;
 import com.interpss.core.acsc.fault.AcscBusFault;
