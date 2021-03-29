@@ -80,7 +80,7 @@ public class NumericUtil {
 	}
 
 	/**
-	 * Check if the two doubles are equal regarding to standard err
+	 * Check if the two Complex objects are equal regarding to standard err
 	 * 
 	 * @param x
 	 * @param y
@@ -91,7 +91,7 @@ public class NumericUtil {
 	}
 
 	/**
-	 * Check if the two doubles are equal regarding to the err
+	 * Check if the two Complex objects are equal regarding to the err
 	 * 
 	 * @param x
 	 * @param y
@@ -103,7 +103,7 @@ public class NumericUtil {
 	}
 
 	/**
-	 * Check if the two doubles are equal regarding to standard err
+	 * Check if the two Matrix_xy objects are equal regarding to standard err
 	 * 
 	 * @param x
 	 * @param y
@@ -114,7 +114,7 @@ public class NumericUtil {
 	}
 
 	/**
-	 * Check if the two doubles are equal regarding to the err
+	 * Check if the two Matrix_xy objects are equal regarding to the err
 	 * 
 	 * @param x
 	 * @param y
@@ -128,6 +128,30 @@ public class NumericUtil {
 			   equals(x.yy, y.yy, err);
 	}
 	
+	/**
+	 * Check if the two LimitType objects are equal regarding to standard err
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public static boolean equals(LimitType x, LimitType y) {
+		return equals(x, y, ERR);
+	}
+
+	/**
+	 * Check if the two LimitType objects are equal regarding to the err
+	 * 
+	 * @param x
+	 * @param y
+	 * @param err
+	 * @return
+	 */
+	public static boolean equals(LimitType x, LimitType y, double err) {
+		return equals(x.getMax(), y.getMax(), err) && 
+			   equals(x.getMin(), y.getMin(), err);
+	}
+		
 	/**
 	 * check if x and y are with the same sign
 	 * 
