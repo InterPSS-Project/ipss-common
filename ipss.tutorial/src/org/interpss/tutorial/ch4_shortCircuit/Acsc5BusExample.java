@@ -38,7 +38,7 @@ public class Acsc5BusExample {
 		fault.setZLGFault(new Complex(0.0, 0.0));
 		fault.setZLLFault(new Complex(0.0, 0.0));
 		
-	  	algo.calculateBusFault(fault);
+	  	algo.calBusFault(fault, true /* cacheBusScVolt */);
  
 		
 	    // 0.0000 + j0.0000  -0.7531 + j29.05407  0.0000 + j0.0000
