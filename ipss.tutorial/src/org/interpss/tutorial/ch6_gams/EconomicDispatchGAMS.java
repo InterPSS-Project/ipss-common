@@ -59,8 +59,8 @@ import com.interpss.core.net.Bus;
 	        GAMSParameter FactorC = db.addParameter("FactorC", 1,"quadratic weighting factor c for generation cost function");
 	        
 	        //2.1 set gen and load busId
-	        for (Bus b : net.getBusList()) {
-	                AclfBus bus = (AclfBus)b;
+	        for (AclfBus bus : net.getBusList()) {
+	                //AclfBus bus = (AclfBus)b;
 	                //gen busId
 	                if (bus.isActive() && bus.isGen() )
 	                        genUnit.addRecord(bus.getId());

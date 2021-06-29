@@ -38,7 +38,7 @@ public class IEEE9Bus_Acsc_test {
 					"testData/psse/IEEE9Bus/ieee9.seq"
 			}));
 			AcscModelParser acscParser =(AcscModelParser) adapter.getModel();
-			acscParser.stdout();
+			//acscParser.stdout();
 			
 	
 			AcscNetwork net = new ODMAcscParserMapper().map2Model(acscParser).getAcscNet();
@@ -123,7 +123,7 @@ public class IEEE9Bus_Acsc_test {
 				"testData/psse/IEEE9Bus/ieee9.seq"
 		}));
 		AcscModelParser acscParser =(AcscModelParser) adapter.getModel();
-		acscParser.stdout();
+		//acscParser.stdout();
 		
 		AcscNetwork net = new ODMAcscParserMapper().map2Model(acscParser).getAcscNet();
 		
