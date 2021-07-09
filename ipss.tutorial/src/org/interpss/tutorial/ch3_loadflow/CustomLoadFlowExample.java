@@ -34,7 +34,7 @@ import com.interpss.core.CoreObjectFactory;
 import com.interpss.core.aclf.AclfNetwork;
 import com.interpss.core.algo.LoadflowAlgorithm;
 import com.interpss.core.algo.impl.DefaultNrSolver;
-import com.interpss.simu.util.sample.SampleCases;
+import com.interpss.simu.util.sample.SampleTestingCases;
 
 public class CustomLoadFlowExample {
 
@@ -122,7 +122,7 @@ public class CustomLoadFlowExample {
                 
                 // create a sample 5-bus system for Loadflow 
                 AclfNetwork net = CoreObjectFactory.createAclfNetwork();
-                SampleCases.load_LF_5BusSystem(net);
+                SampleTestingCases.load_LF_5BusSystem(net);
                 //System.out.println(net.net2String());
 
                 // create a Loadflow algo object

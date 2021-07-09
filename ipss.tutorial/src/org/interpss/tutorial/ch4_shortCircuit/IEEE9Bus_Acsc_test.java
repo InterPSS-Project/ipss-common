@@ -38,7 +38,7 @@ public class IEEE9Bus_Acsc_test {
 					"testData/psse/IEEE9Bus/ieee9.seq"
 			}));
 			AcscModelParser acscParser =(AcscModelParser) adapter.getModel();
-			acscParser.stdout();
+			//acscParser.stdout();
 			
 	
 			AcscNetwork net = new ODMAcscParserMapper().map2Model(acscParser).getAcscNet();
@@ -123,7 +123,7 @@ public class IEEE9Bus_Acsc_test {
 				"testData/psse/IEEE9Bus/ieee9.seq"
 		}));
 		AcscModelParser acscParser =(AcscModelParser) adapter.getModel();
-		acscParser.stdout();
+		//acscParser.stdout();
 		
 		AcscNetwork net = new ODMAcscParserMapper().map2Model(acscParser).getAcscNet();
 		
@@ -152,9 +152,9 @@ public class IEEE9Bus_Acsc_test {
 		fault.setZLLFault(new Complex(0.0, 0.0));
 		
 		//pre fault profile : solved power flow
-		acscAlgo.setScBusVoltage(ScBusVoltageType.LOADFLOW_VOLT);
+		acscAlgo.setScBusVoltageType(ScBusVoltageType.LOADFLOW_VOLT);
 		
-		acscAlgo.calculateBusFault(fault);
+		acscAlgo.calBusFault(fault, true /* cacheBusScVolt */);
 	  	System.out.println(fault.getFaultResult().getSCCurrent_012());
 	  	System.out.println(fault.getFaultResult().getBusVoltage_012(net.getBus("Bus1")));
 	  	
@@ -178,9 +178,9 @@ public class IEEE9Bus_Acsc_test {
 		fault.setZLLFault(new Complex(0.0, 0.0));
 		
 		//pre fault profile : solved power flow
-		acscAlgo.setScBusVoltage(ScBusVoltageType.LOADFLOW_VOLT);
+		acscAlgo.setScBusVoltageType(ScBusVoltageType.LOADFLOW_VOLT);
 		
-		acscAlgo.calculateBusFault(fault);
+		acscAlgo.calBusFault(fault, true /* cacheBusScVolt */);
 	  	System.out.println(fault.getFaultResult().getSCCurrent_012());
 	  	System.out.println(fault.getFaultResult().getBusVoltage_012(net.getBus("Bus1")));
 	  	
@@ -201,9 +201,9 @@ public class IEEE9Bus_Acsc_test {
 		fault.setZLLFault(new Complex(0.0, 0.0));
 		
 		//pre fault profile : solved power flow
-		acscAlgo.setScBusVoltage(ScBusVoltageType.LOADFLOW_VOLT);
+		acscAlgo.setScBusVoltageType(ScBusVoltageType.LOADFLOW_VOLT);
 		
-		acscAlgo.calculateBusFault(fault);
+		acscAlgo.calBusFault(fault, true /* cacheBusScVolt */);
 	  	System.out.println(fault.getFaultResult().getSCCurrent_012());
 	  	System.out.println(fault.getFaultResult().getBusVoltage_012(net.getBus("Bus4")));
 	  	
