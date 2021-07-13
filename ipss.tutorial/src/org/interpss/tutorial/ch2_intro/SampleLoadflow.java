@@ -40,9 +40,9 @@ import com.interpss.core.aclf.AclfBus;
 import com.interpss.core.aclf.AclfGenCode;
 import com.interpss.core.aclf.AclfLoadCode;
 import com.interpss.core.aclf.AclfNetwork;
-import com.interpss.core.aclf.adpter.AclfLine;
+import com.interpss.core.aclf.adpter.AclfLineAdapter;
 import com.interpss.core.aclf.adpter.AclfLoadBusAdapter;
-import com.interpss.core.aclf.adpter.AclfSwingBus;
+import com.interpss.core.aclf.adpter.AclfSwingBusAdapter;
 import com.interpss.core.algo.LoadflowAlgorithm;
 
 
@@ -79,7 +79,7 @@ public class SampleLoadflow {
   		// set bus to be a swing bus
   		bus1.setGenCode(AclfGenCode.SWING);
   		// adapt the bus object to a swing bus object
-  		AclfSwingBus swingBus = bus1.toSwingBus();
+  		AclfSwingBusAdapter swingBus = bus1.toSwingBus();
   		// set swing bus attributes
   		swingBus.setDesiredVoltMag(1.0, UnitType.PU);
   		swingBus.setDesiredVoltAng(0.0, UnitType.Deg);
@@ -107,7 +107,7 @@ public class SampleLoadflow {
   		// set branch to a Line branch
   		branch.setBranchCode(AclfBranchCode.LINE);
   		// adapt the branch object to a line branch object
-		AclfLine lineBranch = branch.toLine();
+		AclfLineAdapter lineBranch = branch.toLine();
 		// set branch parameters
   		lineBranch.setZ(new Complex(0.05, 0.1), UnitType.PU, 4000.0);
   		// add the branch from Bus1 to Bus2

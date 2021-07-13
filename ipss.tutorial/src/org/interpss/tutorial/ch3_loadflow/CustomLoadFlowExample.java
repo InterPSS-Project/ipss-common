@@ -129,7 +129,7 @@ public class CustomLoadFlowExample {
                 LoadflowAlgorithm algo = CoreObjectFactory.createLoadflowAlgorithm();
 
                 // set algo NR solver to the CustomNrSolver
-                algo.setNrSolver(new CustomNrSolver(net));
+                algo.getLfCalculator().setNrSolver(new CustomNrSolver(net));
 
                 // run Loadflow
                 try {

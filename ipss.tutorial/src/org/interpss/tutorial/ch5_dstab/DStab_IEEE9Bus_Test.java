@@ -372,7 +372,7 @@ public class DStab_IEEE9Bus_Test {
 			
 	      // define a bus fault
 			BaseDStabBus<?,?> faultBus = net.getDStabBus(faultBusId);
-			AcscBusFault fault = CoreObjectFactory.createAcscBusFault("Bus Fault 3P@"+faultBusId, net);
+			AcscBusFault fault = CoreObjectFactory.createAcscBusFault("Bus Fault 3P@"+faultBusId, net, false);
 	  		fault.setBus(faultBus);
 			fault.setFaultCode(SimpleFaultCode.GROUND_3P);
 			fault.setZLGFault(NumericConstant.SmallScZ);

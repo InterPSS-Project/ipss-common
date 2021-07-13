@@ -19,10 +19,10 @@ import com.interpss.core.aclf.AclfLoadCode;
 import com.interpss.core.aclf.AclfNetwork;
 import com.interpss.core.aclf.BaseAclfBus;
 import com.interpss.core.aclf.adpter.AclfGenBusAdapter;
-import com.interpss.core.aclf.adpter.AclfLine;
+import com.interpss.core.aclf.adpter.AclfLineAdapter;
 import com.interpss.core.aclf.adpter.AclfLoadBusAdapter;
-import com.interpss.core.aclf.adpter.AclfPSXformer;
-import com.interpss.core.aclf.adpter.AclfSwingBus;
+import com.interpss.core.aclf.adpter.AclfPSXformerAdapter;
+import com.interpss.core.aclf.adpter.AclfSwingBusAdapter;
 import com.interpss.core.algo.LoadflowAlgorithm;
 import com.interpss.core.net.Branch;
 
@@ -101,7 +101,7 @@ public class IntroNetworkObjectSample {
 							fromRatio = bra.getFromTurnRatio();
 							toRatio = bra.getToTurnRatio();
 							if (bra.isPSXfr()) {
-								AclfPSXformer psXfr = bra.toPSXfr();
+								AclfPSXformerAdapter psXfr = bra.toPSXfr();
 								fromAng = psXfr.getFromAngle(UnitType.Deg);
 								toAng = psXfr.getToAngle(UnitType.Deg);
 							}
@@ -115,7 +115,7 @@ public class IntroNetworkObjectSample {
 							toRatio = bra.getFromTurnRatio();
 							fromRatio = bra.getToTurnRatio();
 							if (bra.isPSXfr()) {
-								AclfPSXformer psXfr = bra.toPSXfr();
+								AclfPSXformerAdapter psXfr = bra.toPSXfr();
 								toAng = psXfr.getFromAngle(UnitType.Deg);
 								fromAng = psXfr.getToAngle(UnitType.Deg);
 							}
@@ -185,7 +185,7 @@ public class IntroNetworkObjectSample {
 		  		// set bus to be a swing bus
 		  		bus1.setGenCode(AclfGenCode.SWING);
 		  		// adapt the bus object to a swing bus object
-		  		AclfSwingBus swingBus = bus1.toSwingBus();
+		  		AclfSwingBusAdapter swingBus = bus1.toSwingBus();
 		  		// set swing bus attributes
 		  		swingBus.setDesiredVoltMag(1.0, UnitType.PU);
 		  		swingBus.setDesiredVoltAng(0.0, UnitType.Deg);
@@ -213,7 +213,7 @@ public class IntroNetworkObjectSample {
 		  		// set branch to a Line branch
 		  		branch.setBranchCode(AclfBranchCode.LINE);
 		  		// adapt the branch object to a line branch object
-				AclfLine lineBranch = branch.toLine();
+				AclfLineAdapter lineBranch = branch.toLine();
 				// set branch parameters
 		  		lineBranch.setZ(new Complex(0.05, 0.1), UnitType.PU, 4000.0);
 		  		// add the branch from Bus1 to Bus2
