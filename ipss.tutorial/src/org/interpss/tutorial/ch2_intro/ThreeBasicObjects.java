@@ -30,7 +30,7 @@ public class ThreeBasicObjects {
 		
 		//get the total load PQ, return as a complex
 		
-		Complex load_bus5 = net.getBus("Bus5").getLoadPQ();
+		Complex load_bus5 = new Complex(net.getBus("Bus5").getLoadP(), net.getBus("Bus5").getLoadQ());
 		System.out.println("\n\nload@Bus5 = "+load_bus5);
 		
 		// internally, interpss supports multiple loads connected to the same bus, thus
@@ -39,7 +39,7 @@ public class ThreeBasicObjects {
 		
 		// One can get the load object by list index or load Id
 		net.getBus("Bus5").getContributeLoadList().get(0).setLoadCP(new Complex( 1.5,0.8));
-		Complex load1_bus5 = net.getBus("Bus5").getLoadPQ();
+		Complex load1_bus5 = new Complex(net.getBus("Bus5").getLoadQ(), net.getBus("Bus5").getLoadQ());
 		System.out.println("after change to 1.5+j0.8, load@Bus5 = "+load1_bus5);
 		
 		
