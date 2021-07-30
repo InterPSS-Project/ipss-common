@@ -11,6 +11,13 @@ public class Counter {
     } 
 
     /**
+     * Reset counter to 0.
+     */
+    public void reset() {
+        count = 0;
+    }
+    
+    /**
      * Increments the counter by 1.
      */
     public void increment() {

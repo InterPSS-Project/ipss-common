@@ -11,6 +11,13 @@ public class Summer {
     } 
 
     /**
+     * reset sum to 0.0.
+     */
+    public void reset() {
+        sum = 0.0;
+    } 
+    
+    /**
      * add x to the sum.
      */
     public void add(double x) {
