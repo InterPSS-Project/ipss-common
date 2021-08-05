@@ -73,6 +73,16 @@ public class ComplexFunc {
 	}
 
 	/**
+	 * compute exp(ix)
+	 * 
+	 * @param x in rad
+	 * @return the resulting complex number
+	 */
+	public static Complex exp(final double x) {
+		return new Complex(Math.cos(x), Math.sin(x));
+	}
+	
+	/**
 	 * Construct a complex number by using mag<ang(rad)
 	 * 
 	 * @param mag magnitude
