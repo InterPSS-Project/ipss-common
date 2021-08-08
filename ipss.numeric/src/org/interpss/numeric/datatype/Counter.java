@@ -32,6 +32,15 @@ public class Counter {
     public int getCount() {
         return count;
     } 
+    
+    /**
+     * Returns the current value of this counter and then increase the count.
+     *
+     * @return the current value of this counter
+     */
+    public int getCountThenIncrement() {
+        return count++;
+    } 
 
     /**
      * Returns a string representation of this counter.
