@@ -11,6 +11,14 @@ public class Counter {
     } 
 
     /**
+     * Initializes a new counter starting at seed
+     *
+     */
+    public Counter(int seed) {
+    	this.count = seed;
+    }  
+    
+    /**
      * Reset counter to 0.
      */
     public void reset() {
