@@ -99,6 +99,10 @@ public class NumericUtil {
 	 * @return
 	 */
 	public static boolean equals(Complex x, Complex y, double err) {
+		if (x == null && y == null)
+			return true;
+		else if (x != null && y == null || x == null && y != null)
+			return false;
 		return equals(x.getReal(), y.getReal(), err) && equals(x.getImaginary(), y.getImaginary(), err);
 	}
 
@@ -122,6 +126,10 @@ public class NumericUtil {
 	 * @return
 	 */
 	public static boolean equals(Matrix_xy x, Matrix_xy y, double err) {
+		if (x == null && y == null)
+			return true;
+		else if (x != null && y == null || x == null && y != null)
+			return false;
 		return equals(x.xx, y.xx, err) && 
 			   equals(x.xy, y.xy, err) && 
 			   equals(x.yx, y.yx, err) && 
@@ -148,6 +156,10 @@ public class NumericUtil {
 	 * @return
 	 */
 	public static boolean equals(LimitType x, LimitType y, double err) {
+		if (x == null && y == null)
+			return true;
+		else if (x != null && y == null || x == null && y != null)
+			return false;
 		return equals(x.getMax(), y.getMax(), err) && 
 			   equals(x.getMin(), y.getMin(), err);
 	}
