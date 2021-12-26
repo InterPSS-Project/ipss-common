@@ -95,6 +95,15 @@ public class LimitType implements java.io.Serializable {
 	}
 
 	/**
+	 * check if the limit is zero
+	 * 
+	 * @return
+	 */
+	public boolean isZero() {
+		return this._max == 0.0 && this._min == 0.0;
+	}
+	
+	/**
 	 * Get the max limit.
 	 *
 	 * @return the max limit
