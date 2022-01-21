@@ -5,9 +5,9 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>cepri.rtplatform</groupId>
-  <artifactId>sec_analysis</artifactId>
-  <version>1.0-Dev</version>
+  <groupId>org.interpss</groupId>
+  <artifactId>ipss.common</artifactId>
+  <version>1.0</version>
 
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
