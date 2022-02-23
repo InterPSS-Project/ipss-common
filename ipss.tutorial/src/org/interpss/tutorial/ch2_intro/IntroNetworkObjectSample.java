@@ -177,7 +177,7 @@ public class IntroNetworkObjectSample {
 				net.setBaseKva(baseKva);
 			  	
 				// create a AclfBus object
-		  		AclfBus bus1 = CoreObjectFactory.createAclfBus("Bus1", net);
+		  		AclfBus bus1 = CoreObjectFactory.createAclfBus("Bus1", net).get();
 		  		// set bus name and description attributes
 		  		bus1.setAttributes("Bus 1", "");
 		  		// set bus base voltage 
@@ -192,7 +192,7 @@ public class IntroNetworkObjectSample {
 		  		// add the bus into the network
 		  		//net.addBus(bus1);
 		  		
-		  		AclfBus bus2 = CoreObjectFactory.createAclfBus("Bus2", net);
+		  		AclfBus bus2 = CoreObjectFactory.createAclfBus("Bus2", net).get();
 		  		bus2.setAttributes("Bus 2", "");
 		  		bus2.setBaseVoltage(4000.0);
 		  		// set the bus to a non-generator bus

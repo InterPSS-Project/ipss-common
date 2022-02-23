@@ -25,7 +25,7 @@ public class Test {
 		
 		AclfNetwork net = CoreObjectFactory.createAclfNetwork();
 		
-		AclfBus bus5 = CoreObjectFactory.createAclfBus("Bus5", net);
+		AclfBus bus5 = CoreObjectFactory.createAclfBus("Bus5", net).get();
 		//bus5.setStatus(true);
 		// set bus name and description attributes
 		bus5.setAttributes("Bus 5", "");
@@ -42,7 +42,7 @@ public class Test {
 		// add the bus into the network
 		//net.addBus(bus1);
 		
-		AclfBus bus2 = CoreObjectFactory.createAclfBus("Bus2", net);
+		AclfBus bus2 = CoreObjectFactory.createAclfBus("Bus2", net).get();
 		bus2.setAttributes("Bus 2", "");
 		bus2.setBaseVoltage(100000.0);
 		// set the bus to a non-generator bus
@@ -57,7 +57,7 @@ public class Test {
 		bus2.setGenP(2);
 		bus2.setGenQ(1);
 
-	    AclfBus bus3 = CoreObjectFactory.createAclfBus("Bus3",net);
+	    AclfBus bus3 = CoreObjectFactory.createAclfBus("Bus3",net).get();
 	    System.out.println(bus3.isStatus());
 	    bus3.setAttributes("Bus 3","");
 	    bus3.setBaseVoltage(100000.0);
@@ -68,7 +68,7 @@ public class Test {
 	    bus3.setGenP(3.7);
 	    bus3.setGenQ(1.3);
 	    
-	    AclfBus bus4 = CoreObjectFactory.createAclfBus("Bus4", net);
+	    AclfBus bus4 = CoreObjectFactory.createAclfBus("Bus4", net).get();
 		bus4.setAttributes("Bus 4", "");
 		bus4.setBaseVoltage(100000.0);
 		bus4.setGenCode(AclfGenCode.GEN_PV);
@@ -77,7 +77,7 @@ public class Test {
 		loadBus2.setLoad(new Complex(0,-66.7), UnitType.PU);
 		
 		
-		AclfBus bus1 = CoreObjectFactory.createAclfBus("Bus1", net);
+		AclfBus bus1 = CoreObjectFactory.createAclfBus("Bus1", net).get();
 		bus1.setAttributes("Bus 1", "");
 		bus1.setBaseVoltage(100000.0);
 		bus1.setGenCode(AclfGenCode.GEN_PQ);
