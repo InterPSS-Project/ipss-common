@@ -26,3 +26,5 @@ Update History
 07/25/2019 updated to 2.18
 
 12/20/2020 updated to 2.24
+
+01/03/2023 updated to 2.32.0 (common 2.27.0)
