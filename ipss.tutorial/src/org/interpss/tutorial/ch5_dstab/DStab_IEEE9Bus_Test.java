@@ -20,8 +20,6 @@ import org.interpss.numeric.util.NumericUtil;
 import org.junit.Test;
 
 import com.interpss.CoreCommonFactory;
-import com.interpss.DStabObjectFactory;
-import com.interpss.SimuObjectFactory;
 import com.interpss.common.exp.InterpssException;
 import com.interpss.common.msg.IPSSMsgHub;
 import com.interpss.common.util.IpssLogger;
@@ -33,6 +31,7 @@ import com.interpss.core.algo.LoadflowAlgorithm;
 import com.interpss.dstab.BaseDStabBus;
 import com.interpss.dstab.BaseDStabNetwork;
 import com.interpss.dstab.DStabGen;
+import com.interpss.dstab.DStabObjectFactory;
 import com.interpss.dstab.algo.DynamicSimuAlgorithm;
 import com.interpss.dstab.algo.DynamicSimuMethod;
 import com.interpss.dstab.cache.StateVariableRecorder;
@@ -44,6 +43,7 @@ import com.interpss.dstab.devent.DynamicSimuEventType;
 import com.interpss.dstab.mach.SalientPoleMachine;
 import com.interpss.simu.SimuContext;
 import com.interpss.simu.SimuCtxType;
+import com.interpss.simu.SimuObjectFactory;
 
 public class DStab_IEEE9Bus_Test {
 	IPSSMsgHub msg = CoreCommonFactory.getIpssMsgHub();

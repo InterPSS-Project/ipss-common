@@ -14,7 +14,6 @@ import org.interpss.mapper.odm.ODMDStabParserMapper;
 import org.junit.Test;
 
 import com.interpss.CoreCommonFactory;
-import com.interpss.SimuObjectFactory;
 import com.interpss.common.exp.InterpssException;
 import com.interpss.common.msg.IPSSMsgHub;
 import com.interpss.common.util.IpssLogger;
@@ -24,6 +23,7 @@ import com.interpss.dstab.algo.DynamicSimuAlgorithm;
 import com.interpss.dstab.algo.DynamicSimuMethod;
 import com.interpss.simu.SimuContext;
 import com.interpss.simu.SimuCtxType;
+import com.interpss.simu.SimuObjectFactory;
 
 public class DStab_IEEE9Bus_Pause {
 	IPSSMsgHub msg = CoreCommonFactory.getIpssMsgHub();

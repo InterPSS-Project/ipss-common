@@ -2,6 +2,7 @@ package org.interpss.tutorial.ch4_shortCircuit;
 
 import static com.interpss.common.util.IpssLogger.ipssLogger;
 import static com.interpss.core.funcImpl.AcscFunction.acscXfrAptr;
+import static org.interpss.mapper.odm.ODMUnitHelper.toZUnit;
 
 import org.apache.commons.math3.complex.Complex;
 import org.interpss.IpssCorePlugin;
@@ -13,7 +14,8 @@ import com.interpss.core.CoreObjectFactory;
 import com.interpss.core.aclf.AclfBranchCode;
 import com.interpss.core.acsc.AcscBranch;
 import com.interpss.core.acsc.AcscNetwork;
-import com.interpss.core.acsc.XfrConnectCode;
+import com.interpss.core.acsc.BusGroundCode;
+import com.interpss.core.acsc.XFormerConnectCode;
 import com.interpss.core.acsc.adpter.AcscXformerAdapter;
 import com.interpss.core.acsc.fault.AcscBusFault;
 import com.interpss.core.acsc.fault.SimpleFaultCode;
@@ -84,8 +86,10 @@ public class Acsc5BusExample {
 		bra.setZ( new Complex( 0.0, 0.015 ));
 		bra.setZ0( new Complex(0.0, 0.03 ));
 		AcscXformerAdapter xfr = acscXfrAptr.apply(bra);
-		xfr.setFromConnectGroundZ(XfrConnectCode.WYE_UNGROUNDED, new Complex(0.0,0.0), UnitType.PU);
-		xfr.setToConnectGroundZ(XfrConnectCode.DELTA, new Complex(0.0,0.0), UnitType.PU);
+		//xfr.setFromConnectGroundZ(XFormerConnectCode.WYE, new Complex(0.0,0.0), UnitType.PU);
+		//xfr.setToConnectGroundZ(XFormerConnectCode.DELTA, new Complex(0.0,0.0), UnitType.PU);
+		xfr.setFromGrounding(BusGroundCode.UNGROUNDED, XFormerConnectCode.WYE, new Complex(0.0,0.0), UnitType.PU);
+		xfr.setToGrounding(BusGroundCode.UNGROUNDED, XFormerConnectCode.DELTA, new Complex(0.0,0.0), UnitType.PU);
 
 		bra = CoreObjectFactory.createAcscBranch();
 		bra.setBranchCode(AclfBranchCode.XFORMER);
@@ -93,8 +97,10 @@ public class Acsc5BusExample {
 		bra.setZ( new Complex( 0.0, 0.03 ));
 		bra.setZ0( new Complex(0.0, 0.03 ));
 		xfr = acscXfrAptr.apply(bra);
-		xfr.setFromConnectGroundZ(XfrConnectCode.WYE_UNGROUNDED, new Complex(0.0,0.0), UnitType.PU);
-		xfr.setToConnectGroundZ(XfrConnectCode.DELTA, new Complex(0.0,0.0), UnitType.PU);
+		//xfr.setFromConnectGroundZ(XFormerConnectCode.WYE, new Complex(0.0,0.0), UnitType.PU);
+		//xfr.setToConnectGroundZ(XFormerConnectCode.DELTA, new Complex(0.0,0.0), UnitType.PU);
+		xfr.setFromGrounding(BusGroundCode.UNGROUNDED, XFormerConnectCode.WYE, new Complex(0.0,0.0), UnitType.PU);
+		xfr.setToGrounding(BusGroundCode.UNGROUNDED, XFormerConnectCode.DELTA, new Complex(0.0,0.0), UnitType.PU);
 
 		net.setScDataLoaded(true);
 		ipssLogger.info( "ACSC 5-bus test system loaded" );
