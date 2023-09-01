@@ -227,6 +227,16 @@ public class ComplexFunc {
 	}
 
 	/**
+	 * Power factor calculation function
+	 * 
+	 * @return the resulting power factor
+	 */
+	public static double powerFacor(final Complex c) {
+		double mag = c.abs();
+		return mag > 0.0 ? c.getReal() / mag : 0.0;
+	}
+	
+	/**
 	 * Convert the obj to a string.
 	 * 
 	 * @return the string representation of the obj
