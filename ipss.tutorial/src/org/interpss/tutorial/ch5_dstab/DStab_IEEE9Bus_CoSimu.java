@@ -13,7 +13,7 @@ import org.interpss.display.AclfOutFunc;
 import org.interpss.mapper.odm.ODMDStabParserMapper;
 import org.junit.Test;
 
-import com.interpss.CoreCommonFactory;
+import com.interpss.common.CoreCommonFactory;
 import com.interpss.common.exp.InterpssException;
 import com.interpss.common.msg.IPSSMsgHub;
 import com.interpss.common.util.IpssLogger;

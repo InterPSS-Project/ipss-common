@@ -19,7 +19,7 @@ import org.interpss.numeric.util.Number2String;
 import org.interpss.numeric.util.NumericUtil;
 import org.junit.Test;
 
-import com.interpss.CoreCommonFactory;
+import com.interpss.common.CoreCommonFactory;
 import com.interpss.common.exp.InterpssException;
 import com.interpss.common.msg.IPSSMsgHub;
 import com.interpss.common.util.IpssLogger;
