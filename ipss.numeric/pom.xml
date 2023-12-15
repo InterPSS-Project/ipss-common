@@ -56,9 +56,6 @@
 	            	</goals>
 		            <configuration>
 		                <archive>
-		                	<manifest>
-		                    	<mainClass>cn.sg.cepri.tools.sa.SecAnalysis</mainClass>
-		                	</manifest>
 		                </archive>
 		                <descriptorRefs>
 		                    <descriptorRef>jar-with-dependencies</descriptorRef>
