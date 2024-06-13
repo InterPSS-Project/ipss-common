@@ -31,6 +31,13 @@ public class Counter {
     public void increment() {
         count++;
     } 
+    
+    /**
+     * Increments the counter by cnt.
+     */
+    public void increment(int cnt) {
+        count += cnt;
+    } 
 
     /**
      * Returns the current value of this counter.
