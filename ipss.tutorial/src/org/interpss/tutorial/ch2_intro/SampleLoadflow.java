@@ -83,8 +83,7 @@ public class SampleLoadflow {
   		// set swing bus attributes
   		swingBus.setDesiredVoltMag(1.0, UnitType.PU);
   		swingBus.setDesiredVoltAng(0.0, UnitType.Deg);
-  		// add the bus into the network
-  		//net.addBus(bus1);
+  		
   		
   		AclfBus bus2 = CoreObjectFactory.createAclfBus("Bus2", net).get();
   		bus2.setAttributes("Bus 2", "");
@@ -97,7 +96,6 @@ public class SampleLoadflow {
   		AclfLoadBusAdapter loadBus = bus2.toLoadBus();
   		// set load to the bus
   		loadBus.setLoad(new Complex(1.0, 0.8), UnitType.PU);
-  		//net.addBus(bus2);
   		
   		// create an AclfBranch object
   		AclfBranch branch = CoreObjectFactory.createAclfBranch();
@@ -110,7 +108,6 @@ public class SampleLoadflow {
 		AclfLineAdapter lineBranch = branch.toLine();
 		// set branch parameters
   		lineBranch.setZ(new Complex(0.05, 0.1), UnitType.PU, 4000.0);
-  		// add the branch from Bus1 to Bus2
 	  	
 	  	// create the default loadflow algorithm
 	  	LoadflowAlgorithm algo = CoreObjectFactory.createLoadflowAlgorithm(net);
