@@ -65,7 +65,7 @@ public class IEEE9Bus_Acsc_test {
 	  		 */
 	  		
 	        ISparseEqnComplex posYMatrix = net.formScYMatrix(SequenceCode.POSITIVE, ScBusModelType.LOADFLOW_VOLT, false);
-	        System.out.println(posYMatrix.getA(0, 0).toString());
+	        System.out.println("Yii(0,0) = "+ posYMatrix.getA(0, 0).toString());
 	        //Gen Bus: Bus 1
 	        //Yii: 0.0 + (-42.63668430335097i)
 	        assertTrue(posYMatrix.getA(0, 0).getReal()==0);
@@ -76,6 +76,7 @@ public class IEEE9Bus_Acsc_test {
 	        
 	        //Load Bus: Bus 5
 	        //Yii: 3.81 - j17.84
+	        System.out.println("Yii(4,4) = "+ posYMatrix.getA(4, 4).toString());
 	        assertTrue(Math.abs(posYMatrix.getA(4, 4).getReal()-3.81)<1.0E-2);
 	        assertTrue(Math.abs(posYMatrix.getA(4, 4).getImaginary()+17.84)<1.0E-2);
 	        

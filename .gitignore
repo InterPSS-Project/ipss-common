@@ -1,2 +1,3 @@
 *.class
 /SymbolicNotation/
+.DS_Store
