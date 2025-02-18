@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
-	<classpathentry kind="lib" path="/ipss.lib.3rdPty/lib/gams/GAMSJavaAPI.jar"/>
-	<classpathentry kind="lib" path="/ipss.lib/lib/ieee/ieee.odm_pss.jar"/>
-	<classpathentry kind="lib" path="/ipss.lib/lib/ieee/ieee.odm.schema.jar"/>
-	<classpathentry kind="lib" path="/ipss.lib/lib/ipss/ipss_core.jar"/>
-	<classpathentry kind="lib" path="/ipss.lib/lib/ipss/ipss_plugin.jar"/>
+	<classpathentry kind="lib" path="../ipss.lib.3rdPty/lib/gams/GAMSJavaAPI.jar"/>
+	<classpathentry kind="lib" path="../ipss.lib/lib/ieee/ieee.odm_pss.jar"/>
+	<classpathentry kind="lib" path="../ipss.lib/lib/ieee/ieee.odm.schema.jar"/>
+	<classpathentry kind="lib" path="../ipss.lib/lib/ipss/ipss_core.jar"/>
+	<classpathentry kind="lib" path="../ipss.lib/lib/ipss/ipss_plugin.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="/ipss.lib.3rdPty/lib/swing/swing-layout-1.0.3.jar"/>
+	<classpathentry kind="lib" path="../ipss.lib.3rdPty/lib/swing/swing-layout-1.0.3.jar"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
