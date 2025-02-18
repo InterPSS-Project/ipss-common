@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="javac8-oo-plugin-0.51">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../ipss.lib.3rdPty/lib/java_oo/javac8-oo-plugin-0.5.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
