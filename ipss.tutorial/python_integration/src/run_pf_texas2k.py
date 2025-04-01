@@ -1,4 +1,6 @@
 import jpype
+import jpype.imports
+from jpype.types import *
 from pathlib import Path
 
 parent_folder = Path.cwd().parent.parent
@@ -23,6 +25,12 @@ PSSERawAdapter = jpype.JClass("org.ieee.odm.adapter.psse.raw.PSSERawAdapter")
 ODMAclfParserMapper = jpype.JClass("org.interpss.odm.mapper.ODMAclfParserMapper")
 NetType = jpype.JClass("org.ieee.odm.adapter.IODMAdapter.NetType")
 PsseVersion = jpype.JClass("org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion")
+
+# another way to import the necessary classes
+from com.interpss.common.exp import InterpssException
+from com.interpss.core.aclf import AclfBranch
+from com.interpss.core.aclf import AclfNetwork
+from com.interpss.core.aclf import AclfBus
 
 # create instances of the classes we are going to used
 IpssCorePlugin.init();
