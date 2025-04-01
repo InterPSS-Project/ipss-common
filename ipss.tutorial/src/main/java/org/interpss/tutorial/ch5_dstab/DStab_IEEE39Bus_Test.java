@@ -36,10 +36,11 @@ import com.interpss.simu.SimuCtxType;
 import com.interpss.simu.SimuObjectFactory;
 
 public class DStab_IEEE39Bus_Test  {
-	    IPSSMsgHub msg = CoreCommonFactory.getIpssMsgHub();
+	    
 		
-		public void main(String[] args) throws InterpssException {
+		public static void main(String[] args) throws InterpssException {
 			IpssCorePlugin.init();
+			IPSSMsgHub msg = CoreCommonFactory.getIpssMsgHub();
 			PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
 			assertTrue(adapter.parseInputFile(NetType.DStabNet, new String[]{
 					"testData/psse/IEEE39Bus/IEEE39bus_v30.raw",

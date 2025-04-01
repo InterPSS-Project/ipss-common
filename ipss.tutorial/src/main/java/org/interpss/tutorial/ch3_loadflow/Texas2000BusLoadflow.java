@@ -1,5 +1,6 @@
 package org.interpss.tutorial.ch3_loadflow;
 
+
 import static org.junit.Assert.assertTrue;
 
 import org.ieee.odm.adapter.IODMAdapter.NetType;
@@ -27,6 +28,7 @@ import com.interpss.simu.SimuCtxType;
 import com.interpss.simu.SimuObjectFactory;
 
 public class Texas2000BusLoadflow {
+	
 	public static void main(String[] args) throws InterpssException {
 		//Initialize logger and Spring config
 		IpssCorePlugin.init();
@@ -43,7 +45,6 @@ public class Texas2000BusLoadflow {
 		
 		if (!new ODMAclfParserMapper().map2Model(parser, simuCtx)) {
 			System.out.println("Error: ODM model to InterPSS SimuCtx mapping error, please contact support@interpss.com");
-			return;
 		}
 	    
 		AclfNetwork net =simuCtx.getAclfNet();
@@ -61,6 +62,7 @@ public class Texas2000BusLoadflow {
 	  	 
 	  	
 	  	//run load flow using default setting
+	  	algo.getLfAdjAlgo().setApplyAdjustAlgo(false);
 	  	algo.loadflow();
 	  	
 	  		
