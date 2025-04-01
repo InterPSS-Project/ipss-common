@@ -1,28 +1,20 @@
 package org.interpss.tutorial.ch3_loadflow;
 
 
-import static org.junit.Assert.assertTrue;
-
-import org.ieee.odm.adapter.IODMAdapter.NetType;
 import org.ieee.odm.adapter.psse.PSSEAdapter;
-import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
+import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.model.aclf.AclfModelParser;
-import org.interpss.CorePluginFactory;
 import org.interpss.IpssCorePlugin;
 import org.interpss.display.AclfOutFunc;
 import org.interpss.display.AclfOutFunc.BusIdStyle;
 import org.interpss.display.impl.AclfOut_BusStyle;
-import org.interpss.fadapter.IpssFileAdapter;
 import org.interpss.odm.mapper.ODMAclfParserMapper;
 
-import com.interpss.common.CoreCommonFactory;
 import com.interpss.common.exp.InterpssException;
-import com.interpss.common.msg.IPSSMsgHub;
 import com.interpss.core.CoreObjectFactory;
 import com.interpss.core.aclf.AclfNetwork;
 import com.interpss.core.algo.LoadflowAlgorithm;
-import com.interpss.dstab.BaseDStabNetwork;
 import com.interpss.simu.SimuContext;
 import com.interpss.simu.SimuCtxType;
 import com.interpss.simu.SimuObjectFactory;
@@ -34,13 +26,11 @@ public class Texas2000BusLoadflow {
 		IpssCorePlugin.init();
 	
 		PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
-		adapter.parseInputFile("testData/psse/ACTIVSg2000/Texas2k_series24_case1_2016summerPeak_v30.raw");
+		adapter.parseInputFile("ipss.tutorial/testData/psse/Texas2k/Texas2k_series24_case1_2016summerPeak_v30.RAW");
 		AclfModelParser parser =(AclfModelParser) adapter.getModel();
 		
 		//System.out.println(parser.toXmlDoc());
 
-		
-		
 		SimuContext simuCtx = SimuObjectFactory.createSimuNetwork(SimuCtxType.ACLF_NETWORK);
 		
 		if (!new ODMAclfParserMapper().map2Model(parser, simuCtx)) {

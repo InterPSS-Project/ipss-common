@@ -1,20 +1,18 @@
 package org.interpss.tutorial.ch4_shortCircuit;
 
-import static org.junit.Assert.assertTrue;
-
 import org.apache.commons.math3.complex.Complex;
 import org.ieee.odm.adapter.IODMAdapter.NetType;
 import org.ieee.odm.adapter.psse.PSSEAdapter;
-import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
+import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.model.acsc.AcscModelParser;
 import org.interpss.IpssCorePlugin;
 import org.interpss.display.AcscOutFunc;
-import org.interpss.odm.mapper.ODMAcscParserMapper;
 import org.interpss.numeric.exp.IpssNumericException;
 import org.interpss.numeric.sparse.ISparseEqnComplex;
 import org.interpss.numeric.util.TestUtilFunc;
-import org.junit.Test;
+import org.interpss.odm.mapper.ODMAcscParserMapper;
+import static org.junit.Assert.assertTrue;
 
 import com.interpss.common.exp.InterpssException;
 import com.interpss.core.CoreObjectFactory;
@@ -35,8 +33,8 @@ public static void main(String[] args) throws InterpssException, IpssNumericExce
 		IpssCorePlugin.init();
 		PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
 		assertTrue(adapter.parseInputFile(NetType.AcscNet, new String[]{
-				"testData/psse/IEEE9Bus/ieee9.raw",
-				"testData/psse/IEEE9Bus/ieee9.seq"
+				"ipss.tutorial/testData/psse/IEEE9Bus/ieee9.raw",
+				"ipss.tutorial/testData/psse/IEEE9Bus/ieee9.seq"
 		}));
 		AcscModelParser acscParser =(AcscModelParser) adapter.getModel();
 		//acscParser.stdout();
