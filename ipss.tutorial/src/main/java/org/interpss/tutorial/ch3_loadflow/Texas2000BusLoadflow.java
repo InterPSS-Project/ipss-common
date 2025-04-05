@@ -25,8 +25,8 @@ public class Texas2000BusLoadflow {
 		//Initialize logger and Spring config
 		IpssCorePlugin.init();
 	
-		PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
-		adapter.parseInputFile("ipss.tutorial/testData/psse/Texas2k/Texas2k_series24_case1_2016summerPeak_v30.RAW");
+		PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_35);
+		adapter.parseInputFile("ipss.tutorial/testData/psse/Texas2k/Texas2k_series24_case1_2016summerPeak_v35.RAW");
 		AclfModelParser parser =(AclfModelParser) adapter.getModel();
 		
 		//System.out.println(parser.toXmlDoc());

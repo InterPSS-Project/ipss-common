@@ -37,13 +37,6 @@ raw_path = str(parent_folder/"testData/psse/Texas2k/Texas2k_series24_case1_2016s
 adapter.parseInputFile(raw_path)
 net = ODMAclfParserMapper().map2Model(adapter.getModel()).getAclfNet()
 
-#algo = CoreObjectFactory.createLoadflowAlgorithm(net)
-#algo.getLfAdjAlgo().setApplyAdjustAlgo(False);
-#algo.loadflow()
-
-# basic load flow results summary, showing the bus type, voltage magnitude and angle and bus net power  	
-# print(AclfOutFunc.loadFlowSummary(net))
-
 
 # Create algorithm
 algo = ContingencyAnalysisAlgorithmFactory.createContingencyAnalysisAlgorithm(net)
