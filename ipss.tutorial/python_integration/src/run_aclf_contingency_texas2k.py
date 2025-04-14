@@ -24,12 +24,15 @@ from org.ieee.odm.adapter.psse.PSSEAdapter import PsseVersion
 from org.ieee.odm.adapter.psse.raw import PSSERawAdapter
 from org.interpss.odm.mapper import ODMAclfParserMapper
 from com.interpss.core import CoreObjectFactory
-
-
+from com.interpss.common.util import IpssLogger
+from org.ieee.odm.common import ODMLogger
+from java.util.logging import Level
 
 # Initialize InterPSS
 IpssCorePlugin.init()
-IpssLogger.getLogger().setLevel(jpype.JClass("java.util.logging.Level").OFF)
+IpssLogger.getLogger().setLevel(Level.INFO)
+ODMLogger.getLogger().setLevel(Level.INFO)
+
 
 # Load PSSE RAW file
 adapter = PSSERawAdapter(PsseVersion.PSSE_35)

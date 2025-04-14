@@ -31,20 +31,25 @@ from com.interpss.common.exp import InterpssException
 from com.interpss.core.aclf import AclfBranch
 from com.interpss.core.aclf import AclfNetwork
 from com.interpss.core.aclf import AclfBus
+from com.interpss.common.util import IpssLogger
+from org.ieee.odm.common import ODMLogger
+from java.util.logging import Level
 
 # create instances of the classes we are going to used
-IpssCorePlugin.init();
-adapter = PSSERawAdapter(PsseVersion.PSSE_35);
+IpssCorePlugin.init()
+IpssLogger.getLogger().setLevel(Level.INFO)
+ODMLogger.getLogger().setLevel(Level.INFO)
+adapter = PSSERawAdapter(PsseVersion.PSSE_35)
 raw_path = str(parent_folder/"testData/psse/Texas2k/Texas2k_series24_case1_2016summerPeak_v35.RAW")
-adapter.parseInputFile(raw_path);
-net = ODMAclfParserMapper().map2Model(adapter.getModel()).getAclfNet();
+adapter.parseInputFile(raw_path)
+net = ODMAclfParserMapper().map2Model(adapter.getModel()).getAclfNet()
 
 algo = CoreObjectFactory.createLoadflowAlgorithm(net)
-algo.getLfAdjAlgo().setApplyAdjustAlgo(False);
+algo.getLfAdjAlgo().setApplyAdjustAlgo(False)
 algo.loadflow()
 
 # basic load flow results summary, showing the bus type, voltage magnitude and angle and bus net power  	
-print(AclfOutFunc.loadFlowSummary(net))
+# print(AclfOutFunc.loadFlowSummary(net))
 
 # uncomment the line below to print out more detailed power flow results in PSS/E style
 
