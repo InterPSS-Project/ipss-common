@@ -1,6 +1,12 @@
 package org.interpss.tutorial.ch3_loadflow;
 
 
+import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
 import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
@@ -12,6 +18,7 @@ import org.interpss.display.impl.AclfOut_BusStyle;
 import org.interpss.odm.mapper.ODMAclfParserMapper;
 
 import com.interpss.common.exp.InterpssException;
+import com.interpss.common.util.IpssLogger;
 import com.interpss.core.CoreObjectFactory;
 import com.interpss.core.aclf.AclfNetwork;
 import com.interpss.core.algo.LoadflowAlgorithm;
@@ -21,9 +28,29 @@ import com.interpss.simu.SimuObjectFactory;
 
 public class Texas2000BusLoadflow {
 	
-	public static void main(String[] args) throws InterpssException {
+	public static void main(String[] args) throws InterpssException, IOException {
 		//Initialize logger and Spring config
 		IpssCorePlugin.init();
+
+		Logger logger = IpssLogger.getLogger();
+		logger.setLevel(Level.ALL);
+
+		// Configure file logging with appropriate exception handling
+		FileHandler fileHandler = null;
+		try {
+			fileHandler = new FileHandler("ipss.tutorial/output/mylog.log", false); // true = append mode
+			fileHandler.setFormatter(new SimpleFormatter());
+			fileHandler.setLevel(Level.ALL);
+			
+			// Add handler to the logger
+			logger.setUseParentHandlers(false); // Prevent logging to console
+			logger.addHandler(fileHandler);
+		} catch (IOException e) {
+			// Fall back to console logging if file logging fails
+			logger.setUseParentHandlers(true);
+			System.err.println("Warning: Could not set up file logging: " + e.getMessage());
+			e.printStackTrace();
+		}
 	
 		PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_35);
 		adapter.parseInputFile("ipss.tutorial/testData/psse/Texas2k/Texas2k_series24_case1_2016summerPeak_v35.RAW");

@@ -1,3 +1,4 @@
 *.class
 /SymbolicNotation/
 .DS_Store
+/ipss.tutorial/output
