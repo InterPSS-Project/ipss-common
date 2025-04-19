@@ -1,12 +1,16 @@
 import jpype
+from pathlib import Path
+
+# Get script directory for reliable path resolution across platforms
+script_dir = Path(__file__).resolve().parent
 
 # set jvm path
 jvm_path = jpype.getDefaultJVMPath()
 
-# set the JAR  path
-jar_path = "../lib/ipss_runnable.jar"
+# set the JAR path using platform-independent path handling
+jar_path = str(script_dir.parent / "lib" / "ipss_runnable.jar")
 
-# start the JVM，with the jar path
+# start the JVM with the jar path
 jpype.startJVM(jvm_path, "-ea", f"-Djava.class.path={jar_path}")
 
 # load the Java classes to be used
