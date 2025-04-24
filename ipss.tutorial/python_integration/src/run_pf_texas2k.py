@@ -49,6 +49,9 @@ adapter.parseInputFile(raw_path)
 net = ODMAclfParserMapper().map2Model(adapter.getModel()).getAclfNet()
 
 algo = CoreObjectFactory.createLoadflowAlgorithm(net)
+# the following two settings are false by default, but they are critical for some real-world networks due to data quality issues
+algo.getDataCheckConfig().setTurnOffIslandBus(True)
+algo.getDataCheckConfig().setAutoTurnLine2Xfr(True)
 algo.getLfAdjAlgo().setApplyAdjustAlgo(False)
 algo.loadflow()
 
