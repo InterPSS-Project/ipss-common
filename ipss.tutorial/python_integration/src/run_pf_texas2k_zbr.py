@@ -107,17 +107,22 @@ algo.getDataCheckConfig().setAutoTurnLine2Xfr(True)
 # if any bus has a mismatch larger than mismatch_threshold, check if it is connected to a branch with small impedance
 
 zero_branch_threshold = 0.0001
-mismatch_threshold = 1.0
+mismatch_threshold = 10.0
 # Check bus mismatches, if any bus has a mismatch larger than mismatch_threshold, check if it is connected to a branch with small impedance
 mismatch_table = {}
 for bus in net.getBusList():
     mis = bus.mismatch(AclfMethodType.NR)
-    mismatch_table[bus.getId()] = mis.abs()
-    
-    if (bus.isActive() and mis.abs() > mismatch_threshold and 
-        is_small_z_branch_connected(bus.getId(), net, zero_branch_threshold)):
+   
+    if (bus.isActive() and mis.abs() > mismatch_threshold): 
         print(f"{bus.getId()}, mismatch = {mis}")
-        print(f"{bus.getId()}\n{BusLfResultBusStyle.f(net, bus)}\n")
+        mismatch_table[bus.getId()] = mis.abs()
+        if (is_small_z_branch_connected(bus.getId(), net, zero_branch_threshold)):
+            print(f"{bus.getId()} connects with zero impedance branches \n{BusLfResultBusStyle.f(net, bus)}\n")
+        else:
+            print(f"{bus.getId()} does not connect with zero impedance branches \n{BusLfResultBusStyle.f(net, bus)}\n")
+   
+sorted_mismatch_table = dict(sorted(mismatch_table.items(), key=lambda item: item[1], reverse=True))
+print("Sorted Mismatch Table:", sorted_mismatch_table)
 
 # Run power flow
 algo.getLfAdjAlgo().setApplyAdjustAlgo(False)
