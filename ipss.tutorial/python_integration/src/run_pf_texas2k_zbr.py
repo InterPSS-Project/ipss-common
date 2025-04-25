@@ -40,6 +40,51 @@ from com.interpss.core.algo import AclfMethodType
 from org.interpss.CorePluginFunction import BusLfResultBusStyle
 from org.interpss.IpssCorePlugin import init as ipss_init
 
+def is_small_z_branch_connected(bus_id, net, small_z):
+        """
+        Check if a bus is connected to a branch with small impedance
+        
+        Args:
+            bus_id: Bus ID string
+            net: AclfNetwork object
+            small_z: Threshold for small impedance
+            
+        Returns:
+            bool: True if connected to small Z branch
+        """
+        has_small_z_branch = False
+        b = net.getBus(bus_id)
+        for bra in b.getBranchList():
+            if bra.isActive() and isinstance(bra, AclfBranch):
+                if bra.getZ().abs() < small_z:
+                    has_small_z_branch = True
+                    print(f"Branch: {bra.getId()}, isXfr? {bra.isXfr()}, original Z: {bra.getZ().abs()} pu")
+        return has_small_z_branch
+
+def find_small_z_branch(self, net, small_z, fix_z=False):
+        """
+        Find branches with small impedance and optionally fix them
+        
+        Args:
+            net: AclfNetwork object
+            small_z: Threshold for small impedance
+            fix_z: Boolean to control whether to fix small Z branches
+            
+        Returns:
+            bool: True if small Z branches were found
+        """
+        small_z_bra = False
+        from org.apache.commons.math3.complex import Complex
+        
+        for bra in net.getBranchList():
+            if bra.isActive():
+                if bra.getZ().abs() < small_z:
+                    small_z_bra = True
+                    print(f"Branch: {bra.getId()}  Z: {bra.getZ().abs()} pu")
+                    if fix_z:
+                        print(f"Branch: {bra.getId()} original Z: {bra.getZ().abs()} pu, setting to {small_z} pu")
+                        bra.setZ(Complex(0, small_z))
+        return small_z_bra
 
 # Create instances of the classes we are going to use
 IpssCorePlugin.init()
@@ -48,7 +93,7 @@ ODMLogger.getLogger().setLevel(Level.INFO)
 adapter = PSSERawAdapter(PsseVersion.PSSE_35)
 
 # Use platform-independent path handling for test data
-raw_path = str(parent_folder / "testData" / "psse" / "Texas2k" / "Texas2k_series24_case1_2016summerPeak_v35.RAW")
+raw_path = str(parent_folder / "testData" / "psse" / "Texas2k" / "Texas2k_series24_case1_2016summerPeak_zbr_v35.RAW")
 adapter.parseInputFile(raw_path)
 net = ODMAclfParserMapper().map2Model(adapter.getModel()).getAclfNet()
 
@@ -56,6 +101,23 @@ algo = CoreObjectFactory.createLoadflowAlgorithm(net)
 # the following two settings are false by default, but they are critical for some real-world networks due to data quality issues
 algo.getDataCheckConfig().setTurnOffIslandBus(True)
 algo.getDataCheckConfig().setAutoTurnLine2Xfr(True)
+
+
+# check the power flow mismatch with the imported data to find potential data issues
+# if any bus has a mismatch larger than mismatch_threshold, check if it is connected to a branch with small impedance
+
+zero_branch_threshold = 0.0001
+mismatch_threshold = 1.0
+# Check bus mismatches, if any bus has a mismatch larger than mismatch_threshold, check if it is connected to a branch with small impedance
+mismatch_table = {}
+for bus in net.getBusList():
+    mis = bus.mismatch(AclfMethodType.NR)
+    mismatch_table[bus.getId()] = mis.abs()
+    
+    if (bus.isActive() and mis.abs() > mismatch_threshold and 
+        is_small_z_branch_connected(bus.getId(), net, zero_branch_threshold)):
+        print(f"{bus.getId()}, mismatch = {mis}")
+        print(f"{bus.getId()}\n{BusLfResultBusStyle.f(net, bus)}\n")
 
 # Run power flow
 algo.getLfAdjAlgo().setApplyAdjustAlgo(False)
@@ -72,7 +134,7 @@ algo.loadflow()
 results_dir = Path(__file__).parent.parent / "results"
 results_dir.mkdir(exist_ok=True)
 
-results_filename = str(results_dir / "Texas2k_lf_results.txt")
+results_filename = str(results_dir / "Texas2k_zbr_lf_results.txt")
 output_file = open(results_filename, "w")
 
 output_file.write(str(AclfOut_PSSE.lfResults(net, PSSEOutFormat.GUI).toString()))
