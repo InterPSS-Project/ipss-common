@@ -1,8 +1,7 @@
 package org.interpss.tutorial.ch2_intro;
 
-import static org.interpss.CorePluginFunction.formatKVStr;
-
 import org.apache.commons.math3.complex.Complex;
+import static org.interpss.CorePluginFunction.formatKVStr;
 import org.interpss.IpssCorePlugin;
 import org.interpss.display.AclfOutFunc;
 import org.interpss.numeric.datatype.Unit.UnitType;

@@ -1,3 +1,7 @@
 {
-    "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx2G -Xms100m -Xlog:disable"
+    "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx4G -Xms200m -Xlog:disable",
+    "java.debug.settings.hotCodeReplace": "auto",
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.format.settings.url": "https://raw.githubusercontent.com/google/google-java-format/master/google-java-format-1.9-all-deps.jar",
+    "java.format.settings.profile": "GoogleStyle"
 }

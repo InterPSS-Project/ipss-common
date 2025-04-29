@@ -1,0 +1,27 @@
+Copyright © 2010 - 2025 InterPSS Systems LLC
+All rights reserved.
+
+Permission is hereby granted, free of charge, to any individual or 
+organization to use, copy, modify, or distribute this software for 
+personal, educational, or community purposes, subject to the following conditions:
+
+
+1. Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the distribution.
+
+3. Neither the name of InterPSS System LLC, nor the names of its contributors may be
+   used to endorse or promote products derived from this software without
+   specific prior written permission.
+
+
+Commercial use is strictly prohibited without prior written permission and a 
+separate commercial license.
+
+This license does not grant permission to use the software in any product or 
+service for which compensation is received.
+
+For commercial licensing inquiries, contact: interpss@gmail.com

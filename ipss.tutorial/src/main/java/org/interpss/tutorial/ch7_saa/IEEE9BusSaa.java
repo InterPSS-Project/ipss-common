@@ -24,7 +24,7 @@ public class IEEE9BusSaa {
 		// import IEEE CDF format data to create a network object
 		AclfNetwork net = CorePluginFactory
 				.getFileAdapter(IpssFileAdapter.FileFormat.IEEECDF)
-				.load("testData/ieee/009ieee.dat")
+				.load("ipss.tutorial/testData/ieee/009ieee.dat")
 				.getAclfNet();	
 	    
 		// create a load flow algorithm object

@@ -5,11 +5,12 @@ import static org.junit.Assert.assertTrue;
 
 import org.ieee.odm.adapter.IODMAdapter.NetType;
 import org.ieee.odm.adapter.psse.PSSEAdapter;
+import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.model.dstab.DStabModelParser;
 import org.interpss.IpssCorePlugin;
 import org.interpss.display.AclfOutFunc;
-import org.interpss.mapper.odm.ODMDStabParserMapper;
+import org.interpss.odm.mapper.ODMDStabParserMapper;
 import org.interpss.numeric.NumericConstant;
 import org.junit.Test;
 
@@ -35,12 +36,12 @@ import com.interpss.simu.SimuCtxType;
 import com.interpss.simu.SimuObjectFactory;
 
 public class DStab_IEEE39Bus_Test  {
-	    IPSSMsgHub msg = CoreCommonFactory.getIpssMsgHub();
+	    
 		
-		@Test
-		public void IEEE39_Dstab_benchMark(){
+		public static void main(String[] args) throws InterpssException {
 			IpssCorePlugin.init();
-			PSSEAdapter adapter = new PSSEAdapter(PsseVersion.PSSE_30);
+			IPSSMsgHub msg = CoreCommonFactory.getIpssMsgHub();
+			PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
 			assertTrue(adapter.parseInputFile(NetType.DStabNet, new String[]{
 					"testData/psse/IEEE39Bus/IEEE39bus_v30.raw",
 					"testData/psse/IEEE39Bus/IEEE39bus.dyr"

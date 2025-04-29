@@ -2,7 +2,6 @@ package org.interpss.tutorial;
 
 import org.apache.commons.math3.complex.Complex;
 import org.interpss.IpssCorePlugin;
-import org.interpss.display.AclfOutFunc;
 import org.interpss.numeric.datatype.Unit.UnitType;
 
 import com.interpss.core.CoreObjectFactory;
@@ -15,7 +14,6 @@ import com.interpss.core.aclf.AclfNetwork;
 import com.interpss.core.aclf.adpter.AclfLineAdapter;
 import com.interpss.core.aclf.adpter.AclfLoadBusAdapter;
 import com.interpss.core.aclf.adpter.AclfSwingBusAdapter;
-import com.interpss.core.algo.LoadflowAlgorithm;
 
 public class Test {
 
