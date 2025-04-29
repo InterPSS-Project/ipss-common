@@ -2,7 +2,7 @@ package org.interpss.tutorial.ch4_shortCircuit;
 
 import static com.interpss.common.util.IpssLogger.ipssLogger;
 import static com.interpss.core.funcImpl.AcscFunction.acscXfrAptr;
-import static org.interpss.mapper.odm.ODMUnitHelper.toZUnit;
+import static org.interpss.odm.mapper.base.ODMUnitHelper.toZUnit;
 
 import org.apache.commons.math3.complex.Complex;
 import org.interpss.IpssCorePlugin;

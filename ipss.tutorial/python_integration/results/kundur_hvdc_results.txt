@@ -1,0 +1,35 @@
+
+
+                                              Load Flow Results
+
+
+                                             Max Power Mismatches
+                                 Bus              dPmax       Bus              dQmax
+                                -------------------------------------------------------
+                                Bus9             0.000000  Bus10            0.000000 (pu)
+                                                0.0083490                   0.023249 (kva)
+
+  X------- FROM BUS ------X AREA  VOLT            GEN    LOAD    SHUNT  X---------- TO BUS ----------X                        TRANSFORMER    RATING A
+    BUS# X-- NAME --X BASKV ZONE  PU/KV  ANGLE  MW/MVAR MW/MVAR MW/MVAR   BUS# X-- NAME --X BASKV AREA CKT    MW     MVAR    RATIO   ANGLE   %I   MVA
+
+       1 BUS1   AR1  20.000    1 1.0300   13.2   700.0      0.0     0.0 -----------------------------------------------------------------------------
+                               1 20.600          184.3R     0.0     0.0      5 BUS5   AR1  230.00    1  1    700.0   184.3  1.000LK        
+
+       2 BUS2   AR1  20.000    1 1.0100    3.4   700.0      0.0     0.0 -----------------------------------------------------------------------------
+                               1 20.200          233.0R     0.0     0.0      6 BUS6   AR1  230.00    1  1    700.0   233.0  1.000LK        
+
+       3 BUS3   AR2  20.000    2 1.0300    0.0   703.4      0.0     0.0 -----------------------------------------------------------------------------
+                               2 20.600          145.1R     0.0     0.0     11 BUS11   AR2 230.00    2  1    703.4   145.1  1.000LK        
+
+       4 BUS4   AR2  20.000    2 1.0100   -9.7   700.0      0.0     0.0 -----------------------------------------------------------------------------
+                               2 20.200          136.7R     0.0     0.0     10 BUS10   AR2 230.00    2  1    700.0   136.7  1.000LK        
+
+       5 BUS5   AR1  230.00    1 1.0066    6.7     0.0      0.0     0.0 -----------------------------------------------------------------------------
+                               1 231.51            0.0      0.0     0.0      1 BUS1   AR1  20.000    1  1   -700.0  -102.0  1.000UN        
+                                                                             6 BUS6   AR1  230.00    1  1    700.0   102.0                 
+
+       6 BUS6   AR1  230.00    1 0.9784   -3.3     0.0      0.0     0.0 -----------------------------------------------------------------------------
+                               1 225.03            0.0      0.0     0.0      5 BUS5   AR1  230.00    1  1   -687.6    17.3                 
+                                                                             2 BUS2   AR1  20.000    1  1   -700.0  -144.1  1.000UN        
+                                                                             7 BUS7   L    230.00    1  1   1387.6   126.8                 
+java.lang.ClassCastException: class com.interpss.core.aclf.hvdc.impl.HvdcLine2TVSCImpl cannot be cast to class com.interpss.core.aclf.AclfBranch (com.interpss.core.aclf.hvdc.impl.HvdcLine2TVSCImpl and com.interpss.core.aclf.AclfBranch are in unnamed module of loader 'app')

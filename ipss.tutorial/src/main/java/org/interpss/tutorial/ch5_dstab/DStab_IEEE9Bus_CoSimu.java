@@ -7,10 +7,11 @@ import java.util.logging.Level;
 import org.ieee.odm.adapter.IODMAdapter.NetType;
 import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
+import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.model.dstab.DStabModelParser;
 import org.interpss.IpssCorePlugin;
 import org.interpss.display.AclfOutFunc;
-import org.interpss.mapper.odm.ODMDStabParserMapper;
+import org.interpss.odm.mapper.ODMDStabParserMapper;
 import org.junit.Test;
 
 import com.interpss.common.CoreCommonFactory;
@@ -26,11 +27,12 @@ import com.interpss.simu.SimuCtxType;
 import com.interpss.simu.SimuObjectFactory;
 
 public class DStab_IEEE9Bus_CoSimu {
-	IPSSMsgHub msg = CoreCommonFactory.getIpssMsgHub();
-	@Test
-	public void test_IEEE9Bus_Dstab(){
+	
+	
+	public static void main(String[] args) throws InterpssException {
 		IpssCorePlugin.init();
-		PSSEAdapter adapter = new PSSEAdapter(PsseVersion.PSSE_30);
+		IPSSMsgHub msg = CoreCommonFactory.getIpssMsgHub();
+		PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
 		assertTrue(adapter.parseInputFile(NetType.DStabNet, new String[]{
 				"testData/psse/IEEE9Bus/ieee9.raw",
 				"testData/psse/IEEE9Bus/ieee9.seq",
@@ -89,29 +91,29 @@ public class DStab_IEEE9Bus_CoSimu {
 				 * update the DStabilityNetwork object based on the MySimulator simulation
 				 * results
 				 */
-				this.updateDStabilityNet(dsNet, mySimu);
+				updateDStabilityNet(dsNet, mySimu);
 				
 				/*
 				 * performance simulation of the DStabilityNetwork
 				 */
-				System.out.println("Perform simulaiton of InterPSS");
+				System.out.println("Perform simulation of InterPSS");
 				dstabAlgo.solveDEqnStep(true);
 
 				/*
 				 * update the MySimulator object based on the InterPSS simulation
 				 * results
 				 */
-			    this.updateMySimu(mySimu, dsNet);
+			    updateMySimu(mySimu, dsNet);
 			}
 		}
 	}
 	
-	private void updateDStabilityNet(BaseDStabNetwork<?,?> dsNet, MySimulator mySimu) {
-		System.out.println("Update DStabilityNetwork object, if necessory");
+	private static void updateDStabilityNet(BaseDStabNetwork<?,?> dsNet, MySimulator mySimu) {
+		System.out.println("Update DStabilityNetwork object, if necessary");
 	}
-
-	private void updateMySimu(MySimulator mySimu, BaseDStabNetwork<?,?> dsNet) {
-		System.out.println("Update MySimulator object, if necessory");
+	
+	private static void updateMySimu(MySimulator mySimu, BaseDStabNetwork<?,?> dsNet) {
+		System.out.println("Update MySimulator object, if necessary");
 	}
 }
 

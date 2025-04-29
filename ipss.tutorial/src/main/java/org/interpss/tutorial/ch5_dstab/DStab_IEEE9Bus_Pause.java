@@ -6,11 +6,12 @@ import java.util.logging.Level;
 
 import org.ieee.odm.adapter.IODMAdapter.NetType;
 import org.ieee.odm.adapter.psse.PSSEAdapter;
+import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.model.dstab.DStabModelParser;
 import org.interpss.IpssCorePlugin;
 import org.interpss.display.AclfOutFunc;
-import org.interpss.mapper.odm.ODMDStabParserMapper;
+import org.interpss.odm.mapper.ODMDStabParserMapper;
 import org.junit.Test;
 
 import com.interpss.common.CoreCommonFactory;
@@ -26,12 +27,11 @@ import com.interpss.simu.SimuCtxType;
 import com.interpss.simu.SimuObjectFactory;
 
 public class DStab_IEEE9Bus_Pause {
-	IPSSMsgHub msg = CoreCommonFactory.getIpssMsgHub();
-	
-	@Test
-	public void test_IEEE9Bus_Dstab() throws InterpssException {
+
+	public static void main(String[] args) throws InterpssException {
 		IpssCorePlugin.init();
-		PSSEAdapter adapter = new PSSEAdapter(PsseVersion.PSSE_30);
+		IPSSMsgHub msg = CoreCommonFactory.getIpssMsgHub();
+		PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
 		assertTrue(adapter.parseInputFile(NetType.DStabNet, new String[]{
 				"testData/psse/IEEE9Bus/ieee9.raw",
 				"testData/psse/IEEE9Bus/ieee9.seq",
@@ -79,14 +79,14 @@ public class DStab_IEEE9Bus_Pause {
 			/*
 			 * Pause and update the DStabilityNetwork object
 			 */
-			this.updateDStabilityNet(dsNet, dstabAlgo.getSimuTime());
+			updateDStabilityNet(dsNet, dstabAlgo.getSimuTime());
 			
 			performSimuTo(dstabAlgo, pauseT2);
 			
 			/*
 			 * Pause and update the DStabilityNetwork object
 			 */
-			this.updateDStabilityNet(dsNet, dstabAlgo.getSimuTime());
+			updateDStabilityNet(dsNet, dstabAlgo.getSimuTime());
 			
 			performSimuTo(dstabAlgo, dstabAlgo.getTotalSimuTimeSec());
 
@@ -94,11 +94,11 @@ public class DStab_IEEE9Bus_Pause {
 		}
 	}
 	
-	private void updateDStabilityNet(BaseDStabNetwork<?,?> dsNet, double t) {
-		System.out.println("Update DStabilityNetwork object, if necessory, time:" + t);
+	private static void updateDStabilityNet(BaseDStabNetwork<?,?> dsNet, double t) {
+		System.out.println("Update DStabilityNetwork object, if necessary, time:" + t);
 	}
 	
-	private void performSimuTo(DynamicSimuAlgorithm dstabAlgo, double toTime) throws InterpssException {
+	private static void performSimuTo(DynamicSimuAlgorithm dstabAlgo, double toTime) throws InterpssException {
 		double time = dstabAlgo.getSimuTime();
 		if (toTime <= time )
 				throw new InterpssException("performSimuTo().toTime <= dstabAlgo.getSimuTime()");
