@@ -2,3 +2,5 @@
 /SymbolicNotation/
 .DS_Store
 /ipss.tutorial/output
+# Ignore Windows Zone.Identifier files
+*:Zone.Identifier
