@@ -66,9 +66,8 @@
 	</dependency>	
 	<dependency>
     	<groupId>com.hazelcast</groupId>
-	    <artifactId>hazelcast-distribution</artifactId>
+	    <artifactId>hazelcast</artifactId>
 	    <version>5.0.2</version>
-	    <type>pom</type>
 	</dependency>
 	<dependency>
 	    <groupId>org.apache.logging.log4j</groupId>
