@@ -33,6 +33,7 @@ from com.interpss.common.util import IpssLogger
 from org.ieee.odm.common import ODMLogger
 from java.util.logging import Level
 
+
 # create instances of the classes we are going to used
 IpssCorePlugin.init()
 IpssLogger.getLogger().setLevel(Level.INFO)
@@ -40,13 +41,22 @@ ODMLogger.getLogger().setLevel(Level.INFO)
 adapter = PSSERawAdapter(PsseVersion.PSSE_33)
 
 # Use Path object for raw_path to ensure cross-platform compatibility
-raw_path = str(parent_folder / "testData" / "psse" / "Kundur_2area_LCC_HVDC.raw")
+raw_path = str(parent_folder / "testData" / "psse" / "Kundur_2area_LCC_HVDC_PsetOnInv.raw")
 adapter.parseInputFile(raw_path)
 net = ODMAclfParserMapper().map2Model(adapter.getModel()).getAclfNet()
 
 algo = CoreObjectFactory.createLoadflowAlgorithm(net)
 algo.getLfAdjAlgo().setApplyAdjustAlgo(False)
 algo.loadflow()
+
+from com.interpss.core.aclf.hvdc import HvdcLine2TLCC
+for lccHVDC in net.getSpecialBranchList():
+    if lccHVDC.isActive() and isinstance(lccHVDC, HvdcLine2TLCC):
+        print(f"Branch {lccHVDC.getId()} is a LCC HVDC branch.")
+        print(f"  From bus: {lccHVDC.getFromBus().getId()}")
+        print(f"  To bus: {lccHVDC.getToBus().getId()}")
+        print(f"  Power flow at Rec: {lccHVDC.getRectifier().powerIntoConverter().getReal()} + j{lccHVDC.getRectifier().powerIntoConverter().getImaginary()} pu")
+        print(f"  Power flow at Inv: {lccHVDC.getInverter().powerIntoConverter().getReal()} + j{lccHVDC.getInverter().powerIntoConverter().getImaginary()} pu")
 
 # basic load flow results summary, showing the bus type, voltage magnitude and angle and bus net power  	
 # print(AclfOutFunc.loadFlowSummary(net))

@@ -56,7 +56,7 @@ def is_small_z_branch_connected(bus_id, net, small_z):
         b = net.getBus(bus_id)
         for bra in b.getBranchList():
             if bra.isActive() and isinstance(bra, AclfBranch):
-                if bra.getZ().abs() < small_z:
+                if bra.getZ().abs() <= small_z:
                     has_small_z_branch = True
                     print(f"Branch: {bra.getId()}, isXfr? {bra.isXfr()}, original Z: {bra.getZ().abs()} pu")
         return has_small_z_branch
@@ -102,11 +102,23 @@ algo = CoreObjectFactory.createLoadflowAlgorithm(net)
 algo.getDataCheckConfig().setTurnOffIslandBus(True)
 algo.getDataCheckConfig().setAutoTurnLine2Xfr(True)
 
+#branch_with_errors = [(1001,1064,"1")]
+branch_with_errors = [(301018,304864,"1"), (255204,255205,"3"), (270678,274656,"1W"), (208014,208054,"1"),(113347,113384,"1")]
+for i,j, idx in branch_with_errors:
+    # Get the branch between buses using net.getBranch()
+    branch = net.getBranch(f"Bus{i}", f"Bus{j}", idx)
 
+    # Check if branch exists and print properties
+    if branch is not None:
+        print(f"Branch ID: {branch.getId()} Z: {branch.getZ().abs()} pu, "
+            f"fromShuntY: {branch.getFromShuntY().abs()} pu, "
+            f"halfShuntY: {branch.getHShuntY().abs()} pu")
+    else:
+        print(f"Branch not found between Bus{i} and Bus{j} with ID: {idx}")
 # check the power flow mismatch with the imported data to find potential data issues
 # if any bus has a mismatch larger than mismatch_threshold, check if it is connected to a branch with small impedance
 
-zero_branch_threshold = 0.0001
+zero_branch_threshold = 0.0002
 mismatch_threshold = 10.0
 # Check bus mismatches, if any bus has a mismatch larger than mismatch_threshold, check if it is connected to a branch with small impedance
 mismatch_table = {}
@@ -116,9 +128,7 @@ for bus in net.getBusList():
     if (bus.isActive() and mis.abs() > mismatch_threshold): 
         print(f"{bus.getId()}, mismatch = {mis}")
         mismatch_table[bus.getId()] = mis.abs()
-        if (is_small_z_branch_connected(bus.getId(), net, zero_branch_threshold)):
-            print(f"{bus.getId()} connects with zero impedance branches \n{BusLfResultBusStyle.f(net, bus)}\n")
-        else:
+        if not is_small_z_branch_connected(bus.getId(), net, zero_branch_threshold):
             print(f"{bus.getId()} does not connect with zero impedance branches \n{BusLfResultBusStyle.f(net, bus)}\n")
    
 sorted_mismatch_table = dict(sorted(mismatch_table.items(), key=lambda item: item[1], reverse=True))
@@ -126,6 +136,8 @@ print("Sorted Mismatch Table:", sorted_mismatch_table)
 
 # Run power flow
 algo.getLfAdjAlgo().setApplyAdjustAlgo(False)
+algo.setNonDivergent(True)
+algo.setTolerance(0.005)
 algo.loadflow()
 
 # basic load flow results summary, showing the bus type, voltage magnitude and angle and bus net power  	

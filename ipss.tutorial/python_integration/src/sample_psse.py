@@ -45,7 +45,39 @@ algo.loadflow()
 print(AclfOutFunc.loadFlowSummary(net))
 
 # print out more detailed power flow results in PSS/E style
-print(AclfOut_PSSE.lfResults(net, PSSEOutFormat.GUI))
+# print(AclfOut_PSSE.lfResults(net, PSSEOutFormat.GUI))
+
+
+## ---------------update load and generator data----------------
+print("---------------update load and generator data----------------")
+
+
+load_factor = 1.1
+gen_factor = 1.1
+
+for bus in net.getBusList():
+    for load in bus.getContributeLoadList():
+        load.setLoadCP(load.getLoadCP().multiply(load_factor)) # note: here cp means constant power load, and loadcp returns the complex (loadP, loadQ)
+
+    for gen in bus.getContributeGenList():
+        gen.setGen(gen.getGen().multiply(gen_factor)) # note:  for PV bus, the genQ is calculated by the power flow solver, so it is uncessary to set it.
+
+algo.loadflow()
+
+# basic load flow results summary, showing the bus type, voltage magnitude and angle and bus net power  	
+print(AclfOutFunc.loadFlowSummary(net))
+
+# ------------------OUTPUT Y matrix as a parse matrix-------------------
+#from org.interpss.numeric.util import MatrixOutputUtil
+MatrixOutputUtil = jpype.JClass("org.interpss.numeric.util.MatrixOutputUtil")
+
+# note the output matrix is a sparse matrix in matlab sparse matrix format, so the index starts from 1, thus index 1 means the first row/column
+print(MatrixOutputUtil.matrixToString(net.formYMatrix()))
+
+# the Y matrix is organized by the bus sort number
+for bus in net.getBusList():
+    print(f"Bus {bus.getId()} index: {bus.getSortNumber()}")
+
 
 # Shutdown JVM
 jpype.shutdownJVM()
