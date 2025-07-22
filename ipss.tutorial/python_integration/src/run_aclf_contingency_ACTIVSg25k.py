@@ -61,6 +61,7 @@ algo.getDataCheckConfig().setAutoTurnLine2Xfr(True)
 algo.getLfAdjAlgo().setApplyAdjustAlgo(False)
 algo.setNonDivergent(True)
 algo.setTolerance(0.001)
+algo.loadflow()
 
 # Serial contingency analysis
 starting_idx = 0
@@ -68,24 +69,22 @@ total_con = 10
 i = 0
 start_time = time.time()
 contResultDict = {}
-for bra in net.getBranchList():
+for i in range(total_con):
     # take one branch out for contingency analysis
-    if (starting_idx >100 and bra.isActive()):
+    copy_net = net.jsonCopy()
+    # Explicitly cast to avoid ambiguous overload
+    index = jpype.JInt(starting_idx + i)
+    bra = copy_net.getBranchList().get(index)
+    if (bra.isActive()):
         bra.setStatus(False)
-    else:
-        starting_idx += 1
-        continue
     
-    # run AC power flow
+    # Create algorithm for the copied network
+    algo.setNetwork(copy_net)
+
+    # run AC power flow on the copied network
     algo.loadflow()
-    print("Contingency Analysis: Branch", bra.getId(), "out of service, power flow convergence:", net.isLfConverged())
-    contResultDict[bra.getId()] = net.isLfConverged()
-    # reset the branch status to True for the next iteration
-    bra.setStatus(True)
-    i+=1
-    
-    if i >= total_con:
-        break
+    print("Contingency Analysis: Branch", bra.getId(), "out of service, power flow convergence:", copy_net.isLfConverged())
+    contResultDict[bra.getId()] = copy_net.isLfConverged()
 
 end_time = time.time()
 print("total contingency cases:", total_con)

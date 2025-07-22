@@ -48,7 +48,7 @@ ODMLogger.getLogger().setLevel(Level.INFO)
 adapter = PSSERawAdapter(PsseVersion.PSSE_33)
 
 # Use platform-independent path handling for test data
-raw_path = str(parent_folder / "testData" / "psse" / "ACTIVSg25k.raw")
+raw_path = str(parent_folder / "testData" / "psse" / "ACTIVSg25k.RAW")
 adapter.parseInputFile(raw_path)
 net = ODMAclfParserMapper().map2Model(adapter.getModel()).getAclfNet()
 
