@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (C) 2006-2011 www.interpss.org
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+         xmlns:p="http://www.springframework.org/schema/p"
+	     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+<!--
+	Default Double Sparse Eqn implementation   
+-->
+	<bean id="sparseEqnInteger" 
+	      class="com.interpss.core.sparse.impl.SparseEqnIntegerImpl" scope="prototype">	
+	</bean>
+
+	<bean id="sparseEqnDouble" 
+	      class="com.interpss.core.sparse.impl.SparseEqnDoubleImpl" scope="prototype">	
+	</bean>
+	
+	<bean id="sparseEqnMatrix2x2" 
+	      class="com.interpss.core.sparse.impl.SparseEqnMatrix2x2Impl"  scope="prototype">
+	</bean>
+
+	<bean id="sparseEqnComplex" 
+	      class="com.interpss.core.sparse.impl.SparseEqnComplexImpl"  scope="prototype">
+	</bean>
+
+	<!--
+	To use native solver, ipss.native jar has to be on the class path 
+	 -->
+	<bean id="sparseEqnDoubleNative" 
+	      class="com.interpss.numeric.sparse.ntv.SparseEqnDoubleNativeImpl" scope="prototype">
+	</bean>
+
+	<bean id="sparseEqnMatrix2x2Native" 
+	      class="com.interpss.numeric.sparse.ntv.SparseEqnMatrix2x2NativeImpl"  scope="prototype">
+	</bean>
+
+	<bean id="sparseEqnComplexNative" 
+	      class="com.interpss.numveric.sparse.ntv.SparseEqnComplexNativeImpl"  scope="prototype">
+	</bean>
+
+	<!--
+	An alternative Double Sparse Eqn implementation   
+	-->
+	<bean id="sparseEqnDoubleCommonMath" 
+	      class="org.interpss.numeric.sparse.impl.SparseEqnDoubleCommonMathImpl"  scope="prototype">
+	</bean>
+
+	<!--
+	Dev methods   
+	-->
+	<bean id="sparseEqnDoubleDev" 
+	      class="com.interpss.core.sparse.dev.SparseEqnDoubleDevImpl" scope="prototype">
+	</bean>
+	
+	<bean id="sparseEqnMatrix2x2Dev" 
+	      class="com.interpss.core.sparse.dev.SparseEqnMatrix2x2DevImpl"  scope="prototype">
+	</bean>
+</beans>
