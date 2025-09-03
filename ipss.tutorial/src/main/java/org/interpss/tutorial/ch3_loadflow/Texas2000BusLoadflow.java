@@ -12,9 +12,6 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.interpss.IpssCorePlugin;
-import org.interpss.display.AclfOutFunc;
-import org.interpss.display.AclfOutFunc.BusIdStyle;
-import org.interpss.display.impl.AclfOut_BusStyle;
 import org.interpss.odm.mapper.ODMAclfParserMapper;
 
 import com.interpss.common.exp.InterpssException;
@@ -38,7 +35,7 @@ public class Texas2000BusLoadflow {
 		// Configure file logging with appropriate exception handling
 		FileHandler fileHandler = null;
 		try {
-			fileHandler = new FileHandler("ipss.tutorial/output/mylog.log", false); // true = append mode
+			fileHandler = new FileHandler("ipss-common/ipss.tutorial/output/mylog.log", false); // true = append mode
 			fileHandler.setFormatter(new SimpleFormatter());
 			fileHandler.setLevel(Level.ALL);
 			
@@ -53,7 +50,7 @@ public class Texas2000BusLoadflow {
 		}
 	
 		PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_35);
-		adapter.parseInputFile("ipss.tutorial/testData/psse/Texas2k/Texas2k_series24_case1_2016summerPeak_v35.RAW");
+		adapter.parseInputFile("ipss-common/ipss.tutorial/testData/psse/Texas2k/Texas2k_series24_case1_2016summerPeak_v35.RAW");
 		AclfModelParser parser =(AclfModelParser) adapter.getModel();
 		
 		//System.out.println(parser.toXmlDoc());
@@ -84,10 +81,10 @@ public class Texas2000BusLoadflow {
 	  	
 	  		
 		//output load flow summary result
-		System.out.println(AclfOutFunc.loadFlowSummary(net));
+		//System.out.println(AclfOutFunc.loadFlowSummary(net));
 		
 		//BusStyle output provides bus generation and load, as well as branch power flow info
-		System.out.println(AclfOut_BusStyle.lfResultsBusStyle(net, BusIdStyle.BusId_No));
+		//System.out.println(AclfOut_BusStyle.lfResultsBusStyle(net, BusIdStyle.BusId_No));
 	}
 
 }

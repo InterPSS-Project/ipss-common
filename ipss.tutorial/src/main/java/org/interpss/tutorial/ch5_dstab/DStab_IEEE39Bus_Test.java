@@ -1,18 +1,15 @@
 package org.interpss.tutorial.ch5_dstab;
 
-import static com.interpss.dstab.cache.StateVariableRecorder.StateVarRecType.MachineState;
-import static org.junit.Assert.assertTrue;
-
 import org.ieee.odm.adapter.IODMAdapter.NetType;
 import org.ieee.odm.adapter.psse.PSSEAdapter;
-import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
+import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.model.dstab.DStabModelParser;
 import org.interpss.IpssCorePlugin;
 import org.interpss.display.AclfOutFunc;
-import org.interpss.odm.mapper.ODMDStabParserMapper;
 import org.interpss.numeric.NumericConstant;
-import org.junit.Test;
+import org.interpss.odm.mapper.ODMDStabParserMapper;
+import static org.junit.Assert.assertTrue;
 
 import com.interpss.common.CoreCommonFactory;
 import com.interpss.common.exp.InterpssException;
@@ -28,6 +25,7 @@ import com.interpss.dstab.DStabilityNetwork;
 import com.interpss.dstab.algo.DynamicSimuAlgorithm;
 import com.interpss.dstab.algo.DynamicSimuMethod;
 import com.interpss.dstab.cache.StateVariableRecorder;
+import static com.interpss.dstab.cache.StateVariableRecorder.StateVarRecType.MachineState;
 import com.interpss.dstab.common.DStabOutSymbol;
 import com.interpss.dstab.devent.DynamicSimuEvent;
 import com.interpss.dstab.devent.DynamicSimuEventType;
@@ -43,8 +41,8 @@ public class DStab_IEEE39Bus_Test  {
 			IPSSMsgHub msg = CoreCommonFactory.getIpssMsgHub();
 			PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
 			assertTrue(adapter.parseInputFile(NetType.DStabNet, new String[]{
-					"testData/psse/IEEE39Bus/IEEE39bus_v30.raw",
-					"testData/psse/IEEE39Bus/IEEE39bus.dyr"
+					"ipss.tutorial/testData/psse/IEEE39Bus/IEEE39bus_v30.raw",
+					"ipss.tutorial/testData/psse/IEEE39Bus/IEEE39bus.dyr"
 			}));
 			DStabModelParser parser =(DStabModelParser) adapter.getModel();
 			
