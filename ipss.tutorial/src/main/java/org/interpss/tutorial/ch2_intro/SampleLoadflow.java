@@ -28,9 +28,9 @@ import org.apache.commons.math3.complex.Complex;
 import org.interpss.IpssCorePlugin;
 import org.interpss.display.AclfOutFunc;
 import org.interpss.numeric.datatype.Unit.UnitType;
-import org.interpss.plugin.pssl.simu.IpssAclf;
 import org.interpss.plugin.pssl.simu.net.IpssAclfNet;
 
+import com.interpss.common.CoreCommonFactory;
 import com.interpss.common.exp.InterpssException;
 import com.interpss.common.msg.IPSSMsgHub;
 import com.interpss.core.CoreObjectFactory;
@@ -51,7 +51,7 @@ public class SampleLoadflow {
 		IpssCorePlugin.init();
 		
 		// set session message to Warning level
-		IPSSMsgHub msg = IpssAclf.psslMsg;
+		IPSSMsgHub msg = CoreCommonFactory.getIpssMsgHub();
 		
 		//use interpss basic functions to create network
 		simpleLoadflow(msg);
