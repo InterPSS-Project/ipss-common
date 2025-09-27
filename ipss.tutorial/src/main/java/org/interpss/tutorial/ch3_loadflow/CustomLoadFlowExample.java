@@ -102,9 +102,9 @@ public class CustomLoadFlowExample {
                  * sparse eqn.
                  */
                 @Override
-                public void updateBusVoltage(ISparseEqnMatrix2x2 lfEqn) {
+                public void updateBusVoltage(ISparseEqnMatrix2x2 lfEqn, double tolerance) {
                         // update the bus voltage using the solution results store in the sparse eqn
-                        super.updateBusVoltage(lfEqn);
+                        super.updateBusVoltage(lfEqn, tolerance);
                         
                         // the solution result of the extra variable defined is stored at B(n)  
                         int n = aclfNet.getNoBus();
