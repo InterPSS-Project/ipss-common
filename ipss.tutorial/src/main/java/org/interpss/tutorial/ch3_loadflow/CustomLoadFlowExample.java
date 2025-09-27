@@ -33,6 +33,7 @@ import com.interpss.common.exp.InterpssException;
 import com.interpss.core.CoreObjectFactory;
 import com.interpss.core.aclf.AclfNetwork;
 import com.interpss.core.algo.LoadflowAlgorithm;
+import com.interpss.core.algo.NrMethodConfig;
 import com.interpss.core.algo.impl.solver.DefaultNrSolver;
 import com.interpss.simu.util.sample.SampleTestingCases;
 
@@ -44,8 +45,8 @@ public class CustomLoadFlowExample {
          *
          */
         static class CustomNrSolver extends DefaultNrSolver {
-                public CustomNrSolver(AclfNetwork net) {
-                        super(net);
+                public CustomNrSolver(AclfNetwork net, NrMethodConfig config) {
+                        super(net, config);
                 }
 
                 /**
@@ -129,7 +130,7 @@ public class CustomLoadFlowExample {
                 LoadflowAlgorithm algo = CoreObjectFactory.createLoadflowAlgorithm();
 
                 // set algo NR solver to the CustomNrSolver
-                algo.getLfCalculator().setNrSolver(new CustomNrSolver(net));
+                algo.getLfCalculator().setNrSolver(new CustomNrSolver(net, algo.getNrMethodConfig()));
 
                 // run Loadflow
                 try {
