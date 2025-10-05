@@ -16,6 +16,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.interpss.common.exp.InterpssException;
 import com.interpss.core.CoreObjectFactory;
+import com.interpss.core.LoadflowAlgoObjectFactory;
 import com.interpss.core.acsc.AcscNetwork;
 import com.interpss.core.acsc.SequenceCode;
 import com.interpss.core.acsc.fault.AcscBusFault;
@@ -48,7 +49,7 @@ public static void main(String[] args) throws InterpssException, IpssNumericExce
 		}
 		net.setBusNumberArranged(true);
 		
-		LoadflowAlgorithm algo = CoreObjectFactory.createLoadflowAlgorithm(net);
+		LoadflowAlgorithm algo = LoadflowAlgoObjectFactory.createLoadflowAlgorithm(net);
 		algo.setLfMethod(AclfMethodType.PQ);
 		algo.getLfAdjAlgo().setApplyAdjustAlgo(false);
 		algo.loadflow();

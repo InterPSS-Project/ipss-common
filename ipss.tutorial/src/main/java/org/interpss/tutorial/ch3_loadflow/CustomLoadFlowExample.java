@@ -31,6 +31,7 @@ import org.interpss.numeric.sparse.ISparseEqnMatrix2x2;
 
 import com.interpss.common.exp.InterpssException;
 import com.interpss.core.CoreObjectFactory;
+import com.interpss.core.LoadflowAlgoObjectFactory;
 import com.interpss.core.aclf.AclfNetwork;
 import com.interpss.core.algo.LoadflowAlgorithm;
 import com.interpss.core.algo.NrMethodConfig;
@@ -127,7 +128,7 @@ public class CustomLoadFlowExample {
                 //System.out.println(net.net2String());
 
                 // create a Loadflow algo object
-                LoadflowAlgorithm algo = CoreObjectFactory.createLoadflowAlgorithm();
+                LoadflowAlgorithm algo = LoadflowAlgoObjectFactory.createLoadflowAlgorithm();
 
                 // set algo NR solver to the CustomNrSolver
                 algo.getLfCalculator().setNrSolver(new CustomNrSolver(net, algo.getNrMethodConfig()));

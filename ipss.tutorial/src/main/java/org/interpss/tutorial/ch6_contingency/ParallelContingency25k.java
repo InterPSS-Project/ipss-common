@@ -8,7 +8,7 @@ import org.interpss.plugin.pssl.plugin.IpssAdapter;
 import static org.interpss.plugin.pssl.plugin.IpssAdapter.FileFormat.PSSE;
 
 import com.interpss.common.util.IpssLogger;
-import com.interpss.core.CoreObjectFactory;
+import com.interpss.core.LoadflowAlgoObjectFactory;
 import com.interpss.core.aclf.AclfNetwork;
 import com.interpss.core.algo.LoadflowAlgorithm;
 
@@ -48,7 +48,7 @@ public class ParallelContingency25k {
             
             // Verify base case load flow convergence
             System.out.println("\nVerifying base case load flow...");
-            LoadflowAlgorithm baseAlgo = CoreObjectFactory.createLoadflowAlgorithm(net);
+            LoadflowAlgorithm baseAlgo = LoadflowAlgoObjectFactory.createLoadflowAlgorithm(net);
             baseAlgo.getDataCheckConfig().setTurnOffIslandBus(true);
             baseAlgo.getDataCheckConfig().setAutoTurnLine2Xfr(true);
             baseAlgo.getLfAdjAlgo().setApplyAdjustAlgo(false);
@@ -119,7 +119,7 @@ public class ParallelContingency25k {
         
             
         } catch (Exception e) {
-            System.err.println("✗ Test failed: " + e.getMessage());
+            System.err.println("✄1�7 Test failed: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -179,9 +179,9 @@ public class ParallelContingency25k {
         }
         
         if (mismatches == 0) {
-            System.out.println("✓ Results consistency: PASS (all results match)");
+            System.out.println("✄1�7 Results consistency: PASS (all results match)");
         } else {
-            System.out.println("⚠ Results consistency: " + mismatches + " mismatches found");
+            System.out.println("⚄1�7 Results consistency: " + mismatches + " mismatches found");
             if (mismatches > 5) {
                 System.out.println("  ... and " + (mismatches - 5) + " more mismatches");
             }

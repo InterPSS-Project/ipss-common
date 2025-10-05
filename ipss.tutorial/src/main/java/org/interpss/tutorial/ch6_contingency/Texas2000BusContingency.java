@@ -13,7 +13,7 @@ import org.interpss.odm.mapper.ODMAclfParserMapper;
 
 import com.interpss.common.exp.InterpssException;
 import com.interpss.common.util.IpssLogger;
-import com.interpss.core.CoreObjectFactory;
+import com.interpss.core.LoadflowAlgoObjectFactory;
 import com.interpss.core.aclf.AclfBranch;
 import com.interpss.core.aclf.AclfNetwork;
 import com.interpss.core.algo.LoadflowAlgorithm;
@@ -42,7 +42,7 @@ public class Texas2000BusContingency {
 	    
 		AclfNetwork net =simuCtx.getAclfNet();
 		//create a load flow algorithm object
-	  	LoadflowAlgorithm algo = CoreObjectFactory.createLoadflowAlgorithm(net);
+	  	LoadflowAlgorithm algo = LoadflowAlgoObjectFactory.createLoadflowAlgorithm(net);
 	  	
 	  	/*
 	  	 * users can also customize the configurations of the load flow algorithm
