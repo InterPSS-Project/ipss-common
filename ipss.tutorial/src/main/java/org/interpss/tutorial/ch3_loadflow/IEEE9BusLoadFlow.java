@@ -1,7 +1,6 @@
 package org.interpss.tutorial.ch3_loadflow;
 
 import org.interpss.CorePluginFactory;
-import org.interpss.IpssCorePlugin;
 import org.interpss.display.AclfOutFunc;
 import org.interpss.display.AclfOutFunc.BusIdStyle;
 import org.interpss.display.impl.AclfOut_BusStyle;
@@ -15,8 +14,7 @@ import com.interpss.core.algo.LoadflowAlgorithm;
 public class IEEE9BusLoadFlow {
 	
 	public static void main(String[] args) throws InterpssException {
-		//Initialize logger and Spring config
-		IpssCorePlugin.init();
+
 		
 		// import IEEE CDF format data to create a network object
 		AclfNetwork net = CorePluginFactory
