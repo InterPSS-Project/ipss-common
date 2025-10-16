@@ -2,7 +2,6 @@ package org.interpss.tutorial.ch2_intro;
 
 import org.apache.commons.math3.complex.Complex;
 import static org.interpss.CorePluginFunction.formatKVStr;
-import org.interpss.IpssCorePlugin;
 import org.interpss.display.AclfOutFunc;
 import org.interpss.numeric.datatype.Unit.UnitType;
 import org.interpss.numeric.util.Number2String;
@@ -29,7 +28,6 @@ import com.interpss.core.net.Branch;
 public class IntroNetworkObjectSample {
 	
 	public static void main(String[] args) throws InterpssException{
-		IpssCorePlugin.init();
 		//create a sample system consisting of two buses
 		AclfNetwork net = createSampleNetwork();
 		

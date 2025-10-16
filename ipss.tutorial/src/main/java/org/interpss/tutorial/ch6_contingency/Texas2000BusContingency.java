@@ -1,22 +1,22 @@
 package org.interpss.tutorial.ch6_contingency;
 
 
-import java.util.Arrays;
+import java.util.stream.IntStream;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.model.aclf.AclfModelParser;
-import org.interpss.IpssCorePlugin;
-import org.interpss.numeric.datatype.Unit.UnitType;
 import org.interpss.odm.mapper.ODMAclfParserMapper;
 
 import com.interpss.common.exp.InterpssException;
-import com.interpss.common.util.IpssLogger;
 import com.interpss.core.LoadflowAlgoObjectFactory;
-import com.interpss.core.aclf.AclfBranch;
 import com.interpss.core.aclf.AclfNetwork;
+import com.interpss.core.algo.AclfMethodType;
 import com.interpss.core.algo.LoadflowAlgorithm;
+import com.interpss.core.algo.NrMethodConfig;
+import com.interpss.core.algo.NrOptimizeAlgoType;
+import com.interpss.core.funcImpl.AclfAdjCtrlFunction;
 import com.interpss.simu.SimuContext;
 import com.interpss.simu.SimuCtxType;
 import com.interpss.simu.SimuObjectFactory;
@@ -24,12 +24,9 @@ import com.interpss.simu.SimuObjectFactory;
 public class Texas2000BusContingency {
 	
 	public static void main(String[] args) throws InterpssException {
-		//Initialize logger and Spring config
-		IpssCorePlugin.init();
-		IpssLogger.getLogger().setLevel(java.util.logging.Level.OFF); // set logger level to WARNING to avoid too much log output
 	
 		PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
-		adapter.parseInputFile("ipss.tutorial/testData/psse/Texas2k/Texas2k_series24_case1_2016summerPeak_v30.RAW");
+		adapter.parseInputFile("ipss-common/ipss.tutorial/testData/psse/Texas2k/Texas2k_series24_case1_2016summerPeak_v30.RAW");
 		AclfModelParser parser =(AclfModelParser) adapter.getModel();
 		
 		//System.out.println(parser.toXmlDoc());
@@ -43,46 +40,78 @@ public class Texas2000BusContingency {
 		AclfNetwork net =simuCtx.getAclfNet();
 		//create a load flow algorithm object
 	  	LoadflowAlgorithm algo = LoadflowAlgoObjectFactory.createLoadflowAlgorithm(net);
-	  	
-	  	/*
-	  	 * users can also customize the configurations of the load flow algorithm
-	  	 *
-	  	  algo.setLfMethod(AclfMethod.PQ);
-	  	  algo.setMaxIterations(20);
-	  	  algo.setInitBusVoltage(false);
-	  	  algo.setTurnOffIslandBus(true);
-	  	 */ 
 	  	 
-	  	
-	  	//run load flow using default setting
-	  	algo.getLfAdjAlgo().setApplyAdjustAlgo(false);
+	  	// disable all the controls
+		AclfAdjCtrlFunction.disableAllAdjControls.accept(algo);
+		
+		//algo.getNrMethodConfig().setNonDivergent(true);
+		NrMethodConfig config = algo.getNrMethodConfig();
+	  	//config.setNonDivergent(true);
+	  	config.setOptAlgo(NrOptimizeAlgoType.CUBIC_EQN_STEP_SIZE);
+	  	// re-configure the Nr solver with the updated config
+	  	algo.getLfCalculator().getNrSolver().reConfigSolver(config);
+
 	  	algo.loadflow();
 
 		// run aclf contingency analysis by iterating through all branches
 		
-		// time the run time for contingency analysis
+		//time the following code block
+		long startTime1 = System.currentTimeMillis();
+
+		// AclfNetwork copyNet = net.jsonCopy();
+
+		// AclfNetObjectComparator comparator = new AclfNetObjectComparator(net, copyNet);
+		// comparator.compareNetwork();
+		// System.out.println("Network comparison result: " + comparator.getDiffMsgList());
+        
+		//System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "8");
+	
+		int totalCnt = 50;
+
 		
-		long startTime = System.currentTimeMillis();
-		int topK = 50;
-		int i = 0;
+		// turn off the parallel processing
+		long totalSuccessCount = IntStream.range(0, totalCnt)
+			//.parallel()
+			.mapToObj(i -> {
+				try {
+					AclfNetwork copyNet = net.jsonCopy();
+					copyNet.getBranchList().get(i).setStatus(false);
 
-		for(AclfBranch bra : net.getBranchList()) {
-			bra.setStatus(false);
-			algo.loadflow();
-			// get the load flow summary result after the branch outage
-			System.out.println("\n\nContingency Analysis: Branch " + bra.getId() + " Bus 1001 voltage:\n" + net.getBus("Bus1001").getVoltageMag());
-			System.out.println("\n\nContingency Analysis: Branch " + bra.getId() + " Branch flow:\n" + net.getBranch("Bus1004->Bus3133(1)").powerFrom2To(UnitType.mVar));
-			bra.setStatus(true);
+					// Create a new algorithm instance for each thread to avoid conflicts
+					LoadflowAlgorithm parallelAlgo = LoadflowAlgoObjectFactory.createLoadflowAlgorithm(copyNet);
+					parallelAlgo.getDataCheckConfig().setTurnOffIslandBus(true);
+					parallelAlgo.getDataCheckConfig().setAutoTurnLine2Xfr(true);
+					parallelAlgo.setLfMethod(AclfMethodType.NR);
 
-			i++;
-			if (i > topK) {
-				break;
-			}
+					AclfAdjCtrlFunction.disableAllAdjControls.accept(parallelAlgo);
 
-		}
-		long endTime = System.currentTimeMillis();
-		System.out.println("\n\nContingency Analysis completed. Total branches analyzed: " + topK);
-		System.out.println("\nContingency Analysis completed in " + (endTime - startTime)/1000 + " seconds\n\n");
+					parallelAlgo.getNrMethodConfig().setNonDivergent(true);
+					parallelAlgo.setMaxIterations(50);
+					parallelAlgo.setTolerance(0.005);
+
+					boolean isConverged = parallelAlgo.loadflow();
+					
+					// Thread-safe printing with synchronization
+					// synchronized(System.out) {
+					// 	System.out.println("index: " + i + ", Load flow converged? " + isConverged);
+					// }
+					
+					return isConverged;
+				} catch (Exception e) {
+					synchronized(System.err) {
+						System.err.println("Error processing contingency " + i + ": " + e.getMessage());
+					}
+					return false;
+				}
+			})
+			.mapToLong(converged -> converged ? 1 : 0)
+			.sum();
+	  	
+	  	// // end time
+		long endTime1 = System.currentTimeMillis();
+		System.out.println("End time: " + endTime1);
+		System.out.println("Total time: " + (endTime1 - startTime1)/1000.0 + " seconds");
+		System.out.println("Total successful contingencies: " + totalSuccessCount +" out of "+ totalCnt);
 	}
 
 }

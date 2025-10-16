@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.commons.math3.complex.Complex;
 import org.interpss.CorePluginFactory;
-import org.interpss.IpssCorePlugin;
 import org.interpss.fadapter.IpssFileAdapter;
 
 import com.interpss.common.exp.InterpssException;
@@ -15,13 +14,11 @@ public class ThreeBasicObjects {
 	
 	
 	public static void main(String[] args) throws InterpssException {
-		//Initialize logger and Spring config
-		IpssCorePlugin.init();
 		
 		// import IEEE CDF format data to create a network object
 		AclfNetwork net = CorePluginFactory
 				.getFileAdapter(IpssFileAdapter.FileFormat.IEEECDF)
-				.load("testData/ieee/009ieee.dat")
+				.load("ipss-common/ipss.tutorial/testData/ieee/009ieee.dat")
 				.getAclfNet();	
 		
 		/*

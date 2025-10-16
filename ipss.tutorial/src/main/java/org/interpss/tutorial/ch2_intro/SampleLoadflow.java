@@ -25,7 +25,6 @@
 package org.interpss.tutorial.ch2_intro;
 
 import org.apache.commons.math3.complex.Complex;
-import org.interpss.IpssCorePlugin;
 import org.interpss.display.AclfOutFunc;
 import org.interpss.numeric.datatype.Unit.UnitType;
 import org.interpss.plugin.pssl.simu.net.IpssAclfNet;
@@ -49,7 +48,6 @@ import com.interpss.core.algo.LoadflowAlgorithm;
 
 public class SampleLoadflow {
 	public static void main(String args[]) throws InterpssException {
-		IpssCorePlugin.init();
 		
 		// set session message to Warning level
 		IPSSMsgHub msg = CoreCommonFactory.getIpssMsgHub();

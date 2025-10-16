@@ -1,16 +1,15 @@
 package org.interpss.tutorial.ch6_contingency;
 
-import java.util.logging.Level;
-
-import org.interpss.IpssCorePlugin;
 import org.interpss.plugin.contingency.ParallelContingencyAnalyzer;
 import org.interpss.plugin.pssl.plugin.IpssAdapter;
 import static org.interpss.plugin.pssl.plugin.IpssAdapter.FileFormat.PSSE;
 
-import com.interpss.common.util.IpssLogger;
 import com.interpss.core.LoadflowAlgoObjectFactory;
 import com.interpss.core.aclf.AclfNetwork;
 import com.interpss.core.algo.LoadflowAlgorithm;
+import com.interpss.core.algo.NrMethodConfig;
+import com.interpss.core.algo.NrOptimizeAlgoType;
+import com.interpss.core.funcImpl.AclfAdjCtrlFunction;
 
 /**
  * Extended Parallel Contingency Analysis Test with ACTIVSg25k bus system.
@@ -20,9 +19,6 @@ public class ParallelContingency25k {
     
     public static void main(String[] args) {
         try {
-            // Initialize InterPSS
-            IpssCorePlugin.init();
-            IpssLogger.getLogger().setLevel(Level.INFO);
             
             System.out.println("=== Large-Scale Parallel Contingency Analysis Test ===");
             System.out.println("Testing with ACTIVSg25k bus system (25,000+ buses)");
@@ -51,8 +47,16 @@ public class ParallelContingency25k {
             LoadflowAlgorithm baseAlgo = LoadflowAlgoObjectFactory.createLoadflowAlgorithm(net);
             baseAlgo.getDataCheckConfig().setTurnOffIslandBus(true);
             baseAlgo.getDataCheckConfig().setAutoTurnLine2Xfr(true);
-            baseAlgo.getLfAdjAlgo().setApplyAdjustAlgo(false);
-            baseAlgo.setTolerance(1.0E-6);
+            // disable all the controls
+            AclfAdjCtrlFunction.disableAllAdjControls.accept(baseAlgo);
+
+            //baseAlgo.getNrMethodConfig().setNonDivergent(true);
+            NrMethodConfig nrConfig = baseAlgo.getNrMethodConfig();
+            //config.setNonDivergent(true);
+            nrConfig.setOptAlgo(NrOptimizeAlgoType.CUBIC_EQN_STEP_SIZE);
+            // re-configure the Nr solver with the updated config
+            baseAlgo.getLfCalculator().getNrSolver().reConfigSolver(nrConfig);
+            baseAlgo.setTolerance(1.0E-3);
             
             long baseLoadflowStart = System.currentTimeMillis();
             boolean baseConverged = baseAlgo.loadflow();
@@ -67,25 +71,25 @@ public class ParallelContingency25k {
             }
             
             // Configure contingency analysis
-            ParallelContingencyAnalyzer.ContingencyConfig config = 
+            ParallelContingencyAnalyzer.ContingencyConfig paraConfig =
                 ParallelContingencyAnalyzer.createDefaultConfig();
             
             // Use more relaxed settings for large system
-            config.setMaxIterations(50);
-            config.setTolerance(0.001);  // Slightly relaxed tolerance
-            config.setTurnOffIslandBus(true);
-            config.setAutoTurnLine2Xfr(true);
-            config.setApplyAdjustAlgo(false);
-            config.setNonDivergent(true);
-            
+            paraConfig.setMaxIterations(50);
+            paraConfig.setTolerance(0.005);  // Slightly relaxed tolerance
+            paraConfig.setTurnOffIslandBus(true);
+            paraConfig.setAutoTurnLine2Xfr(true);
+            paraConfig.setApplyAdjustAlgo(false);
+            paraConfig.setNonDivergent(true);
+
             System.out.println("\nContingency analysis configuration:");
-            System.out.println("  Max Iterations: " + config.getMaxIterations());
-            System.out.println("  Tolerance: " + config.getTolerance());
-            System.out.println("  Load Flow Method: " + config.getLfMethod());
-            System.out.println("  Non-divergent: " + config.isNonDivergent());
+            System.out.println("  Max Iterations: " + paraConfig.getMaxIterations());
+            System.out.println("  Tolerance: " + paraConfig.getTolerance());
+            System.out.println("  Load Flow Method: " + paraConfig.getLfMethod());
+            System.out.println("  Non-divergent: " + paraConfig.isNonDivergent());
             
             // Test different contingency sizes
-            int[] contingencySizes = {20};
+            int[] contingencySizes = {2};
             
             for (int contingencyCount : contingencySizes) {
                 if (contingencyCount > net.getNoActiveBranch()) {
@@ -102,13 +106,13 @@ public class ParallelContingency25k {
                 System.out.println("\n--- Sequential Analysis ---");
                 ParallelContingencyAnalyzer.ContingencyResult sequentialResult = 
                     ParallelContingencyAnalyzer.analyzeContingencies(
-                        net, contingencyCount, config, false);
+                        net, contingencyCount, paraConfig, false);
                 
                 // Parallel analysis
                 System.out.println("\n--- Parallel Analysis ---");
                 ParallelContingencyAnalyzer.ContingencyResult parallelResult = 
                     ParallelContingencyAnalyzer.analyzeContingencies(
-                        net, contingencyCount, config, true);
+                        net, contingencyCount, paraConfig, true);
                 
                 // Compare results
                 printComparison(contingencyCount, sequentialResult, parallelResult);
@@ -119,7 +123,7 @@ public class ParallelContingency25k {
         
             
         } catch (Exception e) {
-            System.err.println("鉁� Test failed: " + e.getMessage());
+            System.err.println("Test failed: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -179,9 +183,9 @@ public class ParallelContingency25k {
         }
         
         if (mismatches == 0) {
-            System.out.println("鉁� Results consistency: PASS (all results match)");
+            System.out.println("Results consistency: PASS (all results match)");
         } else {
-            System.out.println("鈿� Results consistency: " + mismatches + " mismatches found");
+            System.out.println("Results consistency: " + mismatches + " mismatches found");
             if (mismatches > 5) {
                 System.out.println("  ... and " + (mismatches - 5) + " more mismatches");
             }

@@ -5,7 +5,6 @@ import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.model.dstab.DStabModelParser;
-import org.interpss.IpssCorePlugin;
 import org.interpss.display.AclfOutFunc;
 import org.interpss.numeric.NumericConstant;
 import org.interpss.odm.mapper.ODMDStabParserMapper;
@@ -37,7 +36,7 @@ public class DStab_IEEE39Bus_Test  {
 	    
 		
 		public static void main(String[] args) throws InterpssException {
-			IpssCorePlugin.init();
+		
 			IPSSMsgHub msg = CoreCommonFactory.getIpssMsgHub();
 			PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
 			assertTrue(adapter.parseInputFile(NetType.DStabNet, new String[]{
