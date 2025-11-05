@@ -2,9 +2,10 @@ package org.interpss.tutorial.ch6_contingency;
 
 import static org.interpss.plugin.pssl.plugin.IpssAdapter.FileFormat.PSSE;
 
+import org.interpss.plugin.contingency.ContingencyConfig;
 import org.interpss.plugin.contingency.ParallelContingencyAnalyzer;
-import org.interpss.plugin.contingency.result.ContingencyResultRec;
 import org.interpss.plugin.contingency.result.ContingencyResultContainer;
+import org.interpss.plugin.contingency.result.ContingencyResultRec;
 import org.interpss.plugin.pssl.plugin.IpssAdapter;
 
 import com.interpss.core.LoadflowAlgoObjectFactory;
@@ -74,8 +75,8 @@ public class ParallelContingency25k {
             }
             
             // Configure contingency analysis
-            ParallelContingencyAnalyzer.ContingencyConfig paraConfig =
-                ParallelContingencyAnalyzer.createDefaultConfig();
+            ContingencyConfig paraConfig =
+            		ContingencyConfig.createDefaultConfig();
             
             // Use more relaxed settings for large system
             paraConfig.setMaxIterations(50);
