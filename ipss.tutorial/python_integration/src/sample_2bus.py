@@ -14,8 +14,8 @@ jar_path = str(script_dir.parent / "lib" / "ipss_runnable.jar")
 jpype.startJVM(jvm_path, "-ea", f"-Djava.class.path={jar_path}")
 
 # load the Java classes to be used
-IpssCorePlugin = jpype.JClass("org.interpss.IpssCorePlugin")
 CoreObjectFactory = jpype.JClass("com.interpss.core.CoreObjectFactory")
+LoadflowAlgoObjectFactory = jpype.JClass("com.interpss.core.LoadflowAlgoObjectFactory")
 AclfNetwork = jpype.JClass("com.interpss.core.aclf.AclfNetwork")
 AclfBus = jpype.JClass("com.interpss.core.aclf.AclfBus")
 AclfBranch = jpype.JClass("com.interpss.core.aclf.AclfBranch")
@@ -27,7 +27,7 @@ Complex = jpype.JClass("org.apache.commons.math3.complex.Complex")
 AclfOutFunc = jpype.JClass("org.interpss.display.AclfOutFunc")
 
 # create instances
-IpssCorePlugin.init();
+
 net = CoreObjectFactory.createAclfNetwork()
 net.setBaseKva(100000)
 bus1 = CoreObjectFactory.createAclfBus("Bus1", net).get()
@@ -43,7 +43,7 @@ net.addBranch(branch, "Bus1", "Bus2")
 branch.setBranchCode(AclfBranchCode.LINE)
 branch.setZ(Complex(0.05, 0.1))
 
-algo = CoreObjectFactory.createLoadflowAlgorithm(net)
+algo = LoadflowAlgoObjectFactory.createLoadflowAlgorithm(net)
 
 algo.loadflow()
 	  	
