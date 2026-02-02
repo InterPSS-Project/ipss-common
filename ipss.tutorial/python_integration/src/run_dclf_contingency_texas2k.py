@@ -1,9 +1,5 @@
-import jpype
-import os
-from pathlib import Path
-
 ##
-# Acknowledgment:
+# Acknowledgement:
 # The synthetic Texas electric grid test case used in this example is provided by Texas A&M University’s energy and power group researchers.
 # https://electricgrids.engr.tamu.edu/
 #  
@@ -12,6 +8,11 @@ from pathlib import Path
 #  [2] A. B. Birchfield; K. M. Gegner; T. Xu; K. S. Shetye; T. J. Overbye, “Statistical Considerations in the Creation of Realistic Synthetic PowerGrids for Geomagnetic Disturbance Studies,” in IEEE Transactions on Power Systems, vol. 32, no. 2, pp. 1502-1510, March 2017.
 #  [3] K. M. Gegner; A. B. Birchfield; T. Xu; K. S. Shetye; T. J. Overbye, “A methodology for the creation of geographically realistic synthetic powerflow models,” 2016 IEEE Power and Energy Conference at Illinois (PECI), Urbana, IL, 2016, pp. 1-6.
 #
+
+import jpype
+import os
+from pathlib import Path
+
 
 # Get parent folder in a cross-platform way
 parent_folder = Path(__file__).resolve().parent.parent.parent

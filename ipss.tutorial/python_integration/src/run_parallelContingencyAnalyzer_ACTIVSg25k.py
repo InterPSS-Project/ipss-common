@@ -7,7 +7,7 @@ on the 24HSP1ap PSSE case using InterPSS through JPype.
 """
 
 ##
-# Acknowledgment:
+# Acknowledgement:
 # The synthetic 25k-bus electric grid test case used in this example is provided by Texas A&M University’s energy and power group researchers.
 # https://electricgrids.engr.tamu.edu/
 #  

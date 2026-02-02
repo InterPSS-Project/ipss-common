@@ -4,7 +4,7 @@ This version leverages Java's parallel streams through JPype instead of Python t
 """
 
 ##
-# Acknowledgment:
+# Acknowledgement:
 # The synthetic 25k-bus electric grid test case used in this example is provided by Texas A&M University’s energy and power group researchers.
 # https://electricgrids.engr.tamu.edu/
 #  
