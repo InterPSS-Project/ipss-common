@@ -16,53 +16,152 @@ print(f"JAR path: {jar_path}")
 # Start JVM with properly formatted classpath
 jpype.startJVM(jvm_path, "-ea", f"-Djava.class.path={jar_path}")
 
-# Import Java classes
-IpssCorePlugin = jpype.JClass("org.interpss.IpssCorePlugin")
-CoreObjectFactory = jpype.JClass("com.interpss.core.CoreObjectFactory")
-AclfOutFunc = jpype.JClass("org.interpss.display.AclfOutFunc")
-AclfOut_PSSE = jpype.JClass("org.interpss.display.impl.AclfOut_PSSE")
-PSSEOutFormat = jpype.JClass("org.interpss.display.impl.AclfOut_PSSE.Format")
-PSSERawAdapter = jpype.JClass("org.ieee.odm.adapter.psse.raw.PSSERawAdapter")
-ODMAclfParserMapper = jpype.JClass("org.interpss.odm.mapper.ODMAclfParserMapper")
-NetType = jpype.JClass("org.ieee.odm.adapter.IODMAdapter.NetType")
-PsseVersion = jpype.JClass("org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion")
+# Import necessary Java classes
+IpssAdapter = jpype.JClass("org.interpss.plugin.pssl.plugin.IpssAdapter")
+PsseVersion = jpype.JClass("org.interpss.plugin.pssl.plugin.IpssAdapter$PsseVersion")
+FileFormat = jpype.JClass("org.interpss.plugin.pssl.plugin.IpssAdapter$FileFormat")
 
-ContingencyAnalysisAlgorithmFactory = jpype.JClass("com.interpss.core.DclfAlgoObjectFactory")
+ContingencyFileUtil = jpype.JClass("org.interpss.plugin.contingency.util.ContingencyFileUtil")
+DclfContingencyConfig = jpype.JClass("org.interpss.plugin.contingency.DclfContingencyConfig")
+ParallelDclfContingencyAnalyzer = jpype.JClass("org.interpss.plugin.contingency.ParallelDclfContingencyAnalyzer")
+
 DclfAlgoObjectFactory = jpype.JClass("com.interpss.core.DclfAlgoObjectFactory")
 CaBranchOutageType = jpype.JClass("com.interpss.core.algo.dclf.CaBranchOutageType")
-InterpssException = jpype.JClass("com.interpss.common.exp.InterpssException")
+DclfMethod = jpype.JClass("com.interpss.core.algo.dclf.DclfMethod")
 
-# Initialize plugin
-IpssCorePlugin.init()
-adapter = PSSERawAdapter(PsseVersion.PSSE_35)
+File = jpype.JClass("java.io.File")
+ArrayList = jpype.JClass("java.util.ArrayList")
+HashSet = jpype.JClass("java.util.HashSet")
 
-# Construct test data path in platform-independent way
-raw_path = str(parent_folder / "testData" / "psse" / "Texas2k" / "Texas2k_series24_case1_2016summerPeak_v35.RAW")
-print(f"RAW file path: {raw_path}")
 
-adapter.parseInputFile(raw_path)
-net = ODMAclfParserMapper().map2Model(adapter.getModel()).getAclfNet()
+# Use platform-independent path for the test data
+raw_path = str(parent_folder  / "testData" / "psse" / "Texas2k" /  "Texas2k_series24_case1_2016summerPeak_v36.RAW")
+print(f"Loading network from: {raw_path}")
 
-# Create algorithm
-algo = ContingencyAnalysisAlgorithmFactory.createContingencyAnalysisAlgorithm(net)
-algo.calculateDclf()
+# Import PSSE network using IpssAdapter
+net = IpssAdapter.importAclfNet(raw_path) \
+    .setFormat(FileFormat.PSSE) \
+    .psseVersion(PsseVersion.PSSE_36) \
+    .load() \
+    .getImportedObj()
 
-# Define contingencies
-# Loop over contingency and compute post-outage flows
-topk = 2
-for outBranch in algo.getDclfAlgoBranchList():
-    caOutBranch = DclfAlgoObjectFactory.createCaOutageBranch(outBranch, CaBranchOutageType.OPEN)
-    i = 0
-    for branch in algo.getDclfAlgoBranchList():
-        if branch.getId() != outBranch.getId():
-            try:
-                postFlow = algo.calPostOutageFlow(caOutBranch, branch)
-                print(f"caOutBranch: {caOutBranch.getBranch().getId()}, branch: {branch.getId()}, flow(pu): {branch.getDclfFlow()}, postFlow(pu): {postFlow}")
-                i += 1
-                if i >= topk:
-                    break
-            except InterpssException as e:
-                print("Error during post-outage flow calculation:", e)
+print(f"Network loaded: {net.getBusList().size()} buses")
+
+# Run DCLF
+algo = DclfAlgoObjectFactory.createContingencyAnalysisAlgorithm(net)
+algo.calculateDclf(DclfMethod.INC_LOSS)
+print("DCLF calculation completed")
+
+# Import contingency definitions from JSON file
+cont_file_path = str(parent_folder/ "testData" / "psse" / "Texas2k" / "2k_contingencies_115kVAbove.json")
+cont_file = File(cont_file_path)
+contingencies = ContingencyFileUtil.importContingenciesFromJson(cont_file)
+print(f"Loaded {contingencies.size()} contingencies from JSON")
+
+# Create contingency list
+cont_list = ArrayList()
+
+for record in contingencies:
+    try:
+        # Build branch ID
+        branch_id = f"{record.fromBus}->{record.toBus}({record.ckt})"
+        
+        if net.getBranch(branch_id) is not None:
+            cont = DclfAlgoObjectFactory.createContingency(record.name)
+            
+            # Determine outage type based on action type
+            action_type = str(record.actionType).lower()
+            if action_type == "open":
+                outage_type = CaBranchOutageType.OPEN
+            elif action_type == "close":
+                outage_type = CaBranchOutageType.CLOSE
+            else:
+                outage_type = CaBranchOutageType.OPEN  # Default to open
+            
+            outage = DclfAlgoObjectFactory.createCaOutageBranch(
+                algo.getDclfAlgoBranch(branch_id), 
+                outage_type
+            )
+            cont.setOutageBranch(outage)
+            cont_list.add(cont)
+    except Exception as ex:
+        print(f"Warning: Could not create contingency for {record.name}: {ex}")
+
+print(f"Created {cont_list.size()} contingencies")
+
+# Import monitored branches from JSON file
+mon_file_path = str(parent_folder / "testData" / "psse" / "Texas2k" / "2k_monitored_branches.json")
+mon_file = File(mon_file_path)
+monitored_branches = ContingencyFileUtil.importMonitoredBranchRecordsFromJson(mon_file)
+print(f"Loaded {monitored_branches.size()} monitored branches from JSON")
+
+# Create set of monitored branch IDs
+monitored_branch_ids = HashSet()
+for record in monitored_branches:
+    monitored_branch_ids.add(record.getBranchId())
+
+# Define contingency analysis configuration
+config = DclfContingencyConfig()
+config.setDclfInclLoss(True)
+config.setOverloadThreshold(100)  # in percentage
+
+print("Starting parallel contingency analysis...")
+
+# Execute parallel contingency analysis
+results = ParallelDclfContingencyAnalyzer.executeContingencyAnalysis(
+    net, 
+    cont_list, 
+    monitored_branch_ids, 
+    config, 
+    4  # parallelism level
+)
+
+print(f"\nContingency analysis completed. Found {results.size()} results:\n")
+
+# Print results
+violation_count = 0
+for rec in results:
+    branch_id = rec.getBranchId()
+    contingency_name = rec.getContingencyName()
+    post_flow_mw = rec.getPostFlowMW()
+    line_rating_mw = rec.getLineRatingMW()
+    loading_percent = rec.getLoadingPercent()
+    
+    print(f"{{\n  \"branch_id\": \"{branch_id}\",")
+    print(f"  \"contingency_name\": \"{contingency_name}\",")
+    print(f"  \"post_flow_mw\": {post_flow_mw:.2f},")
+    print(f"  \"line_rating_mw\": {line_rating_mw:.2f},")
+    print(f"  \"loading_percent\": {loading_percent:.2f}")
+    print(f"}}")
+    violation_count += 1
+
+print(f"\nTotal violations: {violation_count}")
+
+# Run GSF analysis for violated branches
+print("\nRunning GSF analysis for violated branches...")
+gsf_threshold = 0.05  # only print GSF values above this threshold
+
+for result_rec in results:
+    monitored_branch = net.getBranch(result_rec.getBranchId())
+    print(f"\nGSF Analysis for {result_rec.getBranchId()} under contingency {result_rec.getContingencyName()}:")
+    
+    gsf_count = 0
+    for bus in net.getBusList():
+        if bus.isActive() and (bus.isGenPV() or bus.isGenPQ()):
+            gsf = algo.calGenShiftFactor(bus.getId(), monitored_branch)
+            if abs(gsf) > gsf_threshold:
+                print(f"   GSF Gen@{bus.getId()} on Branch {result_rec.getBranchId()}: {gsf:.4f}")
+                gsf_count += 1
+    
+    if gsf_count == 0:
+        print(f"   No significant GSFs (threshold: {gsf_threshold})")
+    
+    # Limit GSF analysis output for large result sets
+    if violation_count > 10:
+        print(f"\n(Showing GSF for first result only due to large result set)")
+        break
+
+print("\nAnalysis completed successfully")
 
 # Shutdown JVM
 jpype.shutdownJVM()
