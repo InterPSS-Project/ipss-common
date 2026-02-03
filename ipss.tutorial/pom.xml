@@ -12,22 +12,22 @@
     <dependency>
 	  <groupId>com.interpss</groupId>
 	  <artifactId>ipss.core.lib</artifactId>
-	  <version>1.0</version>
+	  <version>1.0.3</version>
 	</dependency>
 	<dependency>
 	  <groupId>org.ieee.odm</groupId>
 	  <artifactId>ieee.odm_pss</artifactId>
-	  <version>1.0</version>
+	  <version>1.0.3</version>
 	</dependency>
 	<dependency>
 	  <groupId>org.ieee.odm</groupId>
 	  <artifactId>ieee.odm.schema</artifactId>
-	  <version>1.0</version>
+	  <version>1.0.3</version>
 	</dependency>
 	<dependency>
 	  <groupId>com.interpss</groupId>
 	  <artifactId>ipss.plugin.core</artifactId>
-	  <version>1.0</version>
+	  <version>1.0.3</version>
 	</dependency>
 	<dependency>
 	  <groupId>org.mvel</groupId>
