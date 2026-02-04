@@ -18,8 +18,8 @@ print(f"JAR path: {jar_path}")
 # Start JVM with proper path separators
 jpype.startJVM(jvm_path, "-ea", f"-Djava.class.path={jar_path}")
 
-IpssCorePlugin = jpype.JClass("org.interpss.IpssCorePlugin")
-CoreObjectFactory = jpype.JClass("com.interpss.core.CoreObjectFactory")
+
+LoadflowAlgoObjectFactory = jpype.JClass("com.interpss.core.LoadflowAlgoObjectFactory")
 AclfOutFunc = jpype.JClass("org.interpss.display.AclfOutFunc")
 AclfOut_PSSE = jpype.JClass("org.interpss.display.impl.AclfOut_PSSE")
 PSSEOutFormat = jpype.JClass("org.interpss.display.impl.AclfOut_PSSE.Format")
@@ -29,7 +29,7 @@ NetType = jpype.JClass("org.ieee.odm.adapter.IODMAdapter.NetType")
 PsseVersion = jpype.JClass("org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion")
 
 # create instances of the classes we are going to used
-IpssCorePlugin.init()
+
 adapter = PSSERawAdapter(PsseVersion.PSSE_32)
 
 # Use platform-independent path handling for test data
@@ -37,7 +37,7 @@ raw_path = str(parent_folder / "testData" / "psse" / "WECC179" / "wecc_179_v32.r
 adapter.parseInputFile(raw_path)
 net = ODMAclfParserMapper().map2Model(adapter.getModel()).getAclfNet()
 
-algo = CoreObjectFactory.createLoadflowAlgorithm(net)
+algo = LoadflowAlgoObjectFactory.createLoadflowAlgorithm(net)
 
 algo.loadflow()
 

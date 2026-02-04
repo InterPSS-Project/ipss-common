@@ -1,3 +1,14 @@
+##
+# Acknowledgment:
+# The synthetic 25k-bus electric grid test case used in this example is provided by Texas A&M University’s energy and power group researchers.
+# https://electricgrids.engr.tamu.edu/
+#  
+# For details of the synthetic grid, please visit the website above and/or refer to the following references:
+#  [1] A. B. Birchfield; T. Xu; K. M. Gegner; K. S. Shetye; T. J. Overbye, “Grid Structural Characteristics as Validation Criteria for Synthetic Networks,”  in IEEE Transactions on Power Systems, vol. 32, no. 4, pp. 3258-3265, July 2017.
+#  [2] A. B. Birchfield; K. M. Gegner; T. Xu; K. S. Shetye; T. J. Overbye, “Statistical Considerations in the Creation of Realistic Synthetic PowerGrids for Geomagnetic Disturbance Studies,” in IEEE Transactions on Power Systems, vol. 32, no. 2, pp. 1502-1510, March 2017.
+#  [3] K. M. Gegner; A. B. Birchfield; T. Xu; K. S. Shetye; T. J. Overbye, “A methodology for the creation of geographically realistic synthetic powerflow models,” 2016 IEEE Power and Energy Conference at Illinois (PECI), Urbana, IL, 2016, pp. 1-6.
+#
+
 import jpype
 import jpype.imports
 from jpype.types import *
@@ -7,15 +18,44 @@ from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import threading
 
+
+# Use platform-neutral path operations
+parent_folder = Path.cwd().parent.parent
+print(f"Parent folder: {parent_folder}")
+
+# Get JVM path
+jvm_path = jpype.getDefaultJVMPath()
+print(f"JVM Path: {jvm_path}")
+
+# Convert relative path to absolute using Path for cross-platform compatibility
+script_dir = Path(__file__).parent.absolute()
+jar_path = str(script_dir.parent / "lib" / "ipss_runnable.jar")
+print(f"JAR path: {jar_path}")
+
+# Check if jar exists
+if not Path(jar_path).exists():
+    raise FileNotFoundError(f"JAR file not found: {jar_path}")
+
+# Start JVM with platform-neutral path
+jpype.startJVM(jvm_path, "-ea", f"-Djava.class.path={jar_path}")
+
+# Import Java classes for Stream operations
+from com.interpss.core import CoreObjectFactory
+from com.interpss.core import LoadflowAlgoObjectFactory
+from com.interpss.core.algo import AclfMethodType
+from com.interpss.core.funcImpl import AclfAdjCtrlFunction
+# Import Java classes
+from org.interpss.numeric.datatype.Unit import UnitType
+from org.ieee.odm.adapter.psse.PSSEAdapter import PsseVersion
+from org.ieee.odm.adapter.psse.raw import PSSERawAdapter
+from org.interpss.odm.mapper import ODMAclfParserMapper
+
 def analyze_contingencies_threadpool(network, total_cases, use_parallel=True):
     """
     Python implementation that leverages threadpool for contingency analysis.
     This mimics the Java Stream API behavior from the ParallelContingencyAnalyzer.
     """
-    
-    # Import Java classes for Stream operations
-    from com.interpss.core import CoreObjectFactory
-    from com.interpss.core.algo import AclfMethodType
+
     
     print(f"Starting {'parallel' if use_parallel else 'sequential'} contingency analysis with {total_cases} cases...")
     print(f"Active bus size: {network.getNoActiveBus()}")
@@ -55,14 +95,14 @@ def analyze_contingencies_threadpool(network, total_cases, use_parallel=True):
                 branch_id = str(branch.getId())
                 
                 # Create a new algorithm instance for each thread to avoid conflicts
-                parallel_algo = CoreObjectFactory.createLoadflowAlgorithm(copy_net)
+                parallel_algo = LoadflowAlgoObjectFactory.createLoadflowAlgorithm(copy_net)
+
+                #parallel_algo.getLfAdjAlgo().getVoltAdjConfig().setCheckGenQLimitImmediate(False)
                 
                 # Configure algorithm (equivalent to configureAlgorithm method)
-                parallel_algo.getDataCheckConfig().setTurnOffIslandBus(config['turn_off_island_bus'])
-                parallel_algo.getDataCheckConfig().setAutoTurnLine2Xfr(config['auto_turn_line2_xfr'])
                 parallel_algo.setLfMethod(config['lf_method'])
-                parallel_algo.getLfAdjAlgo().setApplyAdjustAlgo(config['apply_adjust_algo'])
-                parallel_algo.setNonDivergent(config['non_divergent'])
+                if not config['apply_adjust_algo']:
+                    AclfAdjCtrlFunction.disableAllAdjControls.accept(parallel_algo)
                 parallel_algo.setMaxIterations(config['max_iterations'])
                 parallel_algo.setTolerance(config['tolerance'])
                 
@@ -126,42 +166,9 @@ def analyze_contingencies_threadpool(network, total_cases, use_parallel=True):
         'success_rate': success_rate
     }
 
-# Use platform-neutral path operations
-parent_folder = Path.cwd().parent.parent
-print(f"Parent folder: {parent_folder}")
 
-# Get JVM path
-jvm_path = jpype.getDefaultJVMPath()
-print(f"JVM Path: {jvm_path}")
 
-# Convert relative path to absolute using Path for cross-platform compatibility
-script_dir = Path(__file__).parent.absolute()
-jar_path = str(script_dir.parent / "lib" / "ipss_runnable.jar")
-print(f"JAR path: {jar_path}")
 
-# Check if jar exists
-if not Path(jar_path).exists():
-    raise FileNotFoundError(f"JAR file not found: {jar_path}")
-
-# Start JVM with platform-neutral path
-jpype.startJVM(jvm_path, "-ea", f"-Djava.class.path={jar_path}")
-
-# Import Java classes
-from org.interpss.numeric.datatype.Unit import UnitType
-from org.interpss import IpssCorePlugin
-from com.interpss.common.util import IpssLogger
-from org.ieee.odm.adapter.psse.PSSEAdapter import PsseVersion
-from org.ieee.odm.adapter.psse.raw import PSSERawAdapter
-from org.interpss.odm.mapper import ODMAclfParserMapper
-from com.interpss.core import CoreObjectFactory
-from com.interpss.common.util import IpssLogger
-from org.ieee.odm.common import ODMLogger
-from java.util.logging import Level
-
-# Initialize InterPSS
-IpssCorePlugin.init()
-IpssLogger.getLogger().setLevel(Level.WARNING)
-ODMLogger.getLogger().setLevel(Level.WARNING)
 
 # Load PSSE RAW file - use Path for cross-platform path handling
 adapter = PSSERawAdapter(PsseVersion.PSSE_33)
@@ -176,11 +183,9 @@ adapter.parseInputFile(raw_path)
 net = ODMAclfParserMapper().map2Model(adapter.getModel()).getAclfNet()
 
 # Verify base case convergence
-algo = CoreObjectFactory.createLoadflowAlgorithm(net)
-algo.getDataCheckConfig().setTurnOffIslandBus(True)
-algo.getDataCheckConfig().setAutoTurnLine2Xfr(True)
-algo.getLfAdjAlgo().setApplyAdjustAlgo(False)
-algo.setNonDivergent(True)
+algo = LoadflowAlgoObjectFactory.createLoadflowAlgorithm(net)
+AclfAdjCtrlFunction.disableAllAdjControls.accept(algo)
+algo.getLfAdjAlgo().getVoltAdjConfig().setCheckGenQLimitImmediate(False)
 algo.setTolerance(0.001)
 base_converged = algo.loadflow()
 
@@ -195,7 +200,7 @@ if not base_converged:
     exit(1)
 
 # Test parameters
-total_contingencies = 50
+total_contingencies = 2
 
 print("\n" + "="*70)
 print("CONTINGENCY ANALYSIS COMPARISON: Java Streams vs Python Threading")

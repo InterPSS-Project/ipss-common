@@ -1,3 +1,14 @@
+##
+# Acknowledgement:
+# The synthetic 25k-bus electric grid test case used in this example is provided by Texas A&M University’s energy and power group researchers.
+# https://electricgrids.engr.tamu.edu/
+#  
+# For details of the synthetic grid, please visit the website above and/or refer to the following references:
+#  [1] A. B. Birchfield; T. Xu; K. M. Gegner; K. S. Shetye; T. J. Overbye, “Grid Structural Characteristics as Validation Criteria for Synthetic Networks,”  in IEEE Transactions on Power Systems, vol. 32, no. 4, pp. 3258-3265, July 2017.
+#  [2] A. B. Birchfield; K. M. Gegner; T. Xu; K. S. Shetye; T. J. Overbye, “Statistical Considerations in the Creation of Realistic Synthetic PowerGrids for Geomagnetic Disturbance Studies,” in IEEE Transactions on Power Systems, vol. 32, no. 2, pp. 1502-1510, March 2017.
+#  [3] K. M. Gegner; A. B. Birchfield; T. Xu; K. S. Shetye; T. J. Overbye, “A methodology for the creation of geographically realistic synthetic powerflow models,” 2016 IEEE Power and Energy Conference at Illinois (PECI), Urbana, IL, 2016, pp. 1-6.
+#
+
 import jpype
 import jpype.imports
 from jpype.types import *
@@ -18,8 +29,9 @@ print(f"JAR path: {jar_path}")
 # Start JVM with proper path separators
 jpype.startJVM(jvm_path, "-ea", f"-Djava.class.path={jar_path}")
 
-IpssCorePlugin = jpype.JClass("org.interpss.IpssCorePlugin")
+
 CoreObjectFactory = jpype.JClass("com.interpss.core.CoreObjectFactory")
+LoadflowAlgoObjectFactory = jpype.JClass("com.interpss.core.LoadflowAlgoObjectFactory")
 AclfOutFunc = jpype.JClass("org.interpss.display.AclfOutFunc")
 AclfOut_PSSE = jpype.JClass("org.interpss.display.impl.AclfOut_PSSE")
 PSSEOutFormat = jpype.JClass("org.interpss.display.impl.AclfOut_PSSE.Format")
@@ -33,18 +45,11 @@ from com.interpss.common.exp import InterpssException
 from com.interpss.core.aclf import AclfBranch
 from com.interpss.core.aclf import AclfNetwork
 from com.interpss.core.aclf import AclfBus
-from com.interpss.common.util import IpssLogger
-from org.ieee.odm.common import ODMLogger
-from java.util.logging import Level
 from com.interpss.core.algo import AclfMethodType
 from org.interpss.CorePluginFunction import BusLfResultBusStyle
-from org.interpss.IpssCorePlugin import init as ipss_init
+from com.interpss.core.funcImpl import AclfAdjCtrlFunction
 
 
-# Create instances of the classes we are going to use
-IpssCorePlugin.init()
-IpssLogger.getLogger().setLevel(Level.INFO)
-ODMLogger.getLogger().setLevel(Level.INFO)
 adapter = PSSERawAdapter(PsseVersion.PSSE_33)
 
 # Use platform-independent path handling for test data
@@ -52,13 +57,11 @@ raw_path = str(parent_folder / "testData" / "psse" / "ACTIVSg25k.RAW")
 adapter.parseInputFile(raw_path)
 net = ODMAclfParserMapper().map2Model(adapter.getModel()).getAclfNet()
 
-algo = CoreObjectFactory.createLoadflowAlgorithm(net)
-# the following two settings are false by default, but they are critical for some real-world networks due to data quality issues
-algo.getDataCheckConfig().setTurnOffIslandBus(True)
-algo.getDataCheckConfig().setAutoTurnLine2Xfr(True)
+algo = LoadflowAlgoObjectFactory.createLoadflowAlgorithm(net)
+AclfAdjCtrlFunction.disableAllAdjControls.accept(algo)
+algo.setTolerance(0.001)
 
 # Run power flow
-algo.getLfAdjAlgo().setApplyAdjustAlgo(False)
 algo.loadflow()
 
 
