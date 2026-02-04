@@ -2,10 +2,10 @@ package org.interpss.tutorial.ch6_contingency;
 
 import static org.interpss.plugin.pssl.plugin.IpssAdapter.FileFormat.PSSE;
 
-import org.interpss.plugin.contingency.ContingencyConfig;
-import org.interpss.plugin.contingency.ParallelContingencyAnalyzer;
+import org.interpss.plugin.contingency.AclfContingencyConfig;
+import org.interpss.plugin.contingency.ParallelAclfContingencyAnalyzer;
+import org.interpss.plugin.contingency.result.AclfContingencyResultRec;
 import org.interpss.plugin.contingency.result.ContingencyResultContainer;
-import org.interpss.plugin.contingency.result.ContingencyResultRec;
 import org.interpss.plugin.pssl.plugin.IpssAdapter;
 
 import com.interpss.core.LoadflowAlgoObjectFactory;
@@ -75,8 +75,8 @@ public class ParallelContingency25k {
             }
             
             // Configure contingency analysis
-            ContingencyConfig paraConfig =
-            		ContingencyConfig.createDefaultConfig();
+            AclfContingencyConfig paraConfig =
+            		AclfContingencyConfig.createDefaultConfig();
             
             // Use more relaxed settings for large system
             paraConfig.setMaxIterations(50);
@@ -108,14 +108,14 @@ public class ParallelContingency25k {
                 
                 // Sequential analysis
                 System.out.println("\n--- Sequential Analysis ---");
-                ContingencyResultContainer<ContingencyResultRec> sequentialResult = 
-                    new ParallelContingencyAnalyzer<ContingencyResultRec>(net).analyzeContingencies(
+                ContingencyResultContainer<AclfContingencyResultRec> sequentialResult = 
+                    new ParallelAclfContingencyAnalyzer<AclfContingencyResultRec>(net).analyzeContingencies(
                     		contingencyCount, paraConfig, false);
                 
                 // Parallel analysis
                 System.out.println("\n--- Parallel Analysis ---");
-                ContingencyResultContainer<ContingencyResultRec> parallelResult = 
-                    new ParallelContingencyAnalyzer<ContingencyResultRec>(net).analyzeContingencies(
+                ContingencyResultContainer<AclfContingencyResultRec> parallelResult = 
+                    new ParallelAclfContingencyAnalyzer<AclfContingencyResultRec>(net).analyzeContingencies(
                     		contingencyCount, paraConfig, true);
                 
                 // Compare results
@@ -136,8 +136,8 @@ public class ParallelContingency25k {
      * Print comparison between sequential and parallel results
      */
     private static void printComparison(int contingencyCount, 
-                                      ContingencyResultContainer<ContingencyResultRec> sequential,
-                                      ContingencyResultContainer<ContingencyResultRec> parallel) {
+                                      ContingencyResultContainer<AclfContingencyResultRec> sequential,
+                                      ContingencyResultContainer<AclfContingencyResultRec> parallel) {
         
         System.out.println("\n--- PERFORMANCE COMPARISON ---");
         System.out.println(String.format("Contingencies analyzed: %d", contingencyCount));
@@ -168,12 +168,12 @@ public class ParallelContingency25k {
     /**
      * Verify that sequential and parallel results are consistent
      */
-    private static void verifyResultConsistency(ContingencyResultContainer<ContingencyResultRec> sequential,
-                                              ContingencyResultContainer<ContingencyResultRec> parallel) {
+    private static void verifyResultConsistency(ContingencyResultContainer<AclfContingencyResultRec> sequential,
+                                              ContingencyResultContainer<AclfContingencyResultRec> parallel) {
         
         int mismatches = 0;
-        java.util.Map<String, ContingencyResultRec> seqResults = sequential.getCAResults();
-        java.util.Map<String, ContingencyResultRec> parResults = parallel.getCAResults();
+        java.util.Map<String, AclfContingencyResultRec> seqResults = sequential.getCAResults();
+        java.util.Map<String, AclfContingencyResultRec> parResults = parallel.getCAResults();
         
         for (String branchId : seqResults.keySet()) {
             if (!seqResults.get(branchId).equals(parResults.get(branchId))) {
