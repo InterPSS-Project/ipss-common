@@ -4,8 +4,8 @@ import static org.interpss.plugin.pssl.plugin.IpssAdapter.FileFormat.PSSE;
 
 import org.interpss.plugin.contingency.AclfContingencyConfig;
 import org.interpss.plugin.contingency.ParallelAclfContingencyAnalyzer;
-import org.interpss.plugin.contingency.result.ContingencyResultContainer;
 import org.interpss.plugin.contingency.result.AclfContingencyResultRec;
+import org.interpss.plugin.contingency.result.ContingencyResultContainer;
 import org.interpss.plugin.pssl.plugin.IpssAdapter;
 
 import com.interpss.core.LoadflowAlgoObjectFactory;
