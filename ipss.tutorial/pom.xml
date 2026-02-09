@@ -6,28 +6,38 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ipss.tutorial</groupId>
   <artifactId>ipss.tutorial</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.3</version>
+
+  <properties>
+  	<ipss.core.version>1.0.3</ipss.core.version>
+	<ipss.plugin.version>1.0.3</ipss.plugin.version>
+  	<ieee.odm.version>1.0</ieee.odm.version>
+	<maven.compiler.source>21</maven.compiler.source>
+	<maven.compiler.target>21</maven.compiler.target>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
   
   <dependencies>
     <dependency>
 	  <groupId>com.interpss</groupId>
 	  <artifactId>ipss.core.lib</artifactId>
-	  <version>1.0.3</version>
+	  <version>${ipss.core.version}</version>
 	</dependency>
 	<dependency>
 	  <groupId>org.ieee.odm</groupId>
 	  <artifactId>ieee.odm_pss</artifactId>
-	  <version>1.0</version>
+	  <version>${ieee.odm.version}</version>
 	</dependency>
 	<dependency>
 	  <groupId>org.ieee.odm</groupId>
 	  <artifactId>ieee.odm.schema</artifactId>
-	  <version>1.0</version>
+	  <version>${ieee.odm.version}</version>
 	</dependency>
 	<dependency>
 	  <groupId>com.interpss</groupId>
 	  <artifactId>ipss.plugin.core</artifactId>
-	  <version>1.0.3</version>
+	  <version>${ipss.plugin.version}</version>
 	</dependency>
 	<dependency>
 	  <groupId>org.mvel</groupId>
