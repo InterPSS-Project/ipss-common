@@ -19,7 +19,7 @@ print(f"JAR path: {jar_path}")
 jpype.startJVM(jvm_path, "-ea", f"-Djava.class.path={jar_path}")
 
 IpssCorePlugin = jpype.JClass("org.interpss.IpssCorePlugin")
-CoreObjectFactory = jpype.JClass("com.interpss.core.CoreObjectFactory")
+LoadflowAlgoObjectFactory = jpype.JClass("com.interpss.core.LoadflowAlgoObjectFactory")
 AclfOutFunc = jpype.JClass("org.interpss.display.AclfOutFunc")
 AclfOut_PSSE = jpype.JClass("org.interpss.display.impl.AclfOut_PSSE")
 PSSEOutFormat = jpype.JClass("org.interpss.display.impl.AclfOut_PSSE.Format")
@@ -37,7 +37,7 @@ raw_path = str(parent_folder / "testData" / "psse" / "IEEE9Bus" / "ieee9.raw")
 adapter.parseInputFile(raw_path)
 net = ODMAclfParserMapper().map2Model(adapter.getModel()).getAclfNet()
 
-algo = CoreObjectFactory.createLoadflowAlgorithm(net)
+algo = LoadflowAlgoObjectFactory.createLoadflowAlgorithm(net)
 
 algo.loadflow()
 

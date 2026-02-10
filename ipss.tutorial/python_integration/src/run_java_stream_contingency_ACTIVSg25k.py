@@ -41,7 +41,7 @@ def analyze_contingencies_with_java_streams(network, total_cases, config, use_pa
     # Import Java classes needed for Stream operations
     from java.util.stream import IntStream
     from java.util.concurrent import ConcurrentHashMap
-    from com.interpss.core import CoreObjectFactory
+    from com.interpss.core import LoadflowAlgoObjectFactory
     
     print(f"Starting {'parallel' if use_parallel else 'sequential'} contingency analysis with {total_cases} cases...")
     print(f"Active bus size: {network.getNoActiveBus()}")
@@ -72,7 +72,7 @@ def analyze_contingencies_with_java_streams(network, total_cases, config, use_pa
                 branch_id = branch.getId()
                 
                 # Create a new algorithm instance for each thread to avoid conflicts
-                parallel_algo = CoreObjectFactory.createLoadflowAlgorithm(copy_net)
+                parallel_algo = LoadflowAlgoObjectFactory.createLoadflowAlgorithm(copy_net)
                 configure_algorithm(parallel_algo, config)
                 
                 is_converged = parallel_algo.loadflow()
@@ -190,7 +190,7 @@ def analyze_contingencies_pure_python_with_java_streams(network, total_cases, co
                 branch_id = str(branch.getId())
                 
                 # Create a new algorithm instance for each thread to avoid conflicts
-                parallel_algo = CoreObjectFactory.createLoadflowAlgorithm(copy_net)
+                parallel_algo = LoadflowAlgoObjectFactory.createLoadflowAlgorithm(copy_net)
                 configure_algorithm(parallel_algo, config)
                 
                 is_converged = bool(parallel_algo.loadflow())
@@ -319,7 +319,7 @@ def main():
         net = ODMAclfParserMapper().map2Model(adapter.getModel()).getAclfNet()
 
         # Verify base case
-        algo = CoreObjectFactory.createLoadflowAlgorithm(net)
+        algo = LoadflowAlgoObjectFactory.createLoadflowAlgorithm(net)
         algo.getDataCheckConfig().setTurnOffIslandBus(True)
         algo.getDataCheckConfig().setAutoTurnLine2Xfr(True)
         algo.getLfAdjAlgo().setApplyAdjustAlgo(False)

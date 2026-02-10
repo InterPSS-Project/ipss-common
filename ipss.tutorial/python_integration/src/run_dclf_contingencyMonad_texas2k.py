@@ -30,7 +30,7 @@ print(f"JAR path: {jar_path}")
 jpype.startJVM(jvm_path, "-ea", f"-Djava.class.path={jar_path}")
 
 IpssCorePlugin = jpype.JClass("org.interpss.IpssCorePlugin")
-CoreObjectFactory = jpype.JClass("com.interpss.core.CoreObjectFactory")
+LoadflowAlgoObjectFactory = jpype.JClass("com.interpss.core.LoadflowAlgoObjectFactory")
 AclfOutFunc = jpype.JClass("org.interpss.display.AclfOutFunc")
 AclfOut_PSSE = jpype.JClass("org.interpss.display.impl.AclfOut_PSSE")
 PSSEOutFormat = jpype.JClass("org.interpss.display.impl.AclfOut_PSSE.Format")
