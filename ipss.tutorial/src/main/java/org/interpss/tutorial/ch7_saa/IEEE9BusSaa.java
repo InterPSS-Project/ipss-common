@@ -10,7 +10,7 @@ import org.interpss.fadapter.IpssFileAdapter;
 import com.interpss.common.exp.InterpssException;
 import com.interpss.core.DclfAlgoObjectFactory;
 import com.interpss.core.aclf.AclfNetwork;
-import com.interpss.core.aclf.contingency.CaBranchOutageType;
+import com.interpss.core.aclf.contingency.ContingencyBranchOutageType;
 import com.interpss.core.aclf.contingency.dclf.CaOutageBranch;
 import com.interpss.core.algo.dclf.ContingencyAnalysisAlgorithm;
 import com.interpss.core.algo.dclf.DclfMethod;
@@ -33,7 +33,7 @@ public class IEEE9BusSaa {
 		algo.calculateDclf(DclfMethod.INC_LOSS);
 		
 		algo.getDclfAlgoBranchList().forEach(outBranch -> {
-			CaOutageBranch caOutBranch = DclfAlgoObjectFactory.createCaOutageBranch(outBranch, CaBranchOutageType.OPEN);
+			CaOutageBranch caOutBranch = DclfAlgoObjectFactory.createCaOutageBranch(outBranch, ContingencyBranchOutageType.OPEN);
 			algo.getDclfAlgoBranchList().forEach(branch -> {
 				if (!branch.getId().equals(outBranch.getId()))
 					try {
