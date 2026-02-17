@@ -38,7 +38,7 @@ DclfContingencyConfig = jpype.JClass("org.interpss.plugin.contingency.DclfContin
 ParallelDclfContingencyAnalyzer = jpype.JClass("org.interpss.plugin.contingency.ParallelDclfContingencyAnalyzer")
 
 DclfAlgoObjectFactory = jpype.JClass("com.interpss.core.DclfAlgoObjectFactory")
-CaBranchOutageType = jpype.JClass("com.interpss.core.algo.dclf.CaBranchOutageType")
+ContBranchOutageType = jpype.JClass("com.interpss.core.aclf.contingency.ContingencyBranchOutageType")
 DclfMethod = jpype.JClass("com.interpss.core.algo.dclf.DclfMethod")
 
 File = jpype.JClass("java.io.File")
@@ -84,11 +84,11 @@ for record in contingencies:
             # Determine outage type based on action type
             action_type = str(record.actionType).lower()
             if action_type == "open":
-                outage_type = CaBranchOutageType.OPEN
+                outage_type = ContBranchOutageType.OPEN
             elif action_type == "close":
-                outage_type = CaBranchOutageType.CLOSE
+                outage_type = ContBranchOutageType.CLOSE
             else:
-                outage_type = CaBranchOutageType.OPEN  # Default to open
+                outage_type = ContBranchOutageType.OPEN  # Default to open
             
             outage = DclfAlgoObjectFactory.createCaOutageBranch(
                 algo.getDclfAlgoBranch(branch_id), 

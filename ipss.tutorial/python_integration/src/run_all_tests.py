@@ -111,6 +111,12 @@ def main():
             'timeout': 300,
             'category': 'contingency'
         },
+          {
+            'name': 'run_dclf_contingencyMonad_texas2k.py',
+            'description': 'Monad based DC contingency analysis - Texas 2k',
+            'timeout': 300,
+            'category': 'contingency'
+        },
         # Large system examples (very slow - optional)
         {
             'name': 'run_pf_ACTIVSg25k.py',
