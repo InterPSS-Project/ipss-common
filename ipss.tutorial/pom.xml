@@ -6,11 +6,11 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ipss.tutorial</groupId>
   <artifactId>ipss.tutorial</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
 
   <properties>
-  	<ipss.core.version>1.0.3</ipss.core.version>
-	<ipss.plugin.version>1.0.3</ipss.plugin.version>
+  	<ipss.core.version>1.0.4</ipss.core.version>
+	<ipss.plugin.version>1.0.4</ipss.plugin.version>
   	<ieee.odm.version>1.0</ieee.odm.version>
 	<maven.compiler.source>21</maven.compiler.source>
 	<maven.compiler.target>21</maven.compiler.target>
@@ -77,22 +77,22 @@
 	<dependency>
     	<groupId>com.hazelcast</groupId>
 	    <artifactId>hazelcast</artifactId>
-	    <version>5.0.4</version>
+	    <version>5.3.6</version>
 	</dependency>
 	<dependency>
 	    <groupId>org.apache.logging.log4j</groupId>
 	    <artifactId>log4j-api</artifactId>
-	    <version>2.17.1</version>
+	    <version>2.25.3</version>
 	</dependency>
 	<dependency>
 	    <groupId>org.apache.logging.log4j</groupId>
 	    <artifactId>log4j-core</artifactId>
-	    <version>2.17.1</version>
+	    <version>2.25.3</version>
 	</dependency>
 	<dependency>
 	    <groupId>org.apache.logging.log4j</groupId>
 	    <artifactId>log4j-slf4j-impl</artifactId>
-	    <version>2.17.1</version>
+	    <version>2.25.3</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.swinglabs/swing-layout -->
 	<dependency>
