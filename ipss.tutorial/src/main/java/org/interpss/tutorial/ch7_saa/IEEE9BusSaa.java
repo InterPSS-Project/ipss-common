@@ -2,18 +2,15 @@ package org.interpss.tutorial.ch7_saa;
 
 import org.interpss.CorePluginFactory;
 import org.interpss.IpssCorePlugin;
-import org.interpss.display.AclfOutFunc;
-import org.interpss.display.AclfOutFunc.BusIdStyle;
-import org.interpss.display.impl.AclfOut_BusStyle;
 import org.interpss.fadapter.IpssFileAdapter;
 
 import com.interpss.common.exp.InterpssException;
 import com.interpss.core.DclfAlgoObjectFactory;
 import com.interpss.core.aclf.AclfNetwork;
-import com.interpss.core.aclf.contingency.ContingencyBranchOutageType;
-import com.interpss.core.aclf.contingency.dclf.DclfOutageBranch;
 import com.interpss.core.algo.dclf.ContingencyAnalysisAlgorithm;
 import com.interpss.core.algo.dclf.DclfMethod;
+import com.interpss.core.contingency.ContingencyBranchOutageType;
+import com.interpss.core.contingency.dclf.DclfOutageBranch;
 
 public class IEEE9BusSaa {
 	
