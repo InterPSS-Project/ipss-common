@@ -38,7 +38,7 @@ DclfContingencyConfig = jpype.JClass("org.interpss.plugin.contingency.DclfContin
 ParallelDclfContingencyAnalyzer = jpype.JClass("org.interpss.plugin.contingency.ParallelDclfContingencyAnalyzer")
 
 DclfAlgoObjectFactory = jpype.JClass("com.interpss.core.DclfAlgoObjectFactory")
-ContBranchOutageType = jpype.JClass("com.interpss.core.aclf.contingency.ContingencyBranchOutageType")
+ContBranchOutageType = jpype.JClass("com.interpss.core.contingency.ContingencyBranchOutageType")
 DclfMethod = jpype.JClass("com.interpss.core.algo.dclf.DclfMethod")
 
 File = jpype.JClass("java.io.File")

@@ -41,7 +41,7 @@ PsseVersion = jpype.JClass("org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion")
 
 DclfAlgoObjectFactory = jpype.JClass("com.interpss.core.DclfAlgoObjectFactory")
 ContingencyAnalysisMonad = jpype.JClass("com.interpss.algo.parallel.ContingencyAnalysisMonad")
-ContBranchOutageType = jpype.JClass("com.interpss.core.aclf.contingency.ContingencyBranchOutageType")
+ContBranchOutageType = jpype.JClass("com.interpss.core.contingency.ContingencyBranchOutageType")
 
 # create instances of the classes we are going to used
 IpssCorePlugin.init()
