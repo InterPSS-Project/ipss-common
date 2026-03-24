@@ -6,11 +6,11 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ipss.tutorial</groupId>
   <artifactId>ipss.tutorial</artifactId>
-  <version>1.0.4</version>
+  <version>1.0.8</version>
 
   <properties>
-  	<ipss.core.version>1.0.4</ipss.core.version>
-	<ipss.plugin.version>1.0.4</ipss.plugin.version>
+  	<ipss.core.version>1.0.8</ipss.core.version>
+	<ipss.plugin.version>1.0.8</ipss.plugin.version>
   	<ieee.odm.version>1.0</ieee.odm.version>
 	<maven.compiler.source>21</maven.compiler.source>
 	<maven.compiler.target>21</maven.compiler.target>

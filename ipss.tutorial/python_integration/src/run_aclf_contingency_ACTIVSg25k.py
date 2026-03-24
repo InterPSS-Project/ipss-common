@@ -44,7 +44,7 @@ from com.interpss.common.util import IpssLogger
 from org.ieee.odm.adapter.psse.PSSEAdapter import PsseVersion
 from org.ieee.odm.adapter.psse.raw import PSSERawAdapter
 from org.interpss.odm.mapper import ODMAclfParserMapper
-from com.interpss.core import CoreObjectFactory
+from com.interpss.core import LoadflowAlgoObjectFactory
 from com.interpss.common.util import IpssLogger
 from org.ieee.odm.common import ODMLogger
 from java.util.logging import Level
@@ -66,12 +66,12 @@ if not Path(raw_path).exists():
 adapter.parseInputFile(raw_path)
 net = ODMAclfParserMapper().map2Model(adapter.getModel()).getAclfNet()
 
-algo = CoreObjectFactory.createLoadflowAlgorithm(net)
+algo = LoadflowAlgoObjectFactory.createLoadflowAlgorithm(net)
 # Configure data check settings
 algo.getDataCheckConfig().setTurnOffIslandBus(True)
 algo.getDataCheckConfig().setAutoTurnLine2Xfr(True)
 algo.getLfAdjAlgo().setApplyAdjustAlgo(False)
-algo.setNonDivergent(True)
+#algo.setNonDivergent(True)
 algo.setTolerance(0.001)
 algo.loadflow()
 

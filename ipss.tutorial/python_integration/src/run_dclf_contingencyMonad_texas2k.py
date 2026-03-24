@@ -30,7 +30,7 @@ print(f"JAR path: {jar_path}")
 jpype.startJVM(jvm_path, "-ea", f"-Djava.class.path={jar_path}")
 
 IpssCorePlugin = jpype.JClass("org.interpss.IpssCorePlugin")
-CoreObjectFactory = jpype.JClass("com.interpss.core.CoreObjectFactory")
+LoadflowAlgoObjectFactory = jpype.JClass("com.interpss.core.LoadflowAlgoObjectFactory")
 AclfOutFunc = jpype.JClass("org.interpss.display.AclfOutFunc")
 AclfOut_PSSE = jpype.JClass("org.interpss.display.impl.AclfOut_PSSE")
 PSSEOutFormat = jpype.JClass("org.interpss.display.impl.AclfOut_PSSE.Format")
@@ -39,9 +39,9 @@ ODMAclfParserMapper = jpype.JClass("org.interpss.odm.mapper.ODMAclfParserMapper"
 NetType = jpype.JClass("org.ieee.odm.adapter.IODMAdapter.NetType")
 PsseVersion = jpype.JClass("org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion")
 
-ContingencyAnalysisAlgorithmFactory = jpype.JClass("com.interpss.core.DclfAlgoObjectFactory")
+DclfAlgoObjectFactory = jpype.JClass("com.interpss.core.DclfAlgoObjectFactory")
 ContingencyAnalysisMonad = jpype.JClass("com.interpss.algo.parallel.ContingencyAnalysisMonad")
-CaBranchOutageType = jpype.JClass("com.interpss.core.algo.dclf.CaBranchOutageType")
+ContBranchOutageType = jpype.JClass("com.interpss.core.contingency.ContingencyBranchOutageType")
 
 # create instances of the classes we are going to used
 IpssCorePlugin.init()
@@ -61,15 +61,20 @@ net = ODMAclfParserMapper().map2Model(adapter.getModel()).getAclfNet()
 # print(AclfOutFunc.loadFlowSummary(net))
 
 # Create algorithm
-algo = ContingencyAnalysisAlgorithmFactory.createContingencyAnalysisAlgorithm(net)
+algo = DclfAlgoObjectFactory.createContingencyAnalysisAlgorithm(net)
 algo.calculateDclf()
 
 # Define contingencies
 for i in range(10):
-    cont = ContingencyAnalysisAlgorithmFactory.createContingency(f"contId{i}")
+    # Create contingency
+    cont = DclfAlgoObjectFactory.createContingency(f"contId{i}")
+    
+    # Create branch outage
     branch = algo.getDclfAlgoBranch("Bus1001->Bus1064(1)")
-    cont.setOutageBranch(ContingencyAnalysisAlgorithmFactory.createCaOutageBranch(branch, 
-                    CaBranchOutageType.OPEN))
+    outage = DclfAlgoObjectFactory.createCaOutageBranch(branch, ContBranchOutageType.OPEN)
+    
+    # Set outage on contingency
+    cont.setOutageEquip(outage)
     
     def ca_callback(resultRec):
         branch_id = resultRec.aclfBranch.getId()
