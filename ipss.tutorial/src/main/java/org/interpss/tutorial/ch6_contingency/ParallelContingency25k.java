@@ -5,7 +5,7 @@ import static org.interpss.plugin.pssl.plugin.IpssAdapter.FileFormat.PSSE;
 import org.interpss.plugin.contingency.AclfContingencyConfig;
 import org.interpss.plugin.contingency.ParallelAclfContingencyAnalyzer;
 import org.interpss.plugin.contingency.result.AclfContingencyResultRec;
-import org.interpss.plugin.contingency.result.ContingencyResultContainer;
+import org.interpss.plugin.contingency.result.AclfContingencyResultContainer;
 import org.interpss.plugin.pssl.plugin.IpssAdapter;
 
 import com.interpss.core.LoadflowAlgoObjectFactory;
@@ -57,7 +57,7 @@ public class ParallelContingency25k {
             //baseAlgo.getNrMethodConfig().setNonDivergent(true);
             NrMethodConfig nrConfig = baseAlgo.getNrMethodConfig();
             //config.setNonDivergent(true);
-            nrConfig.setOptAlgo(NrOptimizeAlgoType.CUBIC_EQN_STEP_SIZE);
+            nrConfig.setOptAlgo(NrOptimizeAlgoType.CUBIC_EQN);
             // re-configure the Nr solver with the updated config
             baseAlgo.getLfCalculator().getNrSolver().reConfigSolver(nrConfig);
             baseAlgo.setTolerance(1.0E-3);
@@ -108,13 +108,13 @@ public class ParallelContingency25k {
                 
                 // Sequential analysis
                 System.out.println("\n--- Sequential Analysis ---");
-                ContingencyResultContainer<AclfContingencyResultRec> sequentialResult = 
+                AclfContingencyResultContainer<AclfContingencyResultRec> sequentialResult = 
                     new ParallelAclfContingencyAnalyzer<AclfContingencyResultRec>(net).analyzeContingencies(
                     		contingencyCount, paraConfig, false);
                 
                 // Parallel analysis
                 System.out.println("\n--- Parallel Analysis ---");
-                ContingencyResultContainer<AclfContingencyResultRec> parallelResult = 
+                AclfContingencyResultContainer<AclfContingencyResultRec> parallelResult = 
                     new ParallelAclfContingencyAnalyzer<AclfContingencyResultRec>(net).analyzeContingencies(
                     		contingencyCount, paraConfig, true);
                 
@@ -136,8 +136,8 @@ public class ParallelContingency25k {
      * Print comparison between sequential and parallel results
      */
     private static void printComparison(int contingencyCount, 
-                                      ContingencyResultContainer<AclfContingencyResultRec> sequential,
-                                      ContingencyResultContainer<AclfContingencyResultRec> parallel) {
+    		AclfContingencyResultContainer<AclfContingencyResultRec> sequential,
+    		AclfContingencyResultContainer<AclfContingencyResultRec> parallel) {
         
         System.out.println("\n--- PERFORMANCE COMPARISON ---");
         System.out.println(String.format("Contingencies analyzed: %d", contingencyCount));
@@ -168,8 +168,8 @@ public class ParallelContingency25k {
     /**
      * Verify that sequential and parallel results are consistent
      */
-    private static void verifyResultConsistency(ContingencyResultContainer<AclfContingencyResultRec> sequential,
-                                              ContingencyResultContainer<AclfContingencyResultRec> parallel) {
+    private static void verifyResultConsistency(AclfContingencyResultContainer<AclfContingencyResultRec> sequential,
+    		AclfContingencyResultContainer<AclfContingencyResultRec> parallel) {
         
         int mismatches = 0;
         java.util.Map<String, AclfContingencyResultRec> seqResults = sequential.getCAResults();

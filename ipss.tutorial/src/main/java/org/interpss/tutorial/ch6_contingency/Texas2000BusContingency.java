@@ -47,7 +47,7 @@ public class Texas2000BusContingency {
 		//algo.getNrMethodConfig().setNonDivergent(true);
 		NrMethodConfig config = algo.getNrMethodConfig();
 	  	//config.setNonDivergent(true);
-	  	config.setOptAlgo(NrOptimizeAlgoType.CUBIC_EQN_STEP_SIZE);
+	  	config.setOptAlgo(NrOptimizeAlgoType.CUBIC_EQN);
 	  	// re-configure the Nr solver with the updated config
 	  	algo.getLfCalculator().getNrSolver().reConfigSolver(config);
 
