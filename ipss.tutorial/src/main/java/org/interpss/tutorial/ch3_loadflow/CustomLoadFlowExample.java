@@ -54,7 +54,7 @@ public class CustomLoadFlowExample {
                  * formJMatrix method is called at the beginning of each NR iteration
                  */
                 @Override
-                public ISparseEqnMatrix2x2 formJMatrix() {
+                public ISparseEqnMatrix2x2 createJMatrix() {
                         // create network J-matrix with one extra-dimension
                 	    // such that upto two addtional equations can be considered 
                 	    // and included in the augmented Jacobian equations.
